@@ -1,0 +1,16 @@
+﻿@model Cinema.Models.MovieVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Featured Movies</h2>
+
+@foreach(var item in Model.movies) { 
+    <div class="box1">
+        <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
+            <img src="@item.PosterPath" style="padding-bottom: 0.5em" width="180" height="320" />
+        </a>
+        <p>@item.Title</p>
+    </div>
+}

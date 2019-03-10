@@ -1,0 +1,45 @@
+﻿@model Cinema.Models.Movie
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Movie Details</h2>
+<div>
+    <div class="box1">
+        <img src="@Model.PosterPath" style="display: inline-block; float: left" width="180"/>
+    </div>
+
+    <div style="display: inline-block; margin-left: 80px; float: left;">
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Director)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Director)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Lenght)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Lenght)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to Main Page</a>
+</div>
