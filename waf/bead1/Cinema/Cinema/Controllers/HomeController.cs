@@ -24,10 +24,10 @@ namespace Cinema.Controllers
         {
             var movies = (from m in _context.Movies orderby m.Modified descending select m).Take(5);
             var shows = from m in _context.Shows where m.StartTime.Day == DateTime.Now.Day select m;
-            var movieVm = new MovieVM()
+            var movieVm = new MovieVm()
             {
-                movies = await movies.ToListAsync(),
-                shows = await shows.ToListAsync()
+                Films = await movies.ToListAsync(),
+                ShowTimes = await shows.ToListAsync()
             };
             return View(movieVm);
         }

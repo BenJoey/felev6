@@ -18,27 +18,6 @@ namespace Cinema.Models
                 {
                     return;
                 }
-
-                Movie nogamenolife = new Movie()
-                    {
-                        Title = "No Game No Life Zero",
-                        PosterPath = "images/posters/NGNLZ.png",
-                        Director = "Atsuko Ishizuka",
-                        Lenght = 106,
-                        Description =
-                            "In ancient Disboard, Riku is an angry, young warrior intent on saving humanity from the warring Exceed, " +
-                            "the sixteen sentient species, fighting to establish the \"One True God\" amongst the Old Deus. " +
-                            "In a lawless land, humanity's lack of magic and weak bodies have made them easy targets for the other Exceed, " +
-                            "leaving the humans on the brink of extinction. One day, however, hope returns to humanity " +
-                            "when Riku finds a powerful female Ex-machina, whom he names Schwi, in an abandoned elf city. " +
-                            "Exiled from her Cluster because of her research into human emotions, Schwi is convinced that " +
-                            "humanity has only survived due to the power of these feelings and is determined to understand " +
-                            "the human heart. Forming an unlikely partnership in the midst of the overwhelming chaos, " +
-                            "Riku and Schwi must now find the answers to their individual shortcomings in each other, " +
-                            "and discover for themselves what it truly means to be human as they fight for their lives " +
-                            "together against all odds. Each with a powerful new ally in tow, it is now up to them to " +
-                            "prevent the extinction of the human race and establish peace throughout Disboard!"
-                    };
                 Movie yourName = new Movie()
                 {
                     Title = "Your Name",
@@ -92,6 +71,27 @@ namespace Cinema.Models
                         "Due to the events of the recent Love Live!, μ's has reached eminent stardom which results in crowds swarming them whenever they appear in public. " +
                         "With the increased attention, however, comes a difficult choice."
                 };
+
+                Movie nogamenolife = new Movie()
+                {
+                    Title = "No Game No Life Zero",
+                    PosterPath = "images/posters/NGNLZ.png",
+                    Director = "Atsuko Ishizuka",
+                    Lenght = 106,
+                    Description =
+                        "In ancient Disboard, Riku is an angry, young warrior intent on saving humanity from the warring Exceed, " +
+                        "the sixteen sentient species, fighting to establish the \"One True God\" amongst the Old Deus. " +
+                        "In a lawless land, humanity's lack of magic and weak bodies have made them easy targets for the other Exceed, " +
+                        "leaving the humans on the brink of extinction. One day, however, hope returns to humanity " +
+                        "when Riku finds a powerful female Ex-machina, whom he names Schwi, in an abandoned elf city. " +
+                        "Exiled from her Cluster because of her research into human emotions, Schwi is convinced that " +
+                        "humanity has only survived due to the power of these feelings and is determined to understand " +
+                        "the human heart. Forming an unlikely partnership in the midst of the overwhelming chaos, " +
+                        "Riku and Schwi must now find the answers to their individual shortcomings in each other, " +
+                        "and discover for themselves what it truly means to be human as they fight for their lives " +
+                        "together against all odds. Each with a powerful new ally in tow, it is now up to them to " +
+                        "prevent the extinction of the human race and establish peace throughout Disboard!"
+                };
                 // Add movies to db
                 context.Movies.Add(yourName);
                 context.Movies.Add(yugioh);
@@ -125,25 +125,27 @@ namespace Cinema.Models
                 context.Rooms.Add(aquaRoom);
 
                 // Create shows
-                List<Show> programs = new List<Show>();
-                programs.Add(new Show()
+                List<Show> programs = new List<Show>()
                 {
-                    MovieOnAir = nogamenolife,
-                    Place = mikuRoom,
-                    StartTime = DateTime.Parse("2019-03-11 12:30:00")
-                });
-                programs.Add(new Show()
-                {
-                    MovieOnAir = lovelive,
-                    Place = nicoRoom,
-                    StartTime = DateTime.Parse("2019-03-22 16:45:00")
-                });
-                programs.Add(new Show()
-                {
-                    MovieOnAir = yourName,
-                    Place = aquaRoom,
-                    StartTime = DateTime.Parse("2019-03-11 13:00:00")
-                });
+                    new Show()
+                    {
+                        MovieOnAir = nogamenolife,
+                        Place = mikuRoom,
+                        StartTime = DateTime.Parse("2019-03-11 12:30:00")
+                    },
+                    new Show()
+                    {
+                        MovieOnAir = lovelive,
+                        Place = nicoRoom,
+                        StartTime = DateTime.Parse("2019-03-22 16:45:00")
+                    },
+                    new Show()
+                    {
+                        MovieOnAir = yourName,
+                        Place = aquaRoom,
+                        StartTime = DateTime.Parse("2019-03-11 13:00:00")
+                    },
+                };
                 foreach (var prog in programs)
                 {
                     for (int i = 0; i < prog.Place.NumOfRows; i++)

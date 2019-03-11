@@ -12,9 +12,11 @@ namespace Cinema.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [ForeignKey("Movies")]
         public Movie MovieOnAir { get; set; }
-        [Display(Name = "Start Time")]      // data annotations are used for validation and formatting
+
+        [Display(Name = "Start Time")]
         [DataType(DataType.DateTime)]
         public DateTime StartTime { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model Cinema.Models.MovieVM
+﻿@model Cinema.Models.MovieVm
 
 @{
     ViewData["Title"] = "Index";
@@ -6,7 +6,7 @@
 
 <h2>Featured Movies</h2>
 
-@foreach (var item in Model.movies)
+@foreach (var item in Model.Films)
 {
     <div class="box1">
         <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
@@ -22,18 +22,18 @@
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.shows[0].MovieOnAir.Title)
+            @Html.DisplayNameFor(model => model.ShowTimes[0].MovieOnAir.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.shows[0].StartTime)
+            @Html.DisplayNameFor(model => model.ShowTimes[0].StartTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.shows[0].Place.RoomName)
+            @Html.DisplayNameFor(model => model.ShowTimes[0].Place.RoomName)
         </th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.shows) {
+    @foreach (var item in Model.ShowTimes) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.MovieOnAir.Title)

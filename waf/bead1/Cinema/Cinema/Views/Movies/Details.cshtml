@@ -1,4 +1,4 @@
-﻿@model Cinema.Models.MovieVM
+﻿@model Cinema.Models.MovieDetailsVm
 
 @{
     ViewData["Title"] = "Movie";
@@ -6,32 +6,32 @@
 
 <h2>Movie Details</h2>
 
-<img src="@System.IO.Path.Combine("../../", Model.movies[0].PosterPath)" style="display: inline-block" width="180" height="320" />
+<img src="@System.IO.Path.Combine("../../", Model.Film.PosterPath)" style="display: inline-block" width="180" height="320" />
 <div style="margin-left: 150px; float: right;">
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.movies[0].Title)
+            @Html.DisplayNameFor(model => model.Film.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.movies[0].Title)
+            @Html.DisplayFor(model => model.Film.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.movies[0].Director)
+            @Html.DisplayNameFor(model => model.Film.Director)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.movies[0].Director)
+            @Html.DisplayFor(model => model.Film.Director)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.movies[0].Lenght)
+            @Html.DisplayNameFor(model => model.Film.Lenght)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.movies[0].Lenght)
+            @Html.DisplayFor(model => model.Film.Lenght)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.movies[0].Description)
+            @Html.DisplayNameFor(model => model.Film.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.movies[0].Description)
+            @Html.DisplayFor(model => model.Film.Description)
         </dd>
     </dl>
 </div>
@@ -40,20 +40,20 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.shows[0].StartTime)
+                @Html.DisplayNameFor(model => model.ShowTimes[0].StartTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.shows[0].Place.RoomName)
+                @Html.DisplayNameFor(model => model.ShowTimes[0].Place.RoomName)
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.shows)
+        @foreach (var item in Model.ShowTimes)
         {
             <tr>
                 <td>
                     <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.MovieOnAir.Id">
-                        @Html.DisplayFor(modelItem => item.StartTime.TimeOfDay)
+                        @Html.DisplayFor(modelItem => item.StartTime)
                     </a>
                 </td>
                 <td>

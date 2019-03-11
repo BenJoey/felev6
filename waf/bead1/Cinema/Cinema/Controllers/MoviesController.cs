@@ -21,9 +21,9 @@ namespace Cinema.Controllers
         public async Task<IActionResult> Index()
         {
             var movies = from m in _context.Movies select m;
-            var movieVm = new MovieVM()
+            var movieVm = new MovieVm()
             {
-                movies = await movies.ToListAsync()
+                Films = await movies.ToListAsync()
             };
             return View(movieVm);
         }
@@ -42,13 +42,13 @@ namespace Cinema.Controllers
                 return NotFound();
             }
             var thismovieshows = from m in _context.Shows where m.MovieOnAir.Id == id select m;
-            var movieVM = new MovieVM()
+            var movieDVM = new MovieDetailsVm()
             {
-                movies = new List<Movie>() {movie},
-                shows = await thismovieshows.ToListAsync()
+                Film = movie,
+                ShowTimes = await thismovieshows.ToListAsync()
             };
 
-            return View(movieVM);
+            return View(movieDVM);
         }
 
         // GET: Movies/Create
