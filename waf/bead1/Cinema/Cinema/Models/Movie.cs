@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinema.Models
 {
+    [Table("Movies")]
     public class Movie
     {
         public Movie()
@@ -16,7 +17,6 @@ namespace Cinema.Models
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         
         public string Title { get; set; }
 

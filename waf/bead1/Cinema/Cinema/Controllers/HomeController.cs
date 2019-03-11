@@ -12,10 +12,21 @@ namespace Cinema.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly CinemaContext _context;
 
-        public IActionResult Index()
+        public HomeController(CinemaContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var movies = from m in _context.Movies select m;
+            var movieVm = new MovieVM()
+            {
+                movies = await movies.ToListAsync()
+            };
+            return View(movieVm);
         }
 
         public IActionResult About()
