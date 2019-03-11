@@ -12,7 +12,9 @@ namespace Cinema.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public String Name { get; set; }
+
+        [Display(Name = "Room Name")]
+        public String RoomName { get; set; }
         public Int32 NumOfRows { get; set; }
         public Int32 NumOfCols { get; set; }
     }

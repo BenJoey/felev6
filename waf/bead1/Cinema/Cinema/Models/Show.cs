@@ -14,7 +14,11 @@ namespace Cinema.Models
         public int Id { get; set; }
         [ForeignKey("Movies")]
         public Movie MovieOnAir { get; set; }
+        [Display(Name = "Start Time")]      // data annotations are used for validation and formatting
+        [DataType(DataType.DateTime)]
         public DateTime StartTime { get; set; }
-        public Room Room { get; set; }
+
+        [ForeignKey("Rooms")]
+        public Room Place { get; set; }
     }
 }

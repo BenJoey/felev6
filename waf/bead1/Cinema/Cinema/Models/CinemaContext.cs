@@ -9,5 +9,6 @@ namespace Cinema.Models
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Show> Shows { get; set; }
         public DbSet<Seat> Seats { get; set; }
+        public DbSet<Room> Rooms { get; set; }
     }
 }

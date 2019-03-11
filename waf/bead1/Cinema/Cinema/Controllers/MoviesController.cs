@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -34,15 +35,20 @@ namespace Cinema.Controllers
             {
                 return NotFound();
             }
-
             var movie = await _context.Movies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
                 return NotFound();
             }
+            var thismovieshows = from m in _context.Shows where m.MovieOnAir.Id == id select m;
+            var movieVM = new MovieVM()
+            {
+                movies = new List<Movie>() {movie},
+                shows = await thismovieshows.ToListAsync()
+            };
 
-            return View(movie);
+            return View(movieVM);
         }
 
         // GET: Movies/Create

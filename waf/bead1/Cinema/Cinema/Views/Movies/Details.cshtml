@@ -1,4 +1,4 @@
-﻿@model Cinema.Models.Movie
+﻿@model Cinema.Models.MovieVM
 
 @{
     ViewData["Title"] = "Movie";
@@ -6,37 +6,63 @@
 
 <h2>Movie Details</h2>
 
-    <div>
-        <img src="@System.IO.Path.Combine("../../", Model.PosterPath)" style="display: inline-block; float: left" width="180" height="320" />
-        <div style="display: inline-block; margin-left: 150px; float: right;">
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Title)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Title)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Director)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Director)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Lenght)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Lenght)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-            </dl>
-        </div>
-    </div>
+<img src="@System.IO.Path.Combine("../../", Model.movies[0].PosterPath)" style="display: inline-block" width="180" height="320" />
+<div style="margin-left: 150px; float: right;">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.movies[0].Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movies[0].Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.movies[0].Director)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movies[0].Director)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.movies[0].Lenght)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movies[0].Lenght)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.movies[0].Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movies[0].Description)
+        </dd>
+    </dl>
+</div>
+<h3>Show times</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.shows[0].StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.shows[0].Place.RoomName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.shows)
+        {
+            <tr>
+                <td>
+                    <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.MovieOnAir.Id">
+                        @Html.DisplayFor(modelItem => item.StartTime.TimeOfDay)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Place.RoomName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 <div>
     <a asp-action="Index">Back to Main Page</a>
 </div>

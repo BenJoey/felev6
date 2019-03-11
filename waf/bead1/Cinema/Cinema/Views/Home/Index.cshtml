@@ -17,3 +17,36 @@
 }
 
 <h2>Today's shows</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.shows[0].MovieOnAir.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shows[0].StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shows[0].Place.RoomName)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.shows) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieOnAir.Title)
+            </td>
+            <td>
+                <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.MovieOnAir.Id">
+                    @Html.DisplayFor(modelItem => item.StartTime.TimeOfDay)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place.RoomName)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

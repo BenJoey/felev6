@@ -8,5 +8,6 @@ namespace Cinema.Models
     public class MovieVM
     {
         public List<Movie> movies;
+        public List<Show> shows;
     }
 }

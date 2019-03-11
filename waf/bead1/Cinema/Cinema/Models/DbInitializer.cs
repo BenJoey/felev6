@@ -93,66 +93,69 @@ namespace Cinema.Models
                         "With the increased attention, however, comes a difficult choice."
                 };
                 // Add movies to db
-                context.Movies.Add(nogamenolife);
                 context.Movies.Add(yourName);
                 context.Movies.Add(yugioh);
                 context.Movies.Add(eva);
                 context.Movies.Add(lovelive);
+                context.Movies.Add(nogamenolife);
 
                 //create rooms
                 Room mikuRoom = new Room()
                 {
-                    Name = "Miku",
+                    RoomName = "Room Miku",
                     NumOfCols = 9,
                     NumOfRows = 12
                 };
 
                 Room nicoRoom = new Room()
                 {
-                    Name = "Nico",
+                    RoomName = "Room Nico",
                     NumOfCols = 11,
                     NumOfRows = 14
                 };
 
                 Room aquaRoom = new Room()
                 {
-                    Name = "Aqua",
+                    RoomName = "Room Aqua",
                     NumOfCols = 7,
                     NumOfRows = 10
                 };
+                context.Rooms.Add(mikuRoom);
+                context.Rooms.Add(nicoRoom);
+                context.Rooms.Add(aquaRoom);
 
                 // Create shows
                 List<Show> programs = new List<Show>();
                 programs.Add(new Show()
                 {
                     MovieOnAir = nogamenolife,
-                    Room = mikuRoom,
+                    Place = mikuRoom,
                     StartTime = DateTime.Parse("2019-03-11 12:30:00")
                 });
                 programs.Add(new Show()
                 {
                     MovieOnAir = lovelive,
-                    Room = nicoRoom,
+                    Place = nicoRoom,
                     StartTime = DateTime.Parse("2019-03-22 16:45:00")
                 });
                 programs.Add(new Show()
                 {
                     MovieOnAir = yourName,
-                    Room = aquaRoom,
+                    Place = aquaRoom,
                     StartTime = DateTime.Parse("2019-03-11 13:00:00")
                 });
                 foreach (var prog in programs)
                 {
-                    for (int i = 0; i < prog.Room.NumOfRows; i++)
+                    for (int i = 0; i < prog.Place.NumOfRows; i++)
                     {
-                        for (int j = 0; j < prog.Room.NumOfCols; j++)
+                        for (int j = 0; j < prog.Place.NumOfCols; j++)
                         {
                             context.Seats.Add(
                                 new Seat()
                                 {
                                     Row = i+1,
                                     Col = j+1,
-                                    Room = prog.Room,
+                                    Room = prog.Place,
                                     Show = prog,
                                     State = State.Free
                                 });
