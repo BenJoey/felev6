@@ -8,34 +8,50 @@
 @functions
 {
 
-    void UpdateSeat(int id, string userName, int userPhone)
+    void UpdateSeats(int id, string userName, int userPhone)
     {
         var toUpdate = Model.ShowSeats.Find(x => x.Id == id);
         toUpdate.State = State.Reserved;
         toUpdate.NameReserved = userName;
         toUpdate.PhoneNum = userPhone;
     }
-
 }
 
-<table style="margin: 0px auto; margin-top: 30px; border-collapse:separate;border-spacing: 10px">
-    @for (int i = 0; i < Model.ShowsRoom.NumOfRows; i++)
-    {
-        <tr>
-            @for (int j = 0; j < Model.ShowsRoom.NumOfCols; j++)
-            {
+<form asp-action="Reserve" name="reserveForm" style="margin-top: 30px;" onsubmit="event.preventDefault(); validate();">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <table style="margin: 0px auto; border-collapse: separate; border-spacing: 10px">
+        @for (int i = 0; i < Model.ShowsRoom.NumOfRows; i++)
+        {
+            <tr>
+                @for (int j = 0; j < Model.ShowsRoom.NumOfCols; j++)
+                {
 
-                var thisSeat = Model.ShowSeats.Find(x => x.Row == i && x.Col == j);
-                var disabled = thisSeat.State == State.Reserved || thisSeat.State == State.Sold ? "disabled" : "";
-                var backgrCol = disabled == "" ? "aqua" : "Red";
-                <td>
-                    <button id="@thisSeat.Id" style="width: 25px; height: 25px; background: @backgrCol" value="@thisSeat.State" 
-                            onclick="chosen(value, id)" @disabled/>
-                </td>
-            }
-        </tr>
-    }
-</table>
+                    var thisSeat = Model.ShowSeats.Find(x => x.Row == i && x.Col == j);
+                    var disabled = thisSeat.State == State.Reserved || thisSeat.State == State.Sold ? "disabled" : "";
+                    var backgrCol = disabled == "" ? "aqua" : "Red";
+                    <td>
+                        <button id="@thisSeat.Id" type="button" style="width: 25px; height: 25px; background: @backgrCol" value="@thisSeat.State"
+                                onclick="chosen(value, id)" @disabled />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Reserve Seats" class="btn btn-default" />
+    </div>
+    <input type="hidden" asp-for="seatids" id="seatIDs" value=""/>
+</form>
 
 <script type="text/javascript">
     var clicked = [];
@@ -58,4 +74,13 @@
         }
         console.log(clicked);
     }
+
+    function validate() {
+        console.log(document.reserveForm.userName.value + "\n" + document.reserveForm.phoneNum.value + "\n" + clicked);
+        return false;
+    }
+    /*document.querySelector('#reserveForm').submit(function(e) {
+        e.preventDefault();
+        console.log(getElementById('userName').value + "\n" + getElementById('phoneNum').value + "\n" + clicked);
+    });*/
 </script>

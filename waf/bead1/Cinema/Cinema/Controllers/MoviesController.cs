@@ -79,7 +79,6 @@ namespace Cinema.Controllers
             var thisShowSeats = from m in _context.Seats where m.ShowRefId == id select m;
             var reserveVm = new ReserveVm()
             {
-                SelectedShow = selectedShow,
                 ShowsRoom = thisShowRoom,
                 ShowSeats = await thisShowSeats.ToListAsync()
             };
@@ -88,18 +87,18 @@ namespace Cinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reserve(ReserveVm input)
+        public async Task<IActionResult> Reserve([Bind("name, phone, seatids")]ReserveVm input)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(input);                             // add the new object to the database...
-                await _context.SaveChangesAsync();               // ...and save all changes
-                return RedirectToAction(nameof(Index));
+                /*_context.Add(input);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));*/
             }
             return View(input);
         }
 
-    // GET: Movies/Create
+        // GET: Movies/Create
         public IActionResult Create()
         {
             return View();

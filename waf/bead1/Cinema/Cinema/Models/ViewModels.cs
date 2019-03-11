@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +22,10 @@ namespace Cinema.Models
 
     public class ReserveVm
     {
-        public Show SelectedShow;
+        public string Name;
+        [DisplayName("Phone Number")]
+        public string Phone;
+        public string seatids;
         public Room ShowsRoom;
         public List<Seat> ShowSeats;
     }
