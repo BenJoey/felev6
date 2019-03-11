@@ -1,18 +1,36 @@
-﻿@model Cinema.Models.ReserveVm
+﻿@using Microsoft.AspNetCore.Identity
+@model Cinema.Models.ReserveVm
 
 @{
     ViewData["Title"] = "Index";
 }
-<table id="room" style="margin: 0px auto; margin-top: 30px; border-collapse:separate;border-spacing: 10px">
+
+@functions
+{
+
+    void UpdateSeat(int id, string userName, int userPhone)
+    {
+        var toUpdate = Model.ShowSeats.Find(x => x.Id == id);
+        toUpdate.State = State.Reserved;
+        toUpdate.NameReserved = userName;
+        toUpdate.PhoneNum = userPhone;
+    }
+
+}
+
+<table style="margin: 0px auto; margin-top: 30px; border-collapse:separate;border-spacing: 10px">
     @for (int i = 0; i < Model.ShowsRoom.NumOfRows; i++)
     {
         <tr>
             @for (int j = 0; j < Model.ShowsRoom.NumOfCols; j++)
             {
-            
+
                 var thisSeat = Model.ShowSeats.Find(x => x.Row == i && x.Col == j);
+                var disabled = thisSeat.State == State.Reserved || thisSeat.State == State.Sold ? "disabled" : "";
+                var backgrCol = disabled == "" ? "aqua" : "Red";
                 <td>
-                    <button id="@thisSeat.Id" style="width: 25px; height: 25px; background: aqua" value="@thisSeat.State" onclick="click(value, id)" />
+                    <button id="@thisSeat.Id" style="width: 25px; height: 25px; background: @backgrCol" value="@thisSeat.State" 
+                            onclick="chosen(value, id)" @disabled/>
                 </td>
             }
         </tr>
@@ -20,7 +38,24 @@
 </table>
 
 <script type="text/javascript">
-    function click(Value, Id) {
-        alert(Value+Id);
+    var clicked = [];
+    function chosen(value, id) {
+        if (value !== "Free" && value !== "Selected") return;
+        if (value === "Free") {
+            if (clicked.length === 6) {
+                alert("Max 6 seat reservations allowed");
+                return;
+            }
+            document.getElementById(id).style.backgroundColor = 'Green';
+            document.getElementById(id).value = "Selected";
+            clicked.push(id);
+        }
+        if (value === "Selected") {
+            document.getElementById(id).style.backgroundColor = 'Aqua';
+            document.getElementById(id).value = "Free";
+            var index = clicked.indexOf(id);
+            if (index !== -1) clicked.splice(index, 1);
+        }
+        console.log(clicked);
     }
 </script>

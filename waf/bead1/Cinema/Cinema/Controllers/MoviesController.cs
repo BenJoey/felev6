@@ -35,12 +35,14 @@ namespace Cinema.Controllers
             {
                 return NotFound();
             }
+
             var movie = await _context.Movies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
                 return NotFound();
             }
+
             var thisMovieShows = from m in _context.Shows where m.Movie.Id == id select m;
             var rooms = from m in _context.Rooms select m;
             var movieDvm = new MovieDetailsVm()
@@ -59,18 +61,21 @@ namespace Cinema.Controllers
             {
                 return NotFound();
             }
+
             var selectedShow = await _context.Shows
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (selectedShow == null)
             {
                 return NotFound();
             }
+
             var thisShowRoom = await _context.Rooms
                 .FirstOrDefaultAsync(m => m.Id == selectedShow.RoomRefId);
             if (thisShowRoom == null)
             {
                 return NotFound();
             }
+
             var thisShowSeats = from m in _context.Seats where m.ShowRefId == id select m;
             var reserveVm = new ReserveVm()
             {
@@ -81,7 +86,20 @@ namespace Cinema.Controllers
             return View(reserveVm);
         }
 
-        // GET: Movies/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reserve(ReserveVm input)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(input);                             // add the new object to the database...
+                await _context.SaveChangesAsync();               // ...and save all changes
+                return RedirectToAction(nameof(Index));
+            }
+            return View(input);
+        }
+
+    // GET: Movies/Create
         public IActionResult Create()
         {
             return View();
