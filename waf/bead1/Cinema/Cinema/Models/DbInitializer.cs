@@ -18,12 +18,12 @@ namespace Cinema.Models
                 {
                     return;
                 }
-                Movie yourName = new Movie()
+                var yourName = new Movie()
                 {
                     Title = "Your Name",
                     PosterPath = "images/posters/YourName.png",
                     Director = "Makoto Shinkai",
-                    Lenght = 106,
+                    Length = 106,
                     Description =
                         "Mitsuha Miyamizu, a high school girl, yearns to live the life of a boy in the bustling city of " +
                         "Tokyo—a dream that stands in stark contrast to her present life in the countryside. Meanwhile in the city, " +
@@ -33,12 +33,12 @@ namespace Cinema.Models
                         "Elsewhere, Taki finds himself living Mitsuha's life in the humble countryside.In pursuit of " +
                         "an answer to this strange phenomenon, they begin to search for one another."
                 };
-                Movie yugioh = new Movie()
+                var yugioh = new Movie()
                 {
                     Title = "YuGiOh - Dark Side of Dimensions",
                     PosterPath = "images/posters/YuGiOh.png",
                     Director = "Satoshi Kuwabara",
-                    Lenght = 130,
+                    Length = 130,
                     Description =
                         "Set six months after the events of the original Yu-Gi-Oh! manga, Yuugi Mutou and his friends are in their " +
                         "final year of high school and are talking about what they will do in the future. " +
@@ -48,36 +48,36 @@ namespace Cinema.Models
                         "The excavation is interrupted by a mysterious man, who faces Kaiba in a game of " +
                         "\"Magic & Wizards\" and steals two pieces of the recovered Puzzle. What is his ulterior motive?"
                 };
-                Movie eva = new Movie()
+                var eva = new Movie()
                 {
                     Title = "The End of Evangelion",
                     PosterPath = "images/posters/EndOfEva.png",
                     Director = "Hideaki Anno",
-                    Lenght = 87,
+                    Length = 87,
                     Description =
                         "With the final Angel vanquished, Nerv has one last enemy left to face—the humans under Seele's command." +
                         "Left in a deep depression nearing the end of the original series, an indecisive Shinji Ikari struggles with the ultimatum presented " +
                         "to him: to completely accept mankind's existence, or renounce humanity's individuality. Meanwhile, at the core of a compromised " +
                         "Nerv, Gendou Ikari and Rei Ayanami approach Lilith in an attempt to realize their own ideals concerning the future of the world."
                 };
-                Movie lovelive = new Movie()
+                var lovelive = new Movie()
                 {
                     Title = "Love Live! The School Idol Movie",
                     PosterPath = "images/posters/LL.png",
                     Director = "Kyogoku Takahiko",
-                    Lenght = 102,
+                    Length = 102,
                     Description =
                         "Hot on the heels of the third year students' graduation, μ's is invited to New York in hopes of spreading the joy of school idols to other parts of the world. " +
                         "Due to the events of the recent Love Live!, μ's has reached eminent stardom which results in crowds swarming them whenever they appear in public. " +
                         "With the increased attention, however, comes a difficult choice."
                 };
 
-                Movie nogamenolife = new Movie()
+                var nogamenolife = new Movie()
                 {
                     Title = "No Game No Life Zero",
                     PosterPath = "images/posters/NGNLZ.png",
                     Director = "Atsuko Ishizuka",
-                    Lenght = 106,
+                    Length = 106,
                     Description =
                         "In ancient Disboard, Riku is an angry, young warrior intent on saving humanity from the warring Exceed, " +
                         "the sixteen sentient species, fighting to establish the \"One True God\" amongst the Old Deus. " +
@@ -100,21 +100,21 @@ namespace Cinema.Models
                 context.Movies.Add(nogamenolife);
 
                 //create rooms
-                Room mikuRoom = new Room()
+                var mikuRoom = new Room()
                 {
                     RoomName = "Room Miku",
                     NumOfCols = 9,
                     NumOfRows = 12
                 };
 
-                Room nicoRoom = new Room()
+                var nicoRoom = new Room()
                 {
                     RoomName = "Room Nico",
                     NumOfCols = 11,
                     NumOfRows = 14
                 };
 
-                Room aquaRoom = new Room()
+                var aquaRoom = new Room()
                 {
                     RoomName = "Room Aqua",
                     NumOfCols = 7,
@@ -125,39 +125,39 @@ namespace Cinema.Models
                 context.Rooms.Add(aquaRoom);
 
                 // Create shows
-                List<Show> programs = new List<Show>()
+                var programs = new List<Show>()
                 {
                     new Show()
                     {
-                        MovieOnAir = nogamenolife,
-                        Place = mikuRoom,
+                        Movie = nogamenolife,
+                        Room = mikuRoom,
                         StartTime = DateTime.Parse("2019-03-11 12:30:00")
                     },
                     new Show()
                     {
-                        MovieOnAir = lovelive,
-                        Place = nicoRoom,
+                        Movie = lovelive,
+                        Room = nicoRoom,
                         StartTime = DateTime.Parse("2019-03-22 16:45:00")
                     },
                     new Show()
                     {
-                        MovieOnAir = yourName,
-                        Place = aquaRoom,
+                        Movie = yourName,
+                        Room = aquaRoom,
                         StartTime = DateTime.Parse("2019-03-11 13:00:00")
                     },
                 };
                 foreach (var prog in programs)
                 {
-                    for (int i = 0; i < prog.Place.NumOfRows; i++)
+                    for (int i = 0; i < prog.Room.NumOfRows; i++)
                     {
-                        for (int j = 0; j < prog.Place.NumOfCols; j++)
+                        for (int j = 0; j < prog.Room.NumOfCols; j++)
                         {
                             context.Seats.Add(
                                 new Seat()
                                 {
                                     Row = i+1,
                                     Col = j+1,
-                                    Room = prog.Place,
+                                    RoomNo = prog.Room,
                                     Show = prog,
                                     State = State.Free
                                 });

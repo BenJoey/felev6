@@ -15,8 +15,10 @@ namespace Cinema.Models
 
         [Display(Name = "Room Name")]
         public String RoomName { get; set; }
-        public Int32 NumOfRows { get; set; }
-        public Int32 NumOfCols { get; set; }
+        public int NumOfRows { get; set; }
+        public int NumOfCols { get; set; }
+
+        public ICollection<Show> Shows { get; set; }
     }
 }
 

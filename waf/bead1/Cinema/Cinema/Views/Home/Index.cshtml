@@ -22,13 +22,13 @@
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ShowTimes[0].MovieOnAir.Title)
+            @Html.DisplayNameFor(model => model.ShowTimes[0].Movie.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ShowTimes[0].StartTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShowTimes[0].Place.RoomName)
+            @Html.DisplayNameFor(model => model.ShowTimes[0].Room.RoomName)
         </th>
     </tr>
     </thead>
@@ -36,15 +36,15 @@
     @foreach (var item in Model.ShowTimes) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.MovieOnAir.Title)
+                @Html.DisplayFor(modelItem => item.Movie.Title)
             </td>
             <td>
-                <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.MovieOnAir.Id">
+                <a asp-area="" asp-controller="Movies" asp-action="Reserve" asp-route-id="@item.Id">
                     @Html.DisplayFor(modelItem => item.StartTime.TimeOfDay)
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Place.RoomName)
+                @Html.DisplayFor(modelItem => Model.Rooms.Find(x => x.Id == item.RoomRefId).RoomName)
             </td>
         </tr>
     }

@@ -41,14 +41,38 @@ namespace Cinema.Controllers
             {
                 return NotFound();
             }
-            var thismovieshows = from m in _context.Shows where m.MovieOnAir.Id == id select m;
-            var movieDVM = new MovieDetailsVm()
+            var thisMovieShows = from m in _context.Shows where m.Movie.Id == id select m;
+            var rooms = from m in _context.Rooms select m;
+            var movieDvm = new MovieDetailsVm()
             {
                 Film = movie,
-                ShowTimes = await thismovieshows.ToListAsync()
+                ShowTimes = await thisMovieShows.ToListAsync(),
+                Rooms = await rooms.ToListAsync()
             };
 
-            return View(movieDVM);
+            return View(movieDvm);
+        }
+
+        public async Task<IActionResult> Reserve(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var selectedShow = await _context.Shows
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (selectedShow == null)
+            {
+                return NotFound();
+            }
+            var thisShowSeats = from m in _context.Seats where m.Show.Id == id select m;
+            var reserveVm = new ReserveVm()
+            {
+                SelectedShow = selectedShow,
+                ShowsRoom = selectedShow.Room,
+                ShowSeats = await thisShowSeats.ToListAsync()
+            };
+            return View(reserveVm);
         }
 
         // GET: Movies/Create
@@ -62,7 +86,7 @@ namespace Cinema.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Director,Lenght,Description,Modified")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Id,Title,Director,Length,Description,Modified")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +118,7 @@ namespace Cinema.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Lenght,Description,Modified")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Length,Description,Modified")] Movie movie)
         {
             if (id != movie.Id)
             {

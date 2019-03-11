@@ -24,11 +24,13 @@ namespace Cinema.Models
 
         public string Director { get; set; }
 
-        public Int32 Lenght { get; set; }
+        public int Length { get; set; }
 
         public string Description { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Modified { get; set; }
+
+        public ICollection<Show> Shows { get; set; }
     }
 }

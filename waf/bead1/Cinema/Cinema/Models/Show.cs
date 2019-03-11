@@ -13,14 +13,16 @@ namespace Cinema.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [ForeignKey("Movies")]
-        public Movie MovieOnAir { get; set; }
+        public int MovieRefId { get; set; }
+        [ForeignKey("MovieRefId")]
+        public Movie Movie { get; set; }
 
         [Display(Name = "Start Time")]
         [DataType(DataType.DateTime)]
         public DateTime StartTime { get; set; }
 
-        [ForeignKey("Rooms")]
-        public Room Place { get; set; }
+        public int RoomRefId { get; set; }
+        [ForeignKey("RoomRefId")]
+        public Room Room { get; set; }
     }
 }

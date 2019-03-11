@@ -9,11 +9,20 @@ namespace Cinema.Models
     {
         public List<Movie> Films;
         public List<Show> ShowTimes;
+        public List<Room> Rooms;
     }
 
     public class MovieDetailsVm
     {
         public Movie Film;
         public List<Show> ShowTimes;
+        public List<Room> Rooms;
+    }
+
+    public class ReserveVm
+    {
+        public Show SelectedShow;
+        public Room ShowsRoom;
+        public List<Seat> ShowSeats;
     }
 }

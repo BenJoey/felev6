@@ -19,11 +19,11 @@ namespace Cinema.Models
         public Show Show { get; set; }
 
         [ForeignKey("Rooms")]
-        public Room Room { get; set; }
-        public Int32 Row { get; set; }
-        public Int32 Col { get; set; }
+        public Room RoomNo { get; set; }
+        public int Row { get; set; }
+        public int Col { get; set; }
         public State State { get; set; }
         public String NameReserved { get; set; }
-        public Int32 PhoneNum { get; set; }
+        public int PhoneNum { get; set; }
     }
 }
