@@ -65,11 +65,17 @@ namespace Cinema.Controllers
             {
                 return NotFound();
             }
-            var thisShowSeats = from m in _context.Seats where m.Show.Id == id select m;
+            var thisShowRoom = await _context.Rooms
+                .FirstOrDefaultAsync(m => m.Id == selectedShow.RoomRefId);
+            if (thisShowRoom == null)
+            {
+                return NotFound();
+            }
+            var thisShowSeats = from m in _context.Seats where m.ShowRefId == id select m;
             var reserveVm = new ReserveVm()
             {
                 SelectedShow = selectedShow,
-                ShowsRoom = selectedShow.Room,
+                ShowsRoom = thisShowRoom,
                 ShowSeats = await thisShowSeats.ToListAsync()
             };
             return View(reserveVm);

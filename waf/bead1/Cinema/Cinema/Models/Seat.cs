@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public enum State { Free, Reserved, Sold}
+public enum State { Free, Reserved, Sold, Selected}
 
 namespace Cinema.Models
 {
@@ -15,11 +15,12 @@ namespace Cinema.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [ForeignKey("Shows")]
+        public int ShowRefId { get; set; }
+        [ForeignKey("ShowRefId")]
         public Show Show { get; set; }
-
+        
         [ForeignKey("Rooms")]
-        public Room RoomNo { get; set; }
+        public Room Room { get; set; }
         public int Row { get; set; }
         public int Col { get; set; }
         public State State { get; set; }

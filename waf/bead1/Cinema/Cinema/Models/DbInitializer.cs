@@ -103,22 +103,22 @@ namespace Cinema.Models
                 var mikuRoom = new Room()
                 {
                     RoomName = "Room Miku",
-                    NumOfCols = 9,
-                    NumOfRows = 12
+                    NumOfCols = 15,
+                    NumOfRows = 8
                 };
 
                 var nicoRoom = new Room()
                 {
                     RoomName = "Room Nico",
-                    NumOfCols = 11,
-                    NumOfRows = 14
+                    NumOfCols = 17,
+                    NumOfRows = 9
                 };
 
                 var aquaRoom = new Room()
                 {
                     RoomName = "Room Aqua",
-                    NumOfCols = 7,
-                    NumOfRows = 10
+                    NumOfCols = 14,
+                    NumOfRows = 5
                 };
                 context.Rooms.Add(mikuRoom);
                 context.Rooms.Add(nicoRoom);
@@ -155,9 +155,9 @@ namespace Cinema.Models
                             context.Seats.Add(
                                 new Seat()
                                 {
-                                    Row = i+1,
-                                    Col = j+1,
-                                    RoomNo = prog.Room,
+                                    Row = i,
+                                    Col = j,
+                                    Room = prog.Room,
                                     Show = prog,
                                     State = State.Free
                                 });

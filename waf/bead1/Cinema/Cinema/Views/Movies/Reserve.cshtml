@@ -3,16 +3,24 @@
 @{
     ViewData["Title"] = "Index";
 }
-<table id="room">
+<table id="room" style="margin: 0px auto; margin-top: 30px; border-collapse:separate;border-spacing: 10px">
     @for (int i = 0; i < Model.ShowsRoom.NumOfRows; i++)
     {
         <tr>
-        @for (int j = 0; j < Model.ShowsRoom.NumOfCols; j++)
-        {
-            <td>
-                @Model.ShowSeats.Find(x => x.Row == i-1 && x.Col == j-1)
-            </td>
-        }
+            @for (int j = 0; j < Model.ShowsRoom.NumOfCols; j++)
+            {
+            
+                var thisSeat = Model.ShowSeats.Find(x => x.Row == i && x.Col == j);
+                <td>
+                    <button id="@thisSeat.Id" style="width: 25px; height: 25px; background: aqua" value="@thisSeat.State" onclick="click(value, id)" />
+                </td>
+            }
         </tr>
     }
 </table>
+
+<script type="text/javascript">
+    function click(Value, Id) {
+        alert(Value+Id);
+    }
+</script>

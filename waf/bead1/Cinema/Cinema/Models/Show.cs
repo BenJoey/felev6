@@ -24,5 +24,7 @@ namespace Cinema.Models
         public int RoomRefId { get; set; }
         [ForeignKey("RoomRefId")]
         public Room Room { get; set; }
+
+        public ICollection<Seat> Seats { get; set; }
     }
 }
