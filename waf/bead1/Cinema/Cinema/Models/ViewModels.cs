@@ -21,21 +21,18 @@ namespace Cinema.Models
         public List<Show> ShowTimes;
         public List<Room> Rooms;
     }
-
-    [Table("Reservations")]
+    
     public class Reservation
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string Name;
+        public string Name { get; set; }
         [DisplayName("Phone Number")]
-        public string Phone;
-        public string SeatIds;
+        public string Phone { get; set; }
+        public string SeatIds { get; set; }
     }
 
     public class ReserveData
     {
-        public Room Room;
-        public List<Seat> Seats;
+        public Room Room { get; set; }
+        public List<Seat> Seats { get; set; }
     }
 }

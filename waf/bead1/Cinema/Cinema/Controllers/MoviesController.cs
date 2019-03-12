@@ -94,25 +94,25 @@ namespace Cinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reserve(int id, Reservation model)
+        public async Task<IActionResult> Reserve(int id, Reservation reservation)
         {
             if (ModelState.IsValid)
             {
-                var seatIDs = model.SeatIds.Split(',');
+                var seatIDs = reservation.SeatIds.Split(',');
                 foreach (var current in seatIDs)
                 {
                     var curId = Convert.ToInt32(current);
                     var seat = await _context.Seats
                         .FirstOrDefaultAsync(m => m.Id == curId);
                     seat.State = State.Reserved;
-                    seat.NameReserved = model.Name;
-                    seat.PhoneNum = model.Phone;
+                    seat.NameReserved = reservation.Name;
+                    seat.PhoneNum = reservation.Phone;
                     _context.Update(seat);
                 }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(model);
+            return View(reservation);
         }
 
         // GET: Movies/Create
