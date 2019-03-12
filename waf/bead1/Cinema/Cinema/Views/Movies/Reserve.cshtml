@@ -1,29 +1,38 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@model Cinema.Models.ReserveVm
+@model Cinema.Models.Reservation
 
 @{
     ViewData["Title"] = "Index";
+    Cinema.Models.ReserveData data = (Cinema.Models.ReserveData) ViewBag.Data;
 }
 
 
 <form asp-action="Reserve" name="reserveForm" style="margin-top: 30px;">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Phone" class="control-label"></label>
         <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="SeatIds" class="control-label"></label>
+        <input asp-for="SeatIds" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Reserve Seats" class="btn btn-default" />
+    </div>
+    <!--<input type="hidden" asp-for="SeatIds" id="seatIDs"/>-->
+</form>
     <table style="margin: 0px auto; border-collapse: separate; border-spacing: 10px">
-        @for (int i = 0; i < Model.ShowsRoom.NumOfRows; i++)
+        @for (int i = 0; i < data.Room.NumOfRows; i++)
         {
             <tr>
-                @for (int j = 0; j < Model.ShowsRoom.NumOfCols; j++)
+                @for (int j = 0; j < data.Room.NumOfCols; j++)
                 {
-                    var thisSeat = Model.ShowSeats.Find(x => x.Row == i && x.Col == j);
+                    var thisSeat = data.Seats.Find(x => x.Row == i && x.Col == j);
                     var disabled = thisSeat.State == State.Reserved || thisSeat.State == State.Sold ? "disabled" : "";
                     var backgrCol = disabled == "" ? "aqua" : "Red";
                     <td>
@@ -34,11 +43,6 @@
             </tr>
         }
     </table>
-    <div class="form-group">
-        <input type="submit" value="Reserve Seats" class="btn btn-default" />
-    </div>
-    <input type="hidden" asp-for="SeatIds" id="seatIDs"/>
-</form>
 
 <script type="text/javascript">
     var clicked = [];

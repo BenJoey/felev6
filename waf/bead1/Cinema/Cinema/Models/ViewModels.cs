@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,13 +22,20 @@ namespace Cinema.Models
         public List<Room> Rooms;
     }
 
-    public class ReserveVm
+    [Table("Reservations")]
+    public class Reservation
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public string Name;
         [DisplayName("Phone Number")]
         public string Phone;
         public string SeatIds;
-        public Room ShowsRoom;
-        public List<Seat> ShowSeats;
+    }
+
+    public class ReserveData
+    {
+        public Room Room;
+        public List<Seat> Seats;
     }
 }

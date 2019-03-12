@@ -77,42 +77,42 @@ namespace Cinema.Controllers
             }
 
             var thisShowSeats = from m in _context.Seats where m.ShowRefId == id select m;
-            var reserveVm = new ReserveVm()
+            var reserveVm = new ReserveData()
             {
-                SeatIds = "",
+                Room = thisShowRoom,
+                Seats = await thisShowSeats.ToListAsync()
+            };
+            var res = new Reservation()
+            {
                 Name = "",
                 Phone = "",
-                ShowsRoom = thisShowRoom,
-                ShowSeats = await thisShowSeats.ToListAsync()
+                SeatIds = ""
             };
-            return View(reserveVm);
+            ViewBag.Data = reserveVm;
+            return View(res);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reserve(int id, [Bind("SeatIds, Name, Phone")]ReserveVm input)
+        public async Task<IActionResult> Reserve(int id, Reservation model)
         {
-            if (id != input.ShowSeats.First().ShowRefId)
-            {
-                return NotFound();
-            }
             if (ModelState.IsValid)
             {
-                var seatIDs = input.SeatIds.Split(',');
+                var seatIDs = model.SeatIds.Split(',');
                 foreach (var current in seatIDs)
                 {
                     var curId = Convert.ToInt32(current);
                     var seat = await _context.Seats
                         .FirstOrDefaultAsync(m => m.Id == curId);
                     seat.State = State.Reserved;
-                    seat.NameReserved = input.Name;
-                    seat.PhoneNum = input.Phone;
+                    seat.NameReserved = model.Name;
+                    seat.PhoneNum = model.Phone;
                     _context.Update(seat);
                 }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(input);
+            return View(model);
         }
 
         // GET: Movies/Create
