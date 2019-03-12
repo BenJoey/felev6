@@ -91,9 +91,19 @@ namespace Cinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*_context.Add(input);
+                var seatIDs = input.seatids.Split(',');
+                foreach (var current in seatIDs)
+                {
+                    var id = Convert.ToInt32(current);
+                    var seat = await _context.Seats
+                        .FirstOrDefaultAsync(m => m.Id == id);
+                    seat.State = State.Reserved;
+                    seat.NameReserved = input.Name;
+                    seat.PhoneNum = input.Phone;
+                    _context.Update(seat);
+                }
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));*/
+                return RedirectToAction(nameof(Index));
             }
             return View(input);
         }

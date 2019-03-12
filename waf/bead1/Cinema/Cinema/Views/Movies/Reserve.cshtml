@@ -5,17 +5,6 @@
     ViewData["Title"] = "Index";
 }
 
-@functions
-{
-
-    void UpdateSeats(int id, string userName, int userPhone)
-    {
-        var toUpdate = Model.ShowSeats.Find(x => x.Id == id);
-        toUpdate.State = State.Reserved;
-        toUpdate.NameReserved = userName;
-        toUpdate.PhoneNum = userPhone;
-    }
-}
 
 <form asp-action="Reserve" name="reserveForm" style="margin-top: 30px;" onsubmit="event.preventDefault(); validate();">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -76,8 +65,10 @@
     }
 
     function validate() {
-        console.log(document.reserveForm.userName.value + "\n" + document.reserveForm.phoneNum.value + "\n" + clicked);
-        return false;
+        document.getElementById("seatIDs").value = clicked.join(',');
+        //console.log(document.reserveForm.userName.value + "\n" + document.reserveForm.phoneNum.value + "\n" + clicked);
+        console.log(document.getElementById("seatIDs").value);
+        return true;
     }
     /*document.querySelector('#reserveForm').submit(function(e) {
         e.preventDefault();

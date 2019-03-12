@@ -131,7 +131,7 @@ namespace Cinema.Models
                     {
                         Movie = nogamenolife,
                         Room = mikuRoom,
-                        StartTime = DateTime.Parse("2019-03-11 12:30:00")
+                        StartTime = DateTime.Parse("2019-03-12 12:30:00")
                     },
                     new Show()
                     {
@@ -143,7 +143,7 @@ namespace Cinema.Models
                     {
                         Movie = yourName,
                         Room = aquaRoom,
-                        StartTime = DateTime.Parse("2019-03-11 13:00:00")
+                        StartTime = DateTime.Parse("2019-03-12 13:00:00")
                     },
                 };
                 foreach (var prog in programs)
