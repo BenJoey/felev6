@@ -25,7 +25,7 @@ namespace Cinema.Models
         public string Name;
         [DisplayName("Phone Number")]
         public string Phone;
-        public string seatids;
+        public string SeatIds;
         public Room ShowsRoom;
         public List<Seat> ShowSeats;
     }

@@ -79,6 +79,9 @@ namespace Cinema.Controllers
             var thisShowSeats = from m in _context.Seats where m.ShowRefId == id select m;
             var reserveVm = new ReserveVm()
             {
+                SeatIds = "",
+                Name = "",
+                Phone = "",
                 ShowsRoom = thisShowRoom,
                 ShowSeats = await thisShowSeats.ToListAsync()
             };
@@ -87,16 +90,20 @@ namespace Cinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reserve([Bind("name, phone, seatids")]ReserveVm input)
+        public async Task<IActionResult> Reserve(int id, [Bind("SeatIds, Name, Phone")]ReserveVm input)
         {
+            if (id != input.ShowSeats.First().ShowRefId)
+            {
+                return NotFound();
+            }
             if (ModelState.IsValid)
             {
-                var seatIDs = input.seatids.Split(',');
+                var seatIDs = input.SeatIds.Split(',');
                 foreach (var current in seatIDs)
                 {
-                    var id = Convert.ToInt32(current);
+                    var curId = Convert.ToInt32(current);
                     var seat = await _context.Seats
-                        .FirstOrDefaultAsync(m => m.Id == id);
+                        .FirstOrDefaultAsync(m => m.Id == curId);
                     seat.State = State.Reserved;
                     seat.NameReserved = input.Name;
                     seat.PhoneNum = input.Phone;

@@ -6,8 +6,7 @@
 }
 
 
-<form asp-action="Reserve" name="reserveForm" style="margin-top: 30px;" onsubmit="event.preventDefault(); validate();">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Reserve" name="reserveForm" style="margin-top: 30px;">
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
@@ -24,7 +23,6 @@
             <tr>
                 @for (int j = 0; j < Model.ShowsRoom.NumOfCols; j++)
                 {
-
                     var thisSeat = Model.ShowSeats.Find(x => x.Row == i && x.Col == j);
                     var disabled = thisSeat.State == State.Reserved || thisSeat.State == State.Sold ? "disabled" : "";
                     var backgrCol = disabled == "" ? "aqua" : "Red";
@@ -39,7 +37,7 @@
     <div class="form-group">
         <input type="submit" value="Reserve Seats" class="btn btn-default" />
     </div>
-    <input type="hidden" asp-for="seatids" id="seatIDs" value=""/>
+    <input type="hidden" asp-for="SeatIds" id="seatIDs"/>
 </form>
 
 <script type="text/javascript">
@@ -61,16 +59,18 @@
             var index = clicked.indexOf(id);
             if (index !== -1) clicked.splice(index, 1);
         }
-        console.log(clicked);
+        document.getElementById("seatIDs").value = clicked.join(',');
+        console.log("SID:" + document.getElementById("seatIDs").value);
+        //console.log("Phone:" + document.getElementById("ph").value);
     }
-
+    /*
     function validate() {
         document.getElementById("seatIDs").value = clicked.join(',');
         //console.log(document.reserveForm.userName.value + "\n" + document.reserveForm.phoneNum.value + "\n" + clicked);
-        console.log(document.getElementById("seatIDs").value);
+        console.log("SID:"+document.getElementById("seatIDs").value);
         return true;
     }
-    /*document.querySelector('#reserveForm').submit(function(e) {
+    document.querySelector('#reserveForm').submit(function(e) {
         e.preventDefault();
         console.log(getElementById('userName').value + "\n" + getElementById('phoneNum').value + "\n" + clicked);
     });*/
