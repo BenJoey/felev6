@@ -7,7 +7,7 @@
 }
 
 
-<form asp-action="Reserve" name="reserveForm" style="margin-top: 30px;">
+<form asp-action="Reserve" name="reserveForm" style="margin-top: 30px;" onsubmit="validate()">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
@@ -27,7 +27,7 @@
                 {
                     var thisSeat = data.Seats.Find(x => x.Row == i && x.Col == j);
                     var disabled = thisSeat.State == State.Reserved || thisSeat.State == State.Sold ? "disabled" : "";
-                    var backgrCol = disabled == "" ? "Aqua" : "Red";
+                    var backgrCol = disabled == "" ? "White" : "Red";
                     <td>
                         <button id="@thisSeat.Id" type="button" style="width: 25px; height: 25px; background: @backgrCol" value="@thisSeat.State"
                                 onclick="chosen(value, id)" @disabled />
@@ -58,12 +58,17 @@
             clicked.push(id);
         }
         if (value === "Selected") {
-            document.getElementById(id).style.backgroundColor = 'Aqua';
+            document.getElementById(id).style.backgroundColor = 'White';
             document.getElementById(id).value = "Free";
             var index = clicked.indexOf(id);
             if (index !== -1) clicked.splice(index, 1);
         }
         document.getElementById("seatIDs").value = clicked.join(',');
         console.log("SID:" + document.getElementById("seatIDs").value);
+    }
+
+    function validate() {
+        console.log("EEEE");
+        return true;
     }
 </script>

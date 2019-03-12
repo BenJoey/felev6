@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Composition;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cinema.Models;
+using Remotion.Linq.Clauses;
 
 namespace Cinema.Controllers
 {
@@ -43,7 +45,7 @@ namespace Cinema.Controllers
                 return NotFound();
             }
 
-            var thisMovieShows = from m in _context.Shows where m.Movie.Id == id select m;
+            var thisMovieShows = from m in _context.Shows orderby m.StartTime where m.Movie.Id == id select m;
             var rooms = from m in _context.Rooms select m;
             var movieDvm = new MovieDetailsVm()
             {
@@ -92,19 +94,22 @@ namespace Cinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                var seatIDs = reservation.SeatIds.Split(',');
-                foreach (var current in seatIDs)
+                var ids = reservation.SeatIds.Split(",");
+                var selectedSeats = from m in _context.Seats where ids.Contains(m.Id.ToString()) select m;
+                foreach (var current in selectedSeats)
                 {
-                    var curId = Convert.ToInt32(current);
-                    var seat = await _context.Seats
-                        .FirstOrDefaultAsync(m => m.Id == curId);
-                    seat.State = State.Reserved;
-                    seat.NameReserved = reservation.Name;
-                    seat.PhoneNum = reservation.Phone;
-                    _context.Update(seat);
+                    if (current.State != State.Free)
+                    {
+                        return RedirectToAction(nameof(HomeController.Index));
+                    }
+
+                    current.State = State.Reserved;
+                    current.NameReserved = reservation.Name;
+                    current.PhoneNum = reservation.Phone;
                 }
+                _context.UpdateRange(selectedSeats);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(HomeController.Index));
             }
             return View(reservation);
         }
