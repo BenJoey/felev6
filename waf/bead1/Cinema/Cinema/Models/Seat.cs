@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public enum State { Free, Reserved, Sold, Selected}
+public enum State { Free, Reserved, Sold }
 
 namespace Cinema.Models
 {

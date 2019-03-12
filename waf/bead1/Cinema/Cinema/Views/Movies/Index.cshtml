@@ -1,16 +1,15 @@
 ﻿@model Cinema.Models.MovieVm
-
 @{
     ViewData["Title"] = "Index";
 }
-
 <h2>All Movies</h2>
-
 <ul style="list-style-type: none; font-size: larger;padding-bottom: 1em">
     @foreach (var item in Model.Films)
     {
-        <li><a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
+    <li>
+        <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
             @item.Title
-        </a></li>
+        </a>
+    </li>
     }
 </ul>

@@ -27,7 +27,7 @@
                 {
                     var thisSeat = data.Seats.Find(x => x.Row == i && x.Col == j);
                     var disabled = thisSeat.State == State.Reserved || thisSeat.State == State.Sold ? "disabled" : "";
-                    var backgrCol = disabled == "" ? "aqua" : "Red";
+                    var backgrCol = disabled == "" ? "Aqua" : "Red";
                     <td>
                         <button id="@thisSeat.Id" type="button" style="width: 25px; height: 25px; background: @backgrCol" value="@thisSeat.State"
                                 onclick="chosen(value, id)" @disabled />
@@ -40,6 +40,9 @@
         <input type="submit" value="Reserve Seats" class="btn btn-default" />
     </div>
 </form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
 <script type="text/javascript">
     var clicked = [];
@@ -62,17 +65,5 @@
         }
         document.getElementById("seatIDs").value = clicked.join(',');
         console.log("SID:" + document.getElementById("seatIDs").value);
-        //console.log("Phone:" + document.getElementById("ph").value);
     }
-    /*
-    function validate() {
-        document.getElementById("seatIDs").value = clicked.join(',');
-        //console.log(document.reserveForm.userName.value + "\n" + document.reserveForm.phoneNum.value + "\n" + clicked);
-        console.log("SID:"+document.getElementById("seatIDs").value);
-        return true;
-    }
-    document.querySelector('#reserveForm').submit(function(e) {
-        e.preventDefault();
-        console.log(getElementById('userName').value + "\n" + getElementById('phoneNum').value + "\n" + clicked);
-    });*/
 </script>
