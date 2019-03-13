@@ -14,7 +14,7 @@ namespace Cinema.Models
         public int Id { get; set; }
 
         [Display(Name = "Room Name")]
-        public String RoomName { get; set; }
+        public string RoomName { get; set; }
         public int NumOfRows { get; set; }
         public int NumOfCols { get; set; }
 
