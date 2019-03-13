@@ -8,3 +8,4 @@ Migrations/
 *.log
 *.pdf
 *.gz
+*.out
