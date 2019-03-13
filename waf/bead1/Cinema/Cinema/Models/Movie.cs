@@ -24,7 +24,7 @@ namespace Cinema.Models
 
         public string Director { get; set; }
 
-        public int Length { get; set; }
+        public TimeSpan Length { get; set; }
 
         public string Description { get; set; }
 

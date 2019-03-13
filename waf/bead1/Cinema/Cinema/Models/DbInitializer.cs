@@ -23,7 +23,7 @@ namespace Cinema.Models
                     Title = "Your Name",
                     PosterPath = "images/posters/YourName.png",
                     Director = "Makoto Shinkai",
-                    Length = 106,
+                    Length = new TimeSpan(1,46,0),
                     Description =
                         "Mitsuha Miyamizu, a high school girl, yearns to live the life of a boy in the bustling city of " +
                         "Tokyo—a dream that stands in stark contrast to her present life in the countryside. Meanwhile in the city, " +
@@ -38,7 +38,7 @@ namespace Cinema.Models
                     Title = "YuGiOh - Dark Side of Dimensions",
                     PosterPath = "images/posters/YuGiOh.png",
                     Director = "Satoshi Kuwabara",
-                    Length = 130,
+                    Length = new TimeSpan(2,10,0),
                     Description =
                         "Set six months after the events of the original Yu-Gi-Oh! manga, Yuugi Mutou and his friends are in their " +
                         "final year of high school and are talking about what they will do in the future. " +
@@ -53,7 +53,7 @@ namespace Cinema.Models
                     Title = "The End of Evangelion",
                     PosterPath = "images/posters/EndOfEva.png",
                     Director = "Hideaki Anno",
-                    Length = 87,
+                    Length = new TimeSpan(1,27,0),
                     Description =
                         "With the final Angel vanquished, Nerv has one last enemy left to face—the humans under Seele's command." +
                         "Left in a deep depression nearing the end of the original series, an indecisive Shinji Ikari struggles with the ultimatum presented " +
@@ -65,7 +65,7 @@ namespace Cinema.Models
                     Title = "Love Live! The School Idol Movie",
                     PosterPath = "images/posters/LL.png",
                     Director = "Kyogoku Takahiko",
-                    Length = 102,
+                    Length = new TimeSpan(1,42,0),
                     Description =
                         "Hot on the heels of the third year students' graduation, μ's is invited to New York in hopes of spreading the joy of school idols to other parts of the world. " +
                         "Due to the events of the recent Love Live!, μ's has reached eminent stardom which results in crowds swarming them whenever they appear in public. " +
@@ -77,7 +77,7 @@ namespace Cinema.Models
                     Title = "No Game No Life Zero",
                     PosterPath = "images/posters/NGNLZ.png",
                     Director = "Atsuko Ishizuka",
-                    Length = 106,
+                    Length = new TimeSpan(1,46,0),
                     Description =
                         "In ancient Disboard, Riku is an angry, young warrior intent on saving humanity from the warring Exceed, " +
                         "the sixteen sentient species, fighting to establish the \"One True God\" amongst the Old Deus. " +

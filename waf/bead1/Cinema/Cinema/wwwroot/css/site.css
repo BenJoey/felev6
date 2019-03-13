@@ -36,10 +36,7 @@ body {
     }
 }
 .box1 {
-    /*width: 90px;
-    height: 160px;*/
     display: inline-block;  /*Change this to block and see what happens */
-    /*background:blue;*/
     text-align: center;
     position: relative;
 }

@@ -24,14 +24,16 @@ namespace Cinema.Models
     
     public class Reservation
     {
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         [DisplayName("Phone Number")]
         public string Phone { get; set; }
-        public string SeatIds { get; set; }
-    }
 
-    public class ReserveData
-    {
+        [Required]
+        public string SeatIds { get; set; }
+        public int ShowId { get; set; }
         public Room Room { get; set; }
         public List<Seat> Seats { get; set; }
     }

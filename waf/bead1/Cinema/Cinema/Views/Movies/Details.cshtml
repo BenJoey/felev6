@@ -5,36 +5,43 @@
 }
 
 <h2>Movie Details</h2>
-
-<img src="@System.IO.Path.Combine("../../", Model.Film.PosterPath)" style="display: inline-block" width="180" height="320" />
-<div style="margin-left: 150px; float: right;">
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Film.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Film.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Film.Director)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Film.Director)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Film.Length)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Film.Length)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Film.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Film.Description)
-        </dd>
-    </dl>
-</div>
+<table>
+    <tr>
+        <td>
+            <img src="@System.IO.Path.Combine("../../", Model.Film.PosterPath)" width="180" height="320" />
+        </td>
+        <td>
+            <div style="margin-left: 20px;">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Film.Title)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Film.Title)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Film.Director)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Film.Director)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Film.Length)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Film.Length)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Film.Description)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Film.Description)
+                    </dd>
+                </dl>
+            </div>
+        </td>
+    </tr>
+</table>
 <h3>Show times</h3>
 <table class="table">
     <thead>
