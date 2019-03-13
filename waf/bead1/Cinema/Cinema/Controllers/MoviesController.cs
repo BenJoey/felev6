@@ -106,7 +106,7 @@ namespace Cinema.Controllers
 
                     current.State = State.Reserved;
                     current.NameReserved = reservation.Name;
-                    current.PhoneNum = reservation.Phone;
+                    current.PhoneNum = reservation.PhoneNumber;
                 }
                 _context.UpdateRange(selectedSeats);
                 await _context.SaveChangesAsync();

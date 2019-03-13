@@ -24,7 +24,9 @@ namespace Cinema.Models
         public int Row { get; set; }
         public int Col { get; set; }
         public State State { get; set; }
-        public String NameReserved { get; set; }
-        public String PhoneNum { get; set; }
+        public string NameReserved { get; set; }
+
+        [Phone()]
+        public string PhoneNum { get; set; }
     }
 }

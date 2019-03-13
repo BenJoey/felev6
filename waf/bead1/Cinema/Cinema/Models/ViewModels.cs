@@ -27,12 +27,13 @@ namespace Cinema.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        [DisplayName("Phone Number")]
-        public string Phone { get; set; }
+        [Required(ErrorMessage = "You must provide a phone number")]
+        [Phone(),Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
 
         [Required]
         public string SeatIds { get; set; }
+
         public int ShowId { get; set; }
         public Room Room { get; set; }
         public List<Seat> Seats { get; set; }
