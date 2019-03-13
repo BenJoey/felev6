@@ -7,7 +7,7 @@
 \usepackage[left=1.00cm, right=1.00cm, top=0.40cm, bottom=0.2cm]{geometry}
 \PassOptionsToPackage{defaults=hu-min}{magyar.ldf}
 \usepackage[magyar]{babel}
-\usepackage{framed, fancyhdr, wasysym, graphicx, multirow}
+\usepackage{framed, fancyhdr, wasysym, graphicx, multirow, hyperref}
 
 \begin{document}
 \renewcommand{\labelitemi}{\textbullet}
@@ -22,23 +22,63 @@
 		\hspace{3cm}{\large \textbf{1.Beadandó/9.Feladat}}
 		\hspace{5.4cm}{\large 2019.03.13.}\br
 		{\large JPSMA3}\br
-		{\large bauerbence5@gmail.com}
+		{\large \href{mailto:bauerbence5@gmail.com}{bauerbence5@gmail.com}}
 	\end{flushleft}
 \end{framed}
 \section{Feladat}
+
 Készítsünk egy mozi üzemeltető rendszert, amely alkalmas az előadások, illetve
 jegyvásárlások kezelésére.
-1. részfeladat: a webes felületen keresztül a nézők tekinthetik meg a moziműsort,
-valamint rendelhetnek jegyeket.
-A főoldalon megjelenik a napi program, azaz mely filmeket mikor vetítik a
-moziban, valamint kiemelve az öt legfrissebb (legutoljára felvitt) film plakátja.
-A filmet kiválasztva megjelenik annak részletes leírása (rendező, főszereplők,
-hossz, szinopszis), plakátja, továbbá az összes előadás időpontja.
-Az időpontot kiválasztva lehetőség nyílik helyfoglalásra az adott előadásra.
-Ekkor a felhasználónak meg kell adnia a lefoglalandó ülések helyzetét (sor,
-illetve oszlop) egy, a mozitermet sematikusan ábrázoló grafikus felületen.
-Egyszerre legfeljebb 6 jegy foglalható, és természetesen csak a szabad helyek
-foglalhatóak (amelyek nem foglaltak, vagy eladottak). A felhasználónak ezen
-felül meg kell adnia teljes nevét, valamint telefonszámát, ezzel véglegesíti a
-foglalást.
+\begin{itemize}
+	\item A webes felületen keresztül a nézők tekinthetik meg a moziműsort,
+	valamint rendelhetnek jegyeket.
+	\item A főoldalon megjelenik a napi program, azaz mely filmeket mikor
+	vetítik a moziban, valamint kiemelve az öt legfrissebb (legutoljára
+	felvitt) film plakátja.
+	\item A filmet kiválasztva megjelenik annak részletes leírása (rendező,
+	főszereplők, hossz, szinopszis), plakátja, továbbá az összes előadás
+	időpontja.
+	\item Az időpontot kiválasztva lehetőség nyílik helyfoglalásra az
+	adott előadásra.
+	Ekkor a felhasználónak meg kell adnia a lefoglalandó ülések helyzetét (sor,
+	illetve oszlop) egy, a mozitermet sematikusan ábrázoló grafikus felületen.
+	\item Egyszerre legfeljebb 6 jegy foglalható, és természetesen csak a
+	szabad helyek foglalhatóak (amelyek nem foglaltak, vagy eladottak).
+	A felhasználónak ezen felül meg kell adnia teljes nevét, valamint
+	telefonszámát, ezzel véglegesíti a foglalást.
+\end{itemize}
+Az adatbázis az alábbi adatokat tárolja:
+\begin{itemize}
+	\item filmek (cím, rendező, szinopszis, hossz, plakát, bevitel dátuma)
+	\item termek (név, sorok száma, oszlopok száma)
+	\item előadások (film, kezdő időpont, terem)
+	\item helyek (előadás, terem, sor, oszlop, státusz
+	<szabad, foglalt, eladott>, foglaló, neve, foglaló telefonszáma)
+	\item alkalmazottak (teljes név, felhasználónév, jelszó)
+\end{itemize}
+\section{Elemzés}
+\begin{itemize}
+	\item Az alkalmazás perzisztencia részét egy külső C\# könyvtárként
+	kezeljük. A weblap részt MVC segítségével hozzuk létre.
+	\item Több oldalra is szükségünk van:
+	\begin{itemize}
+		\item Főoldal a legújabb filmekkel és az aznapi műsorokkal
+		\item Egy összes filmet kilistázó oldal
+		\item Filmek részletes leírására szolgáló oldal
+		\item Mozitermet ábrázoló felület, ahol a felhasználó helyet tud
+		foglalni az előadásra
+	\end{itemize}
+	\item Az alkalmazáshoz szükséges egy adatbázis is. A feladatban leírt
+	adatbázis jól megfogalmazható SQL adatbázisként.
+\end{itemize}
+\newpage
+\thispagestyle{empty}
+\begin{center}
+	\colorbox{lightgray}{{\large JPSMA3} \hspace{3cm} {\large Webes alkalmazások fejlesztése 1. beadandó} \hspace{5cm} \thepage}
+\end{center}
+\section{Tervezés}
+\begin{itemize}
+	\item Programszerkezet: A programot egy MVC architektúrát alkalmazó
+	alkalmazással valósítjuk meg.
+\end{itemize}
 \end{document}
