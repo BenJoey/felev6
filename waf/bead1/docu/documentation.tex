@@ -60,13 +60,13 @@ Az adatbázis az alábbi adatokat tárolja:
 \begin{itemize}
 	\item Az alkalmazás perzisztencia részét egy külső C\# könyvtárként
 	kezeljük. A weblap részt MVC segítségével hozzuk létre.
-	\item Több oldalra is szükségünk van:
+	\item Több oldalra (Nézetek) is szükségünk van:
 	\begin{itemize}
-		\item Főoldal a legújabb filmekkel és az aznapi műsorokkal
-		\item Egy összes filmet kilistázó oldal
-		\item Filmek részletes leírására szolgáló oldal
+		\item Főoldal a legújabb filmekkel és az aznapi műsorokkal (Home/Index)
+		\item Egy összes filmet kilistázó oldal (Movie/Index)
+		\item Filmek részletes leírására szolgáló oldal (Movie/Details)
 		\item Mozitermet ábrázoló felület, ahol a felhasználó helyet tud
-		foglalni az előadásra
+		foglalni az előadásra (Movie/Reserve)
 	\end{itemize}
 	\item Az alkalmazáshoz szükséges egy adatbázis is. A feladatban leírt
 	adatbázis jól megfogalmazható SQL adatbázisként.
@@ -76,9 +76,35 @@ Az adatbázis az alábbi adatokat tárolja:
 \begin{center}
 	\colorbox{lightgray}{{\large JPSMA3} \hspace{3cm} {\large Webes alkalmazások fejlesztése 1. beadandó} \hspace{5cm} \thepage}
 \end{center}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{umls/UseCase.png}
+	\caption{Felhasználói eset diagram}
+\end{figure}
 \section{Tervezés}
 \begin{itemize}
-	\item Programszerkezet: A programot egy MVC architektúrát alkalmazó
-	alkalmazással valósítjuk meg.
+	\item Programszerkezet: A programot egy Model-View-Controller architektúrát
+	alkalmazó alkalmazással valósítjuk meg.
+	\item Nézetekhez tartozó kontrollerek:
+	\begin{itemize}
+		\item Home - Biztosítja a kezdőoldalon a lista feltöltését.
+		\item Movie - Filmek listázásához, egy film részletes adataihoz illetve
+		helyfoglaláshoz állítja össze az adatokat.
+	\end{itemize}
 \end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm]{umls/Entity.png}
+	\caption{Adatbázis felépítése}
+\end{figure}
+\newpage
+\thispagestyle{empty}
+\begin{center}
+\colorbox{lightgray}{{\large JPSMA3} \hspace{3cm} {\large Webes alkalmazások fejlesztése 1. beadandó} \hspace{5cm} \thepage}
+\end{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=16cm]{umls/Class.png}
+\caption{Osztálydiagram}
+\end{figure}
 \end{document}
