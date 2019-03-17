@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cinema.Models
 {
-    public class MovieVm
+    public class MovieIndexViewModel
     {
         public List<Movie> Films;
         public List<Show> ShowTimes;
         public List<Room> Rooms;
     }
 
-    public class MovieDetailsVm
+    public class MovieDetailsViewModel
     {
         public Movie Film;
         public List<Show> ShowTimes;
@@ -24,7 +19,7 @@ namespace Cinema.Models
     
     public class Reservation
     {
-        [Required]
+        [Required(ErrorMessage = "You must provide a name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "You must provide a phone number")]

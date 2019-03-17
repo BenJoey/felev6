@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Cinema.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace Cinema.Controllers
 {
@@ -23,9 +20,9 @@ namespace Cinema.Controllers
         public async Task<IActionResult> Index()
         {
             var movies = (from m in _context.Movies orderby m.Modified descending select m).Take(5);
-            var shows = from m in _context.Shows orderby m.StartTime where m.StartTime.Day == DateTime.Now.Day select m;
+            var shows = from m in _context.Shows orderby m.StartTime where m.StartTime.Day == DateTime.Now.Day && m.StartTime > DateTime.Now select m;
             var rooms = from m in _context.Rooms select m;
-            var movieVm = new MovieVm()
+            var movieVm = new MovieIndexViewModel()
             {
                 Films = await movies.ToListAsync(),
                 ShowTimes = await shows.ToListAsync(),

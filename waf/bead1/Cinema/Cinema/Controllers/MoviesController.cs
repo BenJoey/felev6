@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Composition;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cinema.Models;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.ProjectModel;
-using Remotion.Linq.Clauses;
 
 namespace Cinema.Controllers
 {
@@ -24,7 +20,7 @@ namespace Cinema.Controllers
         public async Task<IActionResult> Index()
         {
             var movies = from m in _context.Movies select m;
-            var movieVm = new MovieVm()
+            var movieVm = new MovieIndexViewModel()
             {
                 Films = await movies.ToListAsync()
             };
@@ -46,9 +42,9 @@ namespace Cinema.Controllers
                 return NotFound();
             }
 
-            var thisMovieShows = from m in _context.Shows orderby m.StartTime where m.Movie.Id == id select m;
+            var thisMovieShows = from m in _context.Shows orderby m.StartTime where m.Movie.Id == id && m.StartTime > DateTime.Now select m;
             var rooms = from m in _context.Rooms select m;
-            var movieDvm = new MovieDetailsVm()
+            var movieDvm = new MovieDetailsViewModel()
             {
                 Film = movie,
                 ShowTimes = await thisMovieShows.ToListAsync(),

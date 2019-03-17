@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 public enum State { Free, Reserved, Sold }
@@ -18,7 +14,7 @@ namespace Cinema.Models
         public int ShowRefId { get; set; }
         [ForeignKey("ShowRefId")]
         public Show Show { get; set; }
-        
+
         [ForeignKey("Rooms")]
         public Room Room { get; set; }
         public int Row { get; set; }

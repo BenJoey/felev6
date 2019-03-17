@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -139,91 +138,91 @@ namespace Cinema.Models
                     {
                         Movie = nogamenolife,
                         Room = mikuRoom,
-                        StartTime = DateTime.Parse("2019-03-13 12:30:00")
+                        StartTime = DateTime.Parse("2019-03-20 18:30:00")
                     },
                     new Show()
                     {
                         Movie = nogamenolife,
                         Room = nicoRoom,
-                        StartTime = DateTime.Parse("2019-03-18 18:30:00")
+                        StartTime = DateTime.Parse("2019-03-24 11:00:00")
                     },
                     new Show()
                     {
                         Movie = nogamenolife,
                         Room = poiRoom,
-                        StartTime = DateTime.Parse("2019-03-25 13:45:00")
+                        StartTime = DateTime.Parse("2019-04-02 15:45:00")
                     },
                     new Show()
                     {
                         Movie = lovelive,
                         Room = poiRoom,
-                        StartTime = DateTime.Parse("2019-03-13 19:30:00")
+                        StartTime = DateTime.Parse("2019-03-21 13:30:00")
                     },
                     new Show()
                     {
                         Movie = lovelive,
                         Room = nicoRoom,
-                        StartTime = DateTime.Parse("2019-03-20 11:45:00")
+                        StartTime = DateTime.Parse("2019-03-26 11:45:00")
                     },
                     new Show()
                     {
                         Movie = lovelive,
                         Room = aquaRoom,
-                        StartTime = DateTime.Parse("2019-03-25 16:45:00")
+                        StartTime = DateTime.Parse("2019-04-04 16:45:00")
                     },
                     new Show()
                     {
                         Movie = yourName,
                         Room = aquaRoom,
-                        StartTime = DateTime.Parse("2019-03-13 13:00:00")
+                        StartTime = DateTime.Parse("2019-03-20 20:30:00")
                     },
                     new Show()
                     {
                         Movie = yourName,
                         Room = nicoRoom,
-                        StartTime = DateTime.Parse("2019-03-19 16:15:00")
+                        StartTime = DateTime.Parse("2019-03-30 14:00:00")
                     },
                     new Show()
                     {
                         Movie = yourName,
                         Room = mikuRoom,
-                        StartTime = DateTime.Parse("2019-03-24 10:30:00")
+                        StartTime = DateTime.Parse("2019-04-06 08:30:00")
                     },
                     new Show()
                     {
                         Movie = eva,
                         Room = poiRoom,
-                        StartTime = DateTime.Parse("2019-03-13 15:00:00")
+                        StartTime = DateTime.Parse("2019-03-20 17:45:00")
                     },
                     new Show()
                     {
                         Movie = eva,
                         Room = mikuRoom,
-                        StartTime = DateTime.Parse("2019-03-18 12:15:00")
+                        StartTime = DateTime.Parse("2019-03-31 12:15:00")
                     },
                     new Show()
                     {
                         Movie = eva,
                         Room = aquaRoom,
-                        StartTime = DateTime.Parse("2019-03-23 17:45:00")
+                        StartTime = DateTime.Parse("2019-04-08 15:30:00")
                     },
                     new Show()
                     {
                         Movie = yugioh,
                         Room = mikuRoom,
-                        StartTime = DateTime.Parse("2019-03-13 10:15:00")
+                        StartTime = DateTime.Parse("2019-03-23 18:15:00")
                     },
                     new Show()
                     {
                         Movie = yugioh,
                         Room = nicoRoom,
-                        StartTime = DateTime.Parse("2019-03-17 14:00:00")
+                        StartTime = DateTime.Parse("2019-03-27 14:00:00")
                     },
                     new Show()
                     {
                         Movie = yugioh,
                         Room = poiRoom,
-                        StartTime = DateTime.Parse("2019-03-27 15:15:00")
+                        StartTime = DateTime.Parse("2019-04-04 15:15:00")
                     }
                 };
                 foreach (var prog in programs)
