@@ -168,7 +168,7 @@ m1=1</panel_attributes>
       <w>210</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>MovieVm
+    <panel_attributes>MovieIndexViewModel
 --
 + Films: List&lt;Movie&gt;
 + ShowTimes: List&lt;Show&gt;
@@ -183,7 +183,7 @@ m1=1</panel_attributes>
       <w>210</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>MovieDetailsVm
+    <panel_attributes>MovieDetailsViewModel
 --
 + Film: Movie
 + ShowTimes: List&lt;Show&gt;
