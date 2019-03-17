@@ -91,20 +91,29 @@ Az adatbázis az alábbi adatokat tárolja:
 		\item Movie - Filmek listázásához, egy film részletes adataihoz illetve
 		helyfoglaláshoz állítja össze az adatokat.
 	\end{itemize}
-\end{itemize}
-\begin{figure}[h]
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=13cm]{umls/Entity.png}
+		\caption{Adatbázis felépítése}
+	\end{figure}
+	\newpage
+	\thispagestyle{empty}
+	\begin{center}
+	\colorbox{lightgray}{{\large JPSMA3} \hspace{3cm} {\large Webes alkalmazások fejlesztése 1. beadandó} \hspace{5cm} \thepage}
+	\end{center}
+	\begin{figure}[h]
 	\centering
-	\includegraphics[width=13cm]{umls/Entity.png}
-	\caption{Adatbázis felépítése}
-\end{figure}
-\newpage
-\thispagestyle{empty}
-\begin{center}
-\colorbox{lightgray}{{\large JPSMA3} \hspace{3cm} {\large Webes alkalmazások fejlesztése 1. beadandó} \hspace{5cm} \thepage}
-\end{center}
-\begin{figure}[h]
-\centering
-\includegraphics[width=16cm]{umls/Class.png}
-\caption{Osztálydiagram}
-\end{figure}
+	\includegraphics[width=16cm]{umls/Class.png}
+	\caption{Osztálydiagram}
+	\end{figure}
+	\item Nézetmodellek leírása:
+	\begin{itemize}
+		\item\verb|MovieIndexViewModel|: A főoldalhoz összegyűjti az 5 legújabb
+		filmet és az aznapi vetítések adatait.
+		\item\verb|MovieDetailsViewModel|: A kiválasztott filmhez összegyűjti a
+		film részletes adatait, a film vetítési idejeit illetve a termek neveit.
+		\item\verb|Reservation|: A kiválasztott előadásra előkészíti a hozzá
+		tartozó ülőhelyeket és az inputmezőket a foglaló adataihoz.
+	\end{itemize}
+\end{itemize}
 \end{document}
