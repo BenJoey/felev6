@@ -51,7 +51,6 @@ write       return Parser::WRITE;
 "<"         return Parser::LESS_THAN;
 ">"         return Parser::GREATER_THAN;
 "="         return Parser::EQUALS;
-".."        return Parser::RANGE;
 ";"         return Parser::SEMICOLON;
 
 {WS}+       // szokozok - semmi teendo
