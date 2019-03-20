@@ -76,7 +76,7 @@ namespace Cinema.Controllers
             }
 
             var thisShowSeats = from m in _context.Seats where m.ShowRefId == id select m;
-            var reserveVm = new Reservation()
+            var reserveVm = new ReservationViewModel()
             {
                 ShowId = id.Value,
                 Room = thisShowRoom,
@@ -87,11 +87,11 @@ namespace Cinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reserve(Reservation reservation)
+        public async Task<IActionResult> Reserve(ReservationViewModel reservationViewModel)
         {
             if (ModelState.IsValid)
             {
-                var ids = reservation.SeatIds.Split(",");
+                var ids = reservationViewModel.SeatIds.Split(",");
                 var selectedSeats = from m in _context.Seats where ids.Contains(m.Id.ToString()) select m;
                 foreach (var current in selectedSeats)
                 {
@@ -101,15 +101,15 @@ namespace Cinema.Controllers
                     }
 
                     current.State = State.Reserved;
-                    current.NameReserved = reservation.Name;
-                    current.PhoneNum = reservation.PhoneNumber;
+                    current.NameReserved = reservationViewModel.Name;
+                    current.PhoneNum = reservationViewModel.PhoneNumber;
                 }
                 _context.UpdateRange(selectedSeats);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(HomeController.Index));
             }
             var selectedShow = await _context.Shows
-                .FirstOrDefaultAsync(m => m.Id == reservation.ShowId);
+                .FirstOrDefaultAsync(m => m.Id == reservationViewModel.ShowId);
             if (selectedShow == null)
             {
                 return NotFound();
@@ -122,12 +122,12 @@ namespace Cinema.Controllers
                 return NotFound();
             }
 
-            var thisShowSeats = from m in _context.Seats where m.ShowRefId == reservation.ShowId
+            var thisShowSeats = from m in _context.Seats where m.ShowRefId == reservationViewModel.ShowId
                 select m;
-            reservation.Room = thisShowRoom;
-            reservation.Seats = await thisShowSeats.ToListAsync();
-            reservation.SeatIds = "";
-            return View(reservation);
+            reservationViewModel.Room = thisShowRoom;
+            reservationViewModel.Seats = await thisShowSeats.ToListAsync();
+            reservationViewModel.SeatIds = "";
+            return View(reservationViewModel);
         }
     }
 }

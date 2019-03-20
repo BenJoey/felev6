@@ -129,7 +129,7 @@ m1=1</panel_attributes>
       <w>70</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
     <additional_attributes>50.0;80.0;10.0;80.0;10.0;10.0;50.0;10.0</additional_attributes>
   </element>
   <element>
@@ -157,7 +157,7 @@ m1=1</panel_attributes>
       <w>110</w>
       <h>260</h>
     </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
     <additional_attributes>90.0;240.0;10.0;240.0;10.0;10.0;80.0;10.0</additional_attributes>
   </element>
   <element>
@@ -198,7 +198,7 @@ m1=1</panel_attributes>
       <w>130</w>
       <h>170</h>
     </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
     <additional_attributes>110.0;150.0;70.0;150.0;70.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
@@ -209,7 +209,19 @@ m1=1</panel_attributes>
       <w>60</w>
       <h>290</h>
     </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
     <additional_attributes>10.0;270.0;40.0;270.0;40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>220</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
