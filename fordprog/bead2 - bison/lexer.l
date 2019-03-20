@@ -40,7 +40,7 @@ read        return Parser::READ;
 write       return Parser::WRITE;
 
 {DIGIT}+    return Parser::NATURAL_LITERAL;
-{IDENT}     return Parser::INDENTIFIER;
+{IDENT}     return Parser::IDENTIFIER;
 
 "("         return Parser::LEFT_BRACKET;
 ")"         return Parser::RIGHT_BRACKET;
