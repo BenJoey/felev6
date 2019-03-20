@@ -1,0 +1,24 @@
+%baseclass-preinclude <iostream>
+%lsp-needed
+
+%token PROGRAM TBEGIN SKIP TEND
+%token NATURAL BOOLEAN
+%token TRUE FALSE
+%token NOT
+%token IF THEN ELSE ENDIF ELSEIF
+%token WHILE RANGE DO DONE
+%token READ WRITE
+%token LEFT_BRACKET RIGHT_BRACKET
+%token ASSIGN
+%token SEMICOLON
+%token NATURAL_LITERAL
+%token IDENTIFIER
+
+%left AND OR
+%left EQUALS
+%left LESS_THAN GREATER_THAN
+%left PLUS MINUS
+%left ASTERIKS DIV MOD
+
+%%
+

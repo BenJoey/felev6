@@ -2,7 +2,10 @@
 
 %{
 #include <iostream>
-#include <cstdlib>
+#include "Parserbase.h"
+
+using namespace std;
+
 %}
 
 DIGIT   [0-9]
@@ -12,44 +15,44 @@ WS  [ \t\n]
 
 %%
 
-program     std::cout << "kulcsszo: " << YYText() << std::endl;
-begin       std::cout << "kulcsszo: " << YYText() << std::endl;
-end         std::cout << "kulcsszo: " << YYText() << std::endl;
-natural     std::cout << "kulcsszo: " << YYText() << std::endl;
-boolean     std::cout << "kulcsszo: " << YYText() << std::endl;
-true        std::cout << "tipus: boolean: " << YYText() << std::endl;
-false       std::cout << "tipus: boolean: " << YYText() << std::endl;
-div         std::cout << "operator: " << YYText() << std::endl;
-mod         std::cout << "operator: " << YYText() << std::endl;
-and         std::cout << "operator: " << YYText() << std::endl;
-or          std::cout << "operator: " << YYText() << std::endl;
-not         std::cout << "operator: " << YYText() << std::endl;
-skip        std::cout << "kulcsszo: " << YYText() << std::endl;
-if          std::cout << "kulcsszo: " << YYText() << std::endl;
-then        std::cout << "kulcsszo: " << YYText() << std::endl;
-else        std::cout << "kulcsszo: " << YYText() << std::endl;
-elseif      std::cout << "kulcsszo: " << YYText() << std::endl;
-endif       std::cout << "kulcsszo: " << YYText() << std::endl;
-while       std::cout << "kulcsszo: " << YYText() << std::endl;
-do          std::cout << "kulcsszo: " << YYText() << std::endl;
-done        std::cout << "kulcsszo: " << YYText() << std::endl;
-read        std::cout << "kulcsszo: " << YYText() << std::endl;
-write       std::cout << "kulcsszo: " << YYText() << std::endl;
+program     return Parser::PROGRAM;
+begin       return Parser::TBEGIN;
+end         return Parser::TEND;
+natural     return Parser::NATURAL;
+boolean     return Parser::BOOLEAN;
+true        return Parser::TRUE;
+false       return Parser::FALSE;
+div         return Parser::DIV;
+mod         return Parser::MOD;
+and         return Parser::AND;
+or          return Parser::OR;
+not         return Parser::NOT;
+skip        return Parser::SKIP;
+if          return Parser::IF;
+then        return Parser::THEN;
+else        return Parser::ELSE;
+elseif      return Parser::ELSEIF;
+endif       return Parser::ENDIF;
+while       return Parser::WHILE;
+do          return Parser::DO;
+done        return Parser::DONE;
+read        return Parser::READ;
+write       return Parser::WRITE;
 
-{DIGIT}+    std::cout << "tipus: number: " << YYText() << std::endl;
-{IDENT}     std::cout << "valtozo: " << YYText() << std::endl; 
+{DIGIT}+    return Parser::NATURAL_LITERAL;
+{IDENT}     return Parser::INDENTIFIER;
 
-"("         std::cout << "bracket: " << YYText() << std::endl;
-")"         std::cout << "bracket: " << YYText() << std::endl;
-":="        std::cout << "operator: " << YYText() << std::endl;
-"-"         std::cout << "operator: " << YYText() << std::endl;
-"+"         std::cout << "operator: " << YYText() << std::endl;
-"*"         std::cout << "operator: " << YYText() << std::endl;
-"."         std::cout << "operator: " << YYText() << std::endl;
-"<"         std::cout << "operator: " << YYText() << std::endl;
-">"         std::cout << "operator: " << YYText() << std::endl;
-"="         std::cout << "operator: " << YYText() << std::endl;
-";"         std::cout << "separator: " << YYText() << std::endl;
+"("         return Parser::LEFT_BRACKET;
+")"         return Parser::RIGHT_BRACKET;
+":="        return Parser::ASSIGN;
+"-"         return Parser::MINUS;
+"+"         return Parser::PLUS;
+"*"         return Parser::ASTERIKS;
+"<"         return Parser::LESS_THAN;
+">"         return Parser::GREATER_THAN;
+"="         return Parser::EQUALS;
+".."        return Parser::RANGE;
+";"         return Parser::SEMICOLON;
 
 {WS}+       // szokozok - semmi teendo
 #[^#]*#     //komment - nincs teendo
