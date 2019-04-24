@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model Cinema.WebSite.Models.ReservationViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<form asp-action="Reserve" name="reserveForm" style="margin-top: 30px;">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control"/>
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="SeatIds" id="seatIDs" />
+    <input type="hidden" asp-for="ShowId"/>
+
+    <table style="margin: 0px auto; border-collapse: separate; border-spacing: 10px">
+        @for (int i = 0; i < Model.Room.NumOfRows; i++)
+        {
+            <tr>
+                @for (int j = 0; j < Model.Room.NumOfCols; j++)
+                {
+                    var thisSeat = Model.Seats.Find(x => x.Row == i && x.Col == j);
+                    var disabled = thisSeat.State == State.Reserved || thisSeat.State == State.Sold ? "disabled" : "";
+                    var backgrCol = disabled == "" ? "LightGray" : "Red";
+                    <td>
+                        <button id="@thisSeat.Id" type="button" style="width: 25px; height: 25px; background: @backgrCol" value="@thisSeat.State"
+                                onclick="chosen(value, id)" @disabled />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Reserve Seats" class="btn btn-default" />
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script type="text/javascript">
+    var clicked = document.getElementById("seatIDs").value !== "" ? 
+        document.getElementById("seatIDs").value.split(',') : [];
+    clicked.forEach(function(e) {
+        document.getElementById(e).value = "Selected";
+        document.getElementById(e).style.backgroundColor = 'LightGreen';
+    });
+    function chosen(value, id) {
+        if (value !== "Free" && value !== "Selected") return;
+        if (value === "Free") {
+            if (clicked.length === 6) {
+                alert("Max 6 seat reservations allowed");
+                return;
+            }
+            document.getElementById(id).style.backgroundColor = 'LightGreen';
+            document.getElementById(id).value = "Selected";
+            clicked.push(id);
+        }
+        if (value === "Selected") {
+            document.getElementById(id).style.backgroundColor = 'LightGray';
+            document.getElementById(id).value = "Free";
+            var index = clicked.indexOf(id);
+            if (index !== -1) clicked.splice(index, 1);
+        }
+        document.getElementById("seatIDs").value = clicked.join(',');
+        console.log("SID:" + document.getElementById("seatIDs").value);
+    }
+</script>

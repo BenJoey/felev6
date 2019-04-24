@@ -1,0 +1,52 @@
+﻿@model Cinema.WebSite.Models.MovieIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Featured Movies</h2>
+
+@foreach (var item in Model.Films)
+{
+    <div class="box1">
+        <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
+            <img src="@item.PosterPath" style="padding-bottom: 0.5em" width="180" height="320" />
+        </a>
+        <p>@item.Title</p>
+    </div>
+}
+
+<h2>Today's shows</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowTimes[0].Movie.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowTimes[0].StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowTimes[0].Room.RoomName)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.ShowTimes) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Title)
+            </td>
+            <td>
+                <a asp-area="" asp-controller="Movies" asp-action="Reserve" asp-route-id="@item.Id">
+                    @Html.DisplayFor(modelItem => item.StartTime.TimeOfDay)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Rooms.Find(x => x.Id == item.RoomRefId).RoomName)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

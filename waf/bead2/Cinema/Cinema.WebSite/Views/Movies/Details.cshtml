@@ -1,0 +1,75 @@
+﻿@model Cinema.WebSite.Models.MovieDetailsViewModel
+
+@{
+    ViewData["Title"] = "Movie";
+}
+
+<h2>Movie Details</h2>
+<table>
+    <tr>
+        <td>
+            <img src="@System.IO.Path.Combine("../../", Model.Film.PosterPath)" width="180" height="320" />
+        </td>
+        <td>
+            <div style="margin-left: 20px;">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Film.Title)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Film.Title)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Film.Director)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Film.Director)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Film.Length)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Film.Length)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Film.Description)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Film.Description)
+                    </dd>
+                </dl>
+            </div>
+        </td>
+    </tr>
+</table>
+<h3>Show times</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowTimes[0].StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rooms[0].RoomName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ShowTimes)
+        {
+            <tr>
+                <td>
+                    <a asp-area="" asp-controller="Movies" asp-action="Reserve" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Rooms.Find(x => x.Id == item.RoomRefId).RoomName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Back to Main Page</a>
+</div>
