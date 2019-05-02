@@ -19,7 +19,7 @@ namespace Cinema.WebSite
 
                 try
                 {
-                    DbInitializer.Initialize(services);
+                    // DbInitializer.Initialize(services);
                 }
                 catch (Exception ex)
                 {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.WebSite", "Cinema.WebSite\Cinema.WebSite.csproj", "{2CCF2EA5-D177-436E-A09D-87099C1E1045}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.WebSite", "Cinema.WebSite\Cinema.WebSite.csproj", "{77433B13-B0F6-4E28-ABF0-257DAA11C715}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Persistence", "Cinema.Persistence\Cinema.Persistence.csproj", "{2E44F315-1CB9-4595-B6A0-79EF2F273912}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Persistence", "Cinema.Persistence\Cinema.Persistence.csproj", "{F18C6047-D68A-4E8C-A31F-228ED4BBB654}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CCF2EA5-D177-436E-A09D-87099C1E1045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CCF2EA5-D177-436E-A09D-87099C1E1045}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CCF2EA5-D177-436E-A09D-87099C1E1045}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CCF2EA5-D177-436E-A09D-87099C1E1045}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E44F315-1CB9-4595-B6A0-79EF2F273912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E44F315-1CB9-4595-B6A0-79EF2F273912}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E44F315-1CB9-4595-B6A0-79EF2F273912}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E44F315-1CB9-4595-B6A0-79EF2F273912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77433B13-B0F6-4E28-ABF0-257DAA11C715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77433B13-B0F6-4E28-ABF0-257DAA11C715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77433B13-B0F6-4E28-ABF0-257DAA11C715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77433B13-B0F6-4E28-ABF0-257DAA11C715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F18C6047-D68A-4E8C-A31F-228ED4BBB654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F18C6047-D68A-4E8C-A31F-228ED4BBB654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F18C6047-D68A-4E8C-A31F-228ED4BBB654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F18C6047-D68A-4E8C-A31F-228ED4BBB654}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0284FCC2-5616-479A-A57D-F2C75284AA33}
+		SolutionGuid = {604E7EEC-5E15-4933-9504-24CE29608A51}
 	EndGlobalSection
 EndGlobal
