@@ -21,9 +21,9 @@ namespace Cinema.WebAPI.Controllers
             this._context = context;
         }
 
-        // POST: api/Items
+        // POST: api/Movie
         [HttpPost("[action]")]
-        public IActionResult New([FromBody] MovieDto item)
+        public IActionResult NewMovie([FromBody] MovieDto item)
         {
             try
             {

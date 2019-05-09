@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Cinema.Persistence.DTOs
 {
-    class ShowDto
+    public class ShowDto
     {
         [Required]
         public int movieId { get; set; }
