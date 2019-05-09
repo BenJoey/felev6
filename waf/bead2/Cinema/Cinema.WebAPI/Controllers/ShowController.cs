@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Produces("application/json")]
+    [Route("api/Show")]
     public class ShowController : Controller
     {
         private readonly CinemaContext _context;
@@ -61,8 +61,8 @@ namespace Cinema.WebAPI.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public IEnumerable<Movie> GetMovieList()
+        [HttpGet("MovieList")]
+        public IEnumerable<Movie> MovieList()
         {
             IQueryable<Movie> movies = _context.Movies
                 .OrderBy(l => l.Title);
@@ -70,8 +70,8 @@ namespace Cinema.WebAPI.Controllers
             return movies;
         }
 
-        [HttpGet]
-        public IEnumerable<Room> GetRoomList()
+        [HttpGet("RoomList")]
+        public IEnumerable<Room> RoomList()
         {
             IQueryable<Room> rooms = _context.Rooms
                 .OrderBy(l => l.RoomName);

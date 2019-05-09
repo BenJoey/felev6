@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Cinema.Persistence;
 using Cinema.Persistence.DTOs;
 
 
@@ -53,6 +54,30 @@ namespace Cinema.WPF.Model
             }
 
             throw new NetworkException("Service returned response" + res.StatusCode);
+        }
+
+        public async Task<IEnumerable<Movie>> LoadMovies()
+        {
+            HttpResponseMessage res = await _client.GetAsync("api/Show/MovieList");
+
+            if (res.IsSuccessStatusCode)
+            {
+                return await res.Content.ReadAsAsync<IEnumerable<Movie>>();
+            }
+
+            throw new NetworkException("Service returned response: " + res.StatusCode);
+        }
+
+        public async Task<IEnumerable<Room>> LoadRooms()
+        {
+            HttpResponseMessage res = await _client.GetAsync("api/Show/RoomList");
+
+            if (res.IsSuccessStatusCode)
+            {
+                return await res.Content.ReadAsAsync<IEnumerable<Room>>();
+            }
+
+            throw new NetworkException("Service returned response: " + res.StatusCode);
         }
 
     }

@@ -10,7 +10,6 @@ namespace Cinema.WPF.ViewModel
     {
         private readonly ICinemaService _model;
 
-
         public DelegateCommand NewMovieCommand { get; set; }
         public DelegateCommand NewShowCommand { get; set; }
         public DelegateCommand ReserveCommand { get; set; }
