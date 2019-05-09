@@ -12,11 +12,11 @@ namespace Cinema.WebAPI.Controllers
 {
     [Produces("application/json")]
     [Route("api/Movie")]
-    public class ItemsController : Controller
+    public class MovieController : Controller
     {
         private readonly CinemaContext _context;
 
-        public ItemsController(CinemaContext context)
+        public MovieController(CinemaContext context)
         {
             this._context = context;
         }
@@ -36,7 +36,8 @@ namespace Cinema.WebAPI.Controllers
                     {
                         Description = item.Description,
                         Title = item.Title,
-                        Length = item.Length
+                        Length = item.Length,
+                        Director = item.Director
                     };
 
                     _context.Movies.Add(newMovie);
