@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cinema.Persistence
 {
-    public class CinemaContext : DbContext
+    public class CinemaContext : IdentityDbContext<Employee>
     {
         public CinemaContext (DbContextOptions<CinemaContext> options) : base(options) { }
 
@@ -10,6 +11,5 @@ namespace Cinema.Persistence
         public DbSet<Show> Shows { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Employee> Employees { get; set; }
     }
 }

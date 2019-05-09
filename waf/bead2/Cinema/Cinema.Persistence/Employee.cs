@@ -1,19 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cinema.Persistence
 {
     [Table("Employees")]
-    public class Employee
+    public class Employee : IdentityUser
     {
-
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Required]
         public string FullName { get; set; }
-        public string UserName { get; set; }
-
-        // TODO: Hash the passwords
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
     }
 }

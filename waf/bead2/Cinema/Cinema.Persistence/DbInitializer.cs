@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cinema.Persistence
 {
     public class DbInitializer
     {
-        public static void Initialize(CinemaContext context)
+        public static void Initialize(CinemaContext context, UserManager<Employee> userManager = null)
         {
 
             if (context.Movies.Any())
@@ -243,6 +244,20 @@ namespace Cinema.Persistence
                 }
 
                 context.Shows.Add(prog);
+            }
+
+            if (userManager != null)
+            {
+                var adminUser = new Employee()
+                {
+                    UserName = "admin",
+                    FullName = "Dolgozo1",
+                    Email = "admin@example.com",
+                    PhoneNumber = "+36123456789"
+                };
+                var adminPassword = "Valami123";
+
+                var result1 = userManager.CreateAsync(adminUser, adminPassword).Result;
             }
 
             context.SaveChanges();
