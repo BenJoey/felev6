@@ -25,7 +25,6 @@ namespace Cinema.WPF.ViewModel
             UserName = String.Empty;
 
             ExitCommand = new DelegateCommand(param => OnExitApplication());
-
             LoginCommand = new DelegateCommand(param => LoginAsync(param as PasswordBox));
         }
 

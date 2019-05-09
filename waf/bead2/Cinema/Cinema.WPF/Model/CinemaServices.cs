@@ -27,8 +27,7 @@ namespace Cinema.WPF.Model
 
         public async Task<bool> LoginAsync(string name, string password)
         {
-            EmployeeDto user = new EmployeeDto() { Username = name, Password = password };
-            HttpResponseMessage res = await _client.PostAsJsonAsync("api/Account/Login", user);
+            HttpResponseMessage res = await _client.GetAsync("api/Account/Login/"+name+"/"+password);
 
             if (res.IsSuccessStatusCode)
             {
@@ -46,7 +45,7 @@ namespace Cinema.WPF.Model
 
         public async Task<bool> LogoutAsync()
         {
-            HttpResponseMessage res = await _client.PostAsJsonAsync("api/Account/Signout", "");
+            HttpResponseMessage res = await _client.GetAsync("api/Account/Logout");
 
             if (res.IsSuccessStatusCode)
             {

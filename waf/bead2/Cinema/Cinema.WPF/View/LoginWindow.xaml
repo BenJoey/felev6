@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema.WPF.View"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="223.12" Width="383.714">
+        Title="Login" Height="223.12" Width="383.714">
     <Grid>
         <Label Content="Username:" HorizontalAlignment="Left" Margin="19,40,0,0" VerticalAlignment="Top" Width="94" />
         <Label Content="Password:" HorizontalAlignment="Left" Margin="19,96,0,0" VerticalAlignment="Top" Width="94" />

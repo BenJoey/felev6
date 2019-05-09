@@ -13,7 +13,7 @@ using Cinema.Persistence.DTOs;
 namespace Cinema.WebAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/Account")]
     public class AccountController : Controller
     {
         private readonly SignInManager<Employee> _signInManager;
@@ -23,16 +23,16 @@ namespace Cinema.WebAPI.Controllers
             this._signInManager = signInManager;
         }
 
-        // api/Account/Login
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Login([FromBody] EmployeeDto user)
+        // api/Account/Login/username/password
+        [HttpGet("login/{username}/{password}")]
+        public async Task<IActionResult> Login(string username, string password)
         {
             if (_signInManager.IsSignedIn(User))
                 await _signInManager.SignOutAsync();
 
             if (ModelState.IsValid)
             {
-                var res = await _signInManager.PasswordSignInAsync(user.Username, user.Password, isPersistent: false, lockoutOnFailure: false);
+                var res = await _signInManager.PasswordSignInAsync(username, password, isPersistent: false, lockoutOnFailure: false);
 
                 if (res.Succeeded)
                 {
@@ -45,8 +45,8 @@ namespace Cinema.WebAPI.Controllers
             return Unauthorized();
         }
 
-        // api/Account/Signout
-        [HttpPost("Signout")]
+        // api/Account/Logout
+        [HttpPost("Logout")]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
