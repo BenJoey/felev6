@@ -21,7 +21,7 @@ namespace Cinema.WPF.ViewModel
 
         public LoginViewModel(ICinemaService model)
         {
-            this._model = model ?? throw new ArgumentNullException("model");
+            this._model = model ?? throw new ArgumentNullException(nameof(model));
             UserName = String.Empty;
 
             ExitCommand = new DelegateCommand(param => OnExitApplication());

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cinema.WPF.Model
 {
-    interface ICinemaService
+    public interface ICinemaService
     {
         bool IsUserLoggedIn { get; }
         Task<bool> LoginAsync(string name, string password);
