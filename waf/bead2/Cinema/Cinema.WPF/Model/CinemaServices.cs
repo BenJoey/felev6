@@ -43,5 +43,17 @@ namespace Cinema.WPF.Model
             throw new NetworkException("Service returned response" + res.StatusCode);
         }
 
+        public async Task<bool> LogoutAsync()
+        {
+            HttpResponseMessage res = await _client.PostAsJsonAsync("api/Account/Signout", "");
+
+            if (res.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
+            throw new NetworkException("Service returned response" + res.StatusCode);
+        }
+
     }
 }

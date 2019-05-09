@@ -10,5 +10,6 @@ namespace Cinema.WPF.Model
     {
         bool IsUserLoggedIn { get; }
         Task<bool> LoginAsync(string name, string password);
+        Task<bool> LogoutAsync();
     }
 }

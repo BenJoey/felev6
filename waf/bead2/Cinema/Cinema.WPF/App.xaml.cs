@@ -14,8 +14,10 @@ namespace Cinema.WPF
     {
         private ICinemaService _service;
         private LoginViewModel _loginViewModel;
+        private MenuViewModel _menuViewModel;
         private MainWindow _mainWindow;
         private LoginWindow _loginWindow;
+        private MenuWindow _menuWindow;
 
         public App()
         {
@@ -47,9 +49,18 @@ namespace Cinema.WPF
 
         private void ViewModel_LoginSuccess(object sender, EventArgs e)
         {
-            _mainWindow = new MainWindow();
+            _menuViewModel = new MenuViewModel(_service);
+            _menuViewModel.NewMovie += OpenNewMovie;
+            _menuViewModel.NewShow += OpenNewShow;
+            _menuViewModel.Reserve += OpenNewReserve;
+            _menuViewModel.LogoutSuccess += ViewModel_Logout;
 
-            _mainWindow.Show();
+            _menuWindow = new MenuWindow
+            {
+                DataContext = _menuViewModel
+            };
+
+            _menuWindow.Show();
             _loginWindow.Close();
         }
 
@@ -61,6 +72,35 @@ namespace Cinema.WPF
         private void ViewModel_MessageApplication(object sender, MessageEventArgs e)
         {
             MessageBox.Show(e.Message, "Login", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
+
+        private void ViewModel_Logout(object sender, EventArgs e)
+        {
+            _loginWindow = new LoginWindow
+            {
+                DataContext = _loginViewModel
+            };
+            _loginViewModel = new LoginViewModel(_service);
+
+            _loginViewModel.ExitApplication += ViewModel_ExitApplication;
+            _loginViewModel.MessageApplication += ViewModel_MessageApplication;
+            _loginViewModel.LoginSuccess += ViewModel_LoginSuccess;
+            _loginViewModel.LoginFailed += ViewModel_LoginFailed;
+            _loginWindow.Show();
+            _menuWindow.Close();
+        }
+
+        private void OpenNewMovie(object sender, EventArgs e)
+        {
+            _menuWindow.Close();
+        }
+        private void OpenNewShow(object sender, EventArgs e)
+        {
+            _menuWindow.Close();
+        }
+        private void OpenNewReserve(object sender, EventArgs e)
+        {
+            _menuWindow.Close();
         }
     }
 }
