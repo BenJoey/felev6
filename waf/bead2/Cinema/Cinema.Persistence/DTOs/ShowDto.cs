@@ -15,6 +15,6 @@ namespace Cinema.Persistence.DTOs
 
         [Required]
         [DataType(DataType.MultilineText)]
-        public DateTime StarTime { get; set; }
+        public String StarTime { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cinema.Persistence;
+using Cinema.Persistence.DTOs;
 
 namespace Cinema.WPF.Model
 {
@@ -14,5 +15,6 @@ namespace Cinema.WPF.Model
         Task<bool> LogoutAsync();
         Task<IEnumerable<Movie>> LoadMovies();
         Task<IEnumerable<Room>> LoadRooms();
+        Task<bool> AddNewShow(ShowDto newShowData);
     }
 }

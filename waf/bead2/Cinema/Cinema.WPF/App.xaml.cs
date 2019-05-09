@@ -54,6 +54,7 @@ namespace Cinema.WPF
             _menuViewModel.NewShow += OpenNewShow;
             _menuViewModel.Reserve += OpenNewReserve;
             _menuViewModel.LogoutSuccess += ViewModel_Logout;
+            _menuViewModel.MessageApplication += ViewModel_MessageApplication;
 
             _menuWindow = new MenuWindow
             {
@@ -71,7 +72,7 @@ namespace Cinema.WPF
 
         private void ViewModel_MessageApplication(object sender, MessageEventArgs e)
         {
-            MessageBox.Show(e.Message, "Login", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            MessageBox.Show(e.Message, "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
 
         private void ViewModel_Logout(object sender, EventArgs e)

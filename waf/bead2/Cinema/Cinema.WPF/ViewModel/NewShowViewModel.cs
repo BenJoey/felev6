@@ -24,8 +24,38 @@ namespace Cinema.WPF.ViewModel
         {
             this._model = model ?? throw new ArgumentNullException(nameof(model));
 
-            newShow = new ShowDto();
+            NewShow = new ShowDto();
             LoadData();
+        }
+
+        public ShowDto NewShow
+        {
+            get => newShow;
+            set
+            {
+                newShow = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Movie> Movies
+        {
+            get => movies;
+            set
+            {
+                movies = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Room> Rooms
+        {
+            get => rooms;
+            set
+            {
+                rooms = value;
+                OnPropertyChanged();
+            }
         }
 
         private async void LoadData()
@@ -39,6 +69,27 @@ namespace Cinema.WPF.ViewModel
             {
                 OnMessageApplication($"Váratlan hiba történt! ({ex.Message})");
             }
+        }
+
+        private async void AddNewShow()
+        {
+            try
+            {
+                if (await _model.AddNewShow(NewShow))
+                {
+                    OnSuccessfulAdd();
+                }
+
+            }
+            catch (NetworkException ex)
+            {
+                OnMessageApplication($"Váratlan hiba történt! ({ex.Message})");
+            }
+        }
+
+        private void OnSuccessfulAdd()
+        {
+            Success?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Cinema.WebAPI.Controllers
         }
 
         // POST: api/Movie
-        [HttpPost("[action]")]
+        [HttpPost("NewShow")]
         public IActionResult NewShow([FromBody] ShowDto item)
         {
             try
@@ -37,7 +37,7 @@ namespace Cinema.WebAPI.Controllers
                     {
                         Movie = selectedMovie,
                         Room = selectedRoom,
-                        StartTime = item.StarTime
+                        StartTime = DateTime.Parse(item.StarTime)
                     };
 
                     _context.Shows.Add(newShow);
