@@ -47,7 +47,10 @@ namespace Cinema.WPF
 
         private void ViewModel_LoginSuccess(object sender, EventArgs e)
         {
-            // TODO
+            _mainWindow = new MainWindow();
+
+            _mainWindow.Show();
+            _loginWindow.Close();
         }
 
         private void ViewModel_LoginFailed(object sender, EventArgs e)
