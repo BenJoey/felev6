@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Persistence", "Cinem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.WebAPI", "Cinema.WebAPI\Cinema.WebAPI.csproj", "{8AFE6D56-2013-4159-8D00-9E1EA688E16E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.WPF", "Cinema.WPF\Cinema.WPF.csproj", "{9BB55C12-6BEA-41C4-8CB1-BB0C26E7C4F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8AFE6D56-2013-4159-8D00-9E1EA688E16E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AFE6D56-2013-4159-8D00-9E1EA688E16E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AFE6D56-2013-4159-8D00-9E1EA688E16E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BB55C12-6BEA-41C4-8CB1-BB0C26E7C4F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BB55C12-6BEA-41C4-8CB1-BB0C26E7C4F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BB55C12-6BEA-41C4-8CB1-BB0C26E7C4F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BB55C12-6BEA-41C4-8CB1-BB0C26E7C4F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
