@@ -67,11 +67,11 @@ namespace Cinema.WebAPI.Controllers
         {
             try
             {
-                return Ok(_context.Seats.Where(o => o.ShowRefId == id).ToList().Select(seat => new SeatDto
+                return Ok(_context.Seats.Where(o => o.ShowRefId == id).OrderBy(o => o.Row).ThenBy(o => o.Col).ToList().Select(seat => new SeatDto
                 {
                     Id = seat.Id,
-                    Row = seat.Row+1,
-                    Col = seat.Col+1,
+                    Row = seat.Row,
+                    Col = seat.Col,
                     NameReserved = seat.NameReserved,
                     PhoneNum = seat.PhoneNum,
                     State = seat.State.ToString()

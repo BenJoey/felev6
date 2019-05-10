@@ -86,6 +86,11 @@ namespace Cinema.WPF
             _movieViewModel = new NewMovieViewModel(_service);
             _movieViewModel.Canceled += (o, args) => { OpenMenu(_movieWindow); };
             _movieViewModel.MessageApplication += ViewModel_MessageApplication;
+            _movieViewModel.Success += (o, args) =>
+            {
+                OpenMenu(_movieWindow);
+                ShowMsgBox("Successfully added");
+            };
 
             _movieWindow = new NewMovieWindow{DataContext = _movieViewModel};
 

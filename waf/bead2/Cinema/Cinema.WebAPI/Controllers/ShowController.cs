@@ -38,12 +38,12 @@ namespace Cinema.WebAPI.Controllers
                     var showsToCheck = (_context.Shows.Where(o => o.RoomRefId == selectedRoom.Id)).ToList();
                     foreach (var show in showsToCheck)
                     {
-                        var currentMovie = (_context.Movies.Where(o => o.Id == show.MovieRefId)).FirstOrDefault();
+                        var currentMovie = _context.Movies.FirstOrDefault(o => o.Id == show.MovieRefId);
                         var showEnd = show.StartTime + currentMovie.Length + TimeSpan.FromMinutes(15);
                         var invalidTime =
-                            (DateTime.Compare(show.StartTime, newShowStart) < 1 && DateTime.Compare(newShowEnd,
-                                 showEnd) < 1) || (DateTime.Compare(newShowStart, show.StartTime) == -1 &&
-                                                   DateTime.Compare(newShowEnd, show.StartTime) == 1);
+                            (DateTime.Compare(show.StartTime, newShowStart) < 1 && DateTime.Compare(newShowStart,
+                                 showEnd) < 1) || (DateTime.Compare(show.StartTime, newShowEnd) < 1 &&
+                                                   DateTime.Compare(newShowEnd, showEnd) == 1);
 
                         if (invalidTime)
                         {

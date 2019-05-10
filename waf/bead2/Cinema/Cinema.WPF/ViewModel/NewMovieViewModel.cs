@@ -14,7 +14,7 @@ namespace Cinema.WPF.ViewModel
     {
         private readonly ICinemaService _model;
         private MovieDto newMovie;
-        public String PosterPath { get; private set; }
+        public String _posterPath;
 
         public DelegateCommand SendCommand { get; set; }
         public DelegateCommand OpenPicture { get; set; }
@@ -33,6 +33,8 @@ namespace Cinema.WPF.ViewModel
             CancelCommand = new DelegateCommand(param => OnCancel());
             OpenPicture = new DelegateCommand(param => CreateImage());
         }
+
+        public String PosterPath => _posterPath;
 
         public MovieDto NewMovie
         {
@@ -55,9 +57,9 @@ namespace Cinema.WPF.ViewModel
 
                 if (result == true)
                 {
-                    PosterPath = dialog.FileName;
+                    _posterPath = dialog.FileName;
                     OnPropertyChanged(nameof(PosterPath));
-                    newMovie.Poster = ImageHandler.OpenAndResize(dialog.FileName, 600);
+                    newMovie.Poster = ImageHandler.OpenAndResize(dialog.FileName, 320);
                 }
             }
             catch { }

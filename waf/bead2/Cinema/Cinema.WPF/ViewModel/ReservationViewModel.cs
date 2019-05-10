@@ -91,21 +91,21 @@ namespace Cinema.WPF.ViewModel
             {
                 savedSeatDtos = await _model.LoadSeats(selected.showId);
                 seats = new ObservableCollection<ReservationButton>();
-                foreach (var Seat in savedSeatDtos)
+                foreach (var seat in savedSeatDtos)
                 {
                     seats.Add(new ReservationButton
                     {
-                        Id = Seat.Id,
-                        Col = Seat.Col,
-                        Row = Seat.Row,
-                        NameReserved = Seat.NameReserved,
-                        PhoneNum = Seat.PhoneNum,
-                        State = Seat.State,
+                        Id = seat.Id,
+                        Col = seat.Col,
+                        Row = seat.Row,
+                        NameReserved = seat.NameReserved,
+                        PhoneNum = seat.PhoneNum,
+                        State = seat.State,
                         ButtonClick = new DelegateCommand(param => Click((int)param))
-                });
+                    });
                 }
-                RowNum = seats.Max(o => o.Row);
-                ColNum = seats.Max(o => o.Col);
+                RowNum = seats.Max(o => o.Row) + 1;
+                ColNum = seats.Max(o => o.Col) + 1;
                 OnPropertyChanged(nameof(Rows));
                 OnPropertyChanged(nameof(Columns));
                 OnPropertyChanged(nameof(Seats));
