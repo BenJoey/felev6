@@ -45,7 +45,7 @@ namespace Cinema.WebAPI.Controllers
         }
 
         // api/Account/Logout
-        [HttpPost("Logout")]
+        [HttpGet("Logout")]
         [Authorize]
         public async Task<IActionResult> Logout()
         {

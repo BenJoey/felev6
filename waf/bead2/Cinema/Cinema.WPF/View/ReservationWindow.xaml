@@ -14,7 +14,7 @@
                 <DataGridTextColumn Header="Movie Name" Binding="{Binding movieName}" Width="200"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Command="{Binding OpenShowSeats}" CommandParameter="{Binding SelectedShow}" Margin="10,0,0,0" Width="100" HorizontalAlignment="Left">Select</Button>
+        <Button Command="{Binding OpenShowSeats}" CommandParameter="{Binding SelectedShow}" Margin="10,0,0,0" Width="100" HorizontalAlignment="Left">Select Show</Button>
     <ItemsControl ItemsSource="{Binding Seats}" Height="500">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>

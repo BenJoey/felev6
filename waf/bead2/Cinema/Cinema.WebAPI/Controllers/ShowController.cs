@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cinema.Persistence;
 using Cinema.Persistence.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +16,7 @@ namespace Cinema.WebAPI.Controllers
 
         public ShowController(CinemaContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         // POST: api/Show
