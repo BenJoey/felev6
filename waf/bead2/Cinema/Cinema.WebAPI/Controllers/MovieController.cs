@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinema.Persistence;
 using Cinema.Persistence.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.WebAPI.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Movie")]
     public class MovieController : Controller
     {
@@ -18,11 +18,12 @@ namespace Cinema.WebAPI.Controllers
 
         public MovieController(CinemaContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         // POST: api/Movie
-        [HttpPost("[action]")]
+        [HttpPost]
+        [Authorize]
         public IActionResult NewMovie([FromBody] MovieDto item)
         {
             try

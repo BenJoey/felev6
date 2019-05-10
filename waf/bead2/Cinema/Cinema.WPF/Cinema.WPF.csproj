@@ -98,6 +98,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\ImageHandler.cs" />
     <Compile Include="ViewModel\NewMovieViewModel.cs" />
     <Compile Include="ViewModel\NewShowViewModel.cs" />
     <Compile Include="ViewModel\ReservationButton.cs" />

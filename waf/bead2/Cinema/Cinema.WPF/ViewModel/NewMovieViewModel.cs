@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cinema.WPF.Model;
 using Cinema.Persistence;
 using Cinema.Persistence.DTOs;
+using Microsoft.Win32;
 
 namespace Cinema.WPF.ViewModel
 {
@@ -13,8 +14,10 @@ namespace Cinema.WPF.ViewModel
     {
         private readonly ICinemaService _model;
         private MovieDto newMovie;
+        public String PosterPath { get; private set; }
 
         public DelegateCommand SendCommand { get; set; }
+        public DelegateCommand OpenPicture { get; set; }
         public DelegateCommand CancelCommand { get; set; }
 
         public event EventHandler Success;
@@ -28,6 +31,7 @@ namespace Cinema.WPF.ViewModel
 
             // SendCommand = new DelegateCommand(param => AddNewShow());
             CancelCommand = new DelegateCommand(param => OnCancel());
+            OpenPicture = new DelegateCommand(param => CreateImage());
         }
 
         public MovieDto NewMovie
@@ -38,6 +42,28 @@ namespace Cinema.WPF.ViewModel
                 newMovie = value;
                 OnPropertyChanged();
             }
+        }
+
+        private void CreateImage() {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.CheckFileExists = true;
+                dialog.Filter = "Képfájlok|*.jpg;*.jpeg;*.bmp;*.tif;*.gif;*.png;";
+                dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+                Boolean? result = dialog.ShowDialog();
+
+                if (result == true)
+                {
+                    PosterPath = dialog.FileName;
+                    newMovie.Poster = new ImageDto
+                    {
+                        ImageSmall = ImageHandler.OpenAndResize(dialog.FileName, 100),
+                        ImageLarge = ImageHandler.OpenAndResize(dialog.FileName, 600)
+                    };
+                }
+            }
+            catch { }
         }
 
         private void OnCancel()

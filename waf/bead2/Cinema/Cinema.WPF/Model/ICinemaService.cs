@@ -15,9 +15,10 @@ namespace Cinema.WPF.Model
         Task<bool> LogoutAsync();
         Task<IEnumerable<MovieDto>> LoadMovies();
         Task<IEnumerable<RoomDto>> LoadRooms();
-        Task<Boolean> AddNewShow(ShowDto newShowData);
+        Task<Boolean> SendNewShow(ShowDto newShowData);
         Task<IEnumerable<ShowDto>> LoadShows();
         Task<IEnumerable<SeatDto>> LoadSeats(int id);
         Task<Boolean> SendReserve(ReservationDto newData);
+        Task<Boolean> SendNewMovie(MovieDto newData);
     }
 }

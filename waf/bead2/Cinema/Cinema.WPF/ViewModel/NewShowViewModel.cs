@@ -63,7 +63,7 @@ namespace Cinema.WPF.ViewModel
 
         private async void AddNewShow()
         {
-            if (await _model.AddNewShow(NewShow))
+            if (await _model.SendNewShow(NewShow))
             {
                 OnSuccessfulAdd();
             }

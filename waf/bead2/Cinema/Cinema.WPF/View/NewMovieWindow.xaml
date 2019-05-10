@@ -23,5 +23,11 @@
             <Label Width="100">Descripton:</Label>
             <TextBox Text="{Binding NewMovie.Title, Mode=TwoWay}" VerticalAlignment="Center" Width="200" Margin="0,0,20,0" Height="69"></TextBox>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="20,10,20,0" HorizontalAlignment="Center" Width="400">
+            <Label Width="50">Poster:</Label>
+            <TextBox Text="{Binding PosterPath}" VerticalAlignment="Center" Width="200" Margin="0,0,20,0" IsEnabled="False"></TextBox>
+            <Button Command="{Binding OpenPicture}" Width="100" Height="20" Margin="0,0,0,0">Upload picture</Button>
+        </StackPanel>
+        <Button Command="{Binding SendCommand}" Width="150" Margin="0,50,0,0">Add Movie</Button>
     </StackPanel>
 </Window>

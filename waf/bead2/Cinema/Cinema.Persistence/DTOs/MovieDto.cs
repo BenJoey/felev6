@@ -16,5 +16,7 @@ namespace Cinema.Persistence.DTOs
         public String Description { get; set; }
 
         public String Director { get; set; }
+
+        public ImageDto Poster { get; set; }
     }
 }

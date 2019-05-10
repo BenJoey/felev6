@@ -82,7 +82,7 @@ namespace Cinema.WPF.Model
             throw new NetworkException("Service returned response: " + res.StatusCode);
         }
 
-        public async Task<Boolean> AddNewShow(ShowDto newShowData)
+        public async Task<Boolean> SendNewShow(ShowDto newShowData)
         {
             HttpResponseMessage response = await _client.PostAsJsonAsync("api/Show/", newShowData);
 
@@ -116,6 +116,13 @@ namespace Cinema.WPF.Model
         public async Task<Boolean> SendReserve(ReservationDto newData)
         {
             HttpResponseMessage response = await _client.PostAsJsonAsync("api/Reservation/", newData);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<Boolean> SendNewMovie(MovieDto newData)
+        {
+            HttpResponseMessage response = await _client.PostAsJsonAsync("api/Movie/", newData);
 
             return response.IsSuccessStatusCode;
         }

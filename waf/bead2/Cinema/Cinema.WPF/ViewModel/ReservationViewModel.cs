@@ -126,6 +126,11 @@ namespace Cinema.WPF.ViewModel
                 sname = selected.NameReserved;
                 sphone = selected.PhoneNum;
             }
+            else
+            {
+                sname = "";
+                sphone = "";
+            }
 
             if (selected.State != "Sold" && selected.State != "Selected")
             {
