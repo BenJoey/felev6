@@ -63,17 +63,13 @@ namespace Cinema.WPF.ViewModel
 
         private async void AddNewShow()
         {
-            try
+            if (await _model.AddNewShow(NewShow))
             {
-                if (await _model.AddNewShow(NewShow))
-                {
-                    OnSuccessfulAdd();
-                }
-
+                OnSuccessfulAdd();
             }
-            catch (NetworkException ex)
+            else
             {
-                OnMessageApplication($"Váratlan hiba történt! ({ex.Message})");
+                OnMessageApplication("Error happened during the process.");
             }
         }
 

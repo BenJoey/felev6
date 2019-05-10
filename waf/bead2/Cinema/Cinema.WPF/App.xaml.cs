@@ -105,12 +105,11 @@ namespace Cinema.WPF
             _showViewModel.MessageApplication += ViewModel_MessageApplication;
             _showViewModel.Success += (o, args) =>
             {
-                ShowMsgBox("Successfully added");
                 OpenMenu(_showWindow);
+                ShowMsgBox("Successfully added");
             };
 
-            _showWindow = new NewShowWindow();
-            _showWindow.DataContext = _showViewModel;
+            _showWindow = new NewShowWindow {DataContext = _showViewModel};
 
             _showWindow.Show();
             _menuWindow.Close();

@@ -23,6 +23,7 @@ namespace Cinema.WebAPI.Controllers
 
         // POST: api/Show
         [HttpPost]
+        [Authorize]
         public IActionResult NewShow([FromBody] ShowDto item)
         {
             try
@@ -45,18 +46,34 @@ namespace Cinema.WebAPI.Controllers
                             (DateTime.Compare(show.StartTime, newShowStart) < 1 && DateTime.Compare(newShowEnd,
                                  showEnd) < 1) || (DateTime.Compare(newShowStart, show.StartTime) == -1 &&
                                                    DateTime.Compare(newShowEnd, show.StartTime) == 1);
-                            
+
                         if (invalidTime)
                         {
                             return BadRequest();
                         }
                     }
+
                     var newShow = new Show()
                     {
                         Movie = selectedMovie,
                         Room = selectedRoom,
                         StartTime = DateTime.Parse(item.StartTime)
                     };
+                    for (int i = 0; i < newShow.Room.NumOfRows; i++)
+                    {
+                        for (int j = 0; j < newShow.Room.NumOfCols; j++)
+                        {
+                            _context.Seats.Add(
+                                new Seat()
+                                {
+                                    Row = i,
+                                    Col = j,
+                                    Room = newShow.Room,
+                                    Show = newShow,
+                                    State = State.Free
+                                });
+                        }
+                    }
 
                     _context.Shows.Add(newShow);
 
@@ -72,6 +89,10 @@ namespace Cinema.WebAPI.Controllers
                 return BadRequest();
             }
             catch (DbUpdateException)
+            {
+                return BadRequest();
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
