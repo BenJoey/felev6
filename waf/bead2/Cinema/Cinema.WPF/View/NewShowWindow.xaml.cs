@@ -17,9 +17,9 @@ namespace Cinema.WPF.View
     /// <summary>
     /// Interaction logic for NewShowView.xaml
     /// </summary>
-    public partial class NewShowView : Window
+    public partial class NewShowWindow : Window
     {
-        public NewShowView()
+        public NewShowWindow()
         {
             InitializeComponent();
         }

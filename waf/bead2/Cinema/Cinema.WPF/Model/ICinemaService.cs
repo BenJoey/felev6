@@ -13,8 +13,8 @@ namespace Cinema.WPF.Model
         bool IsUserLoggedIn { get; }
         Task<bool> LoginAsync(string name, string password);
         Task<bool> LogoutAsync();
-        Task<IEnumerable<Movie>> LoadMovies();
-        Task<IEnumerable<Room>> LoadRooms();
+        Task<IEnumerable<MovieDto>> LoadMovies();
+        Task<IEnumerable<RoomDto>> LoadRooms();
         Task<bool> AddNewShow(ShowDto newShowData);
     }
 }

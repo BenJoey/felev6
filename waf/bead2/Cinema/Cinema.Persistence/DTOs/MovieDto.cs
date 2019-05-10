@@ -7,17 +7,15 @@ namespace Cinema.Persistence.DTOs
 {
     public class MovieDto
     {
-        [Required]
+        public int Id { get; set; }
+
         public String Title { get; set; }
 
-        [Required]
         public TimeSpan Length { get; set; }
 
-        [Required]
         [DataType(DataType.MultilineText)]
         public String Description { get; set; }
 
-        [Required]
         public String Director { get; set; }
     }
 }

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinema.Persistence;
 using Cinema.Persistence.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.WebAPI.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Show")]
     public class ShowController : Controller
     {
@@ -62,21 +62,48 @@ namespace Cinema.WebAPI.Controllers
         }
 
         [HttpGet("MovieList")]
-        public IEnumerable<Movie> MovieList()
+        [Authorize]
+        public IActionResult MovieList()
         {
-            IQueryable<Movie> movies = _context.Movies
+            try
+            {
+                return Ok(_context.Movies.ToList().Select(mov => new MovieDto
+                {
+                    Id = mov.Id,
+                    Title = mov.Title
+                }));
+            }
+            catch
+            {
+                // Internal Server Error
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            /*IQueryable<Movie> movies = _context.Movies
                 .OrderBy(l => l.Title);
 
-            return movies;
+            return Ok(movies);*/
         }
 
         [HttpGet("RoomList")]
-        public IEnumerable<Room> RoomList()
+        public IActionResult RoomList()
         {
-            IQueryable<Room> rooms = _context.Rooms
+            try
+            {
+                return Ok(_context.Rooms.ToList().Select(room => new RoomDto
+                {
+                    Id = room.Id,
+                    RoomName = room.RoomName
+                }));
+            }
+            catch
+            {
+                // Internal Server Error
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            /*IQueryable<Room> rooms = _context.Rooms
                 .OrderBy(l => l.RoomName);
 
-            return rooms;
+            return Ok(rooms);*/
         }
     }
 }

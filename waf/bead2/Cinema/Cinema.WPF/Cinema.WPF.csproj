@@ -98,8 +98,8 @@
     <Compile Include="View\MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NewShowView.xaml.cs">
-      <DependentUpon>NewShowView.xaml</DependentUpon>
+    <Compile Include="View\NewShowWindow.xaml.cs">
+      <DependentUpon>NewShowWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="View\LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -132,7 +132,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\NewShowView.xaml">
+    <Page Include="View\NewShowWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

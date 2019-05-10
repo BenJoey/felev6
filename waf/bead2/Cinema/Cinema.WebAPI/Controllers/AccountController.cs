@@ -12,7 +12,6 @@ using Cinema.Persistence.DTOs;
 
 namespace Cinema.WebAPI.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Account")]
     public class AccountController : Controller
     {

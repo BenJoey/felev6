@@ -49,31 +49,41 @@ namespace Cinema.WPF.Model
 
             if (res.IsSuccessStatusCode)
             {
+                _isUserLoggedIn = false;
                 return true;
             }
 
             throw new NetworkException("Service returned response" + res.StatusCode);
         }
 
-        public async Task<IEnumerable<Movie>> LoadMovies()
+        public async Task<IEnumerable<MovieDto>> LoadMovies()
         {
-            HttpResponseMessage res = await _client.GetAsync("api/Show/MovieList");
+            using (HttpResponseMessage response = await _client.GetAsync("api/Show/MovieList"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<IEnumerable<MovieDto>>();
+                }
+
+                throw new NetworkException("Service returned response: " + response.StatusCode);
+            }
+            /*HttpResponseMessage res = await _client.GetAsync("api/Show/MovieList");
 
             if (res.IsSuccessStatusCode)
             {
                 return await res.Content.ReadAsAsync<IEnumerable<Movie>>();
             }
 
-            throw new NetworkException("Service returned response: " + res.StatusCode);
+            throw new NetworkException("Service returned response: " + res.StatusCode);*/
         }
 
-        public async Task<IEnumerable<Room>> LoadRooms()
+        public async Task<IEnumerable<RoomDto>> LoadRooms()
         {
             HttpResponseMessage res = await _client.GetAsync("api/Show/RoomList");
 
             if (res.IsSuccessStatusCode)
             {
-                return await res.Content.ReadAsAsync<IEnumerable<Room>>();
+                return await res.Content.ReadAsAsync<IEnumerable<RoomDto>>();
             }
 
             throw new NetworkException("Service returned response: " + res.StatusCode);

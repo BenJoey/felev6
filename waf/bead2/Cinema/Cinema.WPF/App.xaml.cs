@@ -15,9 +15,11 @@ namespace Cinema.WPF
         private ICinemaService _service;
         private LoginViewModel _loginViewModel;
         private MenuViewModel _menuViewModel;
-        private MainWindow _mainWindow;
+        private NewShowViewModel _showViewModel;
+        // private MainWindow _mainWindow;
         private LoginWindow _loginWindow;
         private MenuWindow _menuWindow;
+        private NewShowWindow _showWindow;
 
         public App()
         {
@@ -49,7 +51,7 @@ namespace Cinema.WPF
 
         private void ViewModel_LoginSuccess(object sender, EventArgs e)
         {
-            _menuViewModel = new MenuViewModel(_service);
+            /*_menuViewModel = new MenuViewModel(_service);
             _menuViewModel.NewMovie += OpenNewMovie;
             _menuViewModel.NewShow += OpenNewShow;
             _menuViewModel.Reserve += OpenNewReserve;
@@ -62,17 +64,18 @@ namespace Cinema.WPF
             };
 
             _menuWindow.Show();
-            _loginWindow.Close();
+            _loginWindow.Close();*/
+            OpenMenu(_loginWindow);
         }
 
         private void ViewModel_LoginFailed(object sender, EventArgs e)
         {
-            MessageBox.Show("Invalid username or password!", "Login", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            ShowMsgBox("Invalid username or password!", "Login");
         }
 
         private void ViewModel_MessageApplication(object sender, MessageEventArgs e)
         {
-            MessageBox.Show(e.Message, "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            ShowMsgBox(e.Message);
         }
 
         private void ViewModel_Logout(object sender, EventArgs e)
@@ -97,11 +100,49 @@ namespace Cinema.WPF
         }
         private void OpenNewShow(object sender, EventArgs e)
         {
+            _showViewModel = new NewShowViewModel(_service);
+
+            _showWindow = new NewShowWindow
+            {
+                DataContext = _showViewModel
+            };
+            _showViewModel.Canceled += (o, args) => { OpenMenu(_showWindow); };
+            _showViewModel.MessageApplication += ViewModel_MessageApplication;
+            _showViewModel.Success += (o, args) =>
+            {
+                ShowMsgBox("Successfully added");
+                OpenMenu(_showWindow);
+            };
+
+            _showWindow.Show();
             _menuWindow.Close();
         }
+
         private void OpenNewReserve(object sender, EventArgs e)
         {
             _menuWindow.Close();
+        }
+
+        private void OpenMenu(Window previous = null)
+        {
+            _menuViewModel = new MenuViewModel(_service);
+            _menuViewModel.NewMovie += OpenNewMovie;
+            _menuViewModel.NewShow += OpenNewShow;
+            _menuViewModel.Reserve += OpenNewReserve;
+            _menuViewModel.LogoutSuccess += ViewModel_Logout;
+            _menuViewModel.MessageApplication += ViewModel_MessageApplication;
+
+            _menuWindow = new MenuWindow
+            {
+                DataContext = _menuViewModel
+            };
+            previous?.Close();
+            _menuWindow.Show();
+        }
+
+        private void ShowMsgBox(String msg, String source = "")
+        {
+            MessageBox.Show(msg, source, MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

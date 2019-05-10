@@ -14,7 +14,6 @@ namespace Cinema.Persistence.DTOs
         public int roomId { get; set; }
 
         [Required]
-        [DataType(DataType.MultilineText)]
         public String StarTime { get; set; }
     }
 }

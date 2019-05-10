@@ -10,8 +10,8 @@ namespace Cinema.WPF.ViewModel
     public class NewShowViewModel : ViewModelBase
     {
         private readonly ICinemaService _model;
-        private ObservableCollection<Movie> movies;
-        private ObservableCollection<Room> rooms;
+        private ObservableCollection<MovieDto> movies;
+        private ObservableCollection<RoomDto> rooms;
         private ShowDto newShow;
 
         public DelegateCommand SendCommand { get; set; }
@@ -26,6 +26,9 @@ namespace Cinema.WPF.ViewModel
 
             NewShow = new ShowDto();
             LoadData();
+
+            SendCommand = new DelegateCommand(param => AddNewShow());
+            CancelCommand = new DelegateCommand(param => OnCancel());
         }
 
         public ShowDto NewShow
@@ -38,7 +41,7 @@ namespace Cinema.WPF.ViewModel
             }
         }
 
-        public ObservableCollection<Movie> Movies
+        public ObservableCollection<MovieDto> Movies
         {
             get => movies;
             set
@@ -48,7 +51,7 @@ namespace Cinema.WPF.ViewModel
             }
         }
 
-        public ObservableCollection<Room> Rooms
+        public ObservableCollection<RoomDto> Rooms
         {
             get => rooms;
             set
@@ -62,8 +65,9 @@ namespace Cinema.WPF.ViewModel
         {
             try
             {
-                movies = new ObservableCollection<Movie>(await _model.LoadMovies());
-                rooms = new ObservableCollection<Room>(await _model.LoadRooms());
+                var TT = await _model.LoadMovies();
+                // movies = new ObservableCollection<MovieDto>(await _model.LoadMovies());
+                rooms = new ObservableCollection<RoomDto>(await _model.LoadRooms());
             }
             catch (NetworkException ex)
             {
@@ -85,6 +89,11 @@ namespace Cinema.WPF.ViewModel
             {
                 OnMessageApplication($"Váratlan hiba történt! ({ex.Message})");
             }
+        }
+
+        private void OnCancel()
+        {
+            Canceled?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnSuccessfulAdd()
