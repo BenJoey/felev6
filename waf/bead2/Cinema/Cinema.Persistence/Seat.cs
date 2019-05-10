@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public enum State { Free, Reserved, Sold }
+public enum State { Free, Reserved, Sold, Selected }
 
 namespace Cinema.Persistence
 {

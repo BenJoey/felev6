@@ -100,5 +100,17 @@ namespace Cinema.WPF.Model
             throw new NetworkException("Service returned response: " + res.StatusCode);
         }
 
+        public async Task<IEnumerable<SeatDto>> LoadSeats(int id)
+        {
+            HttpResponseMessage res = await _client.GetAsync("api/Reservation/SeatList/"+id);
+
+            if (res.IsSuccessStatusCode)
+            {
+                return await res.Content.ReadAsAsync<IEnumerable<SeatDto>>();
+            }
+
+            throw new NetworkException("Service returned response: " + res.StatusCode);
+        }
+
     }
 }

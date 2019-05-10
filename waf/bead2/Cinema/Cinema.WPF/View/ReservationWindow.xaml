@@ -5,8 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema.WPF.View"
         mc:Ignorable="d"
-        Title="New Reservation" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="New Reservation" Height="850" Width="800">
+    <StackPanel>
+        <Button Command="{Binding CancelCommand}" Margin="10,20,0,0" Width="100" HorizontalAlignment="Left">Cancel</Button>
+        <DataGrid x:Name="Shows" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Shows}" Margin="0,10,0,10" Height="200" SelectedItem="{Binding SelectedShow}">
+        <DataGrid.Columns>
+                <DataGridTextColumn Header="Starting Time" Binding="{Binding StartTime}" Width="200"/>
+                <DataGridTextColumn Header="Movie Name" Binding="{Binding movieName}" Width="200"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Command="{Binding OpenShowSeats}" CommandParameter="{Binding SelectedShow}" Margin="10,0,0,0" Width="100" HorizontalAlignment="Left">Select</Button>
+    <ItemsControl ItemsSource="{Binding Seats}" Height="500">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Button Command="{Binding ButtonClick}" CommandParameter="{Binding Id}" Focusable="False" RenderTransformOrigin="0.5, 0.5">
+                    <Button.RenderTransform>
+                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                    </Button.RenderTransform>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding State}" Value="Reserved">
+                                    <Setter Property="Background" Value="Blue" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding State}" Value="Sold">
+                                    <Setter Property="Background" Value="Red" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding State}" Value="Selected">
+                                    <Setter Property="Background" Value="LightGreen" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemContainerStyle>
+            <Style>
+                <Setter Property="Grid.Row" Value="{Binding Row}" />
+                <Setter Property="Grid.Column" Value="{Binding Col}" />
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+        <StatusBar>
+            <StatusBarItem>
+                <TextBlock Text="Foglaló neve: " />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding DisplayName}" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <TextBlock Text="Foglaló telefonszáma: " />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding DisplayPhone}" />
+            </StatusBarItem>
+        </StatusBar>
+    </StackPanel>
 </Window>

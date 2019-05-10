@@ -24,11 +24,33 @@ namespace Cinema.WebAPI.Controllers
         {
             try
             {
-                return Ok(_context.Shows.Where(o => o.StartTime > DateTime.Now).ToList().Select(show => new ShowDto
+                return Ok(_context.Shows.Where(o => o.StartTime > DateTime.Now).OrderBy(o => o.StartTime).ToList().Select(show => new ShowDto
                 {
                     showId = show.Id,
-                    movieName = show.Movie.Title,
+                    movieName = _context.Movies.Where(o => o.Id == show.MovieRefId).Select(o => o.Title).FirstOrDefault(),
                     StartTime = show.StartTime.ToString("F")
+                }));
+            }
+            catch
+            {
+                // Internal Server Error
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet("SeatList/{id}")]
+        public IActionResult SeatList(int id)
+        {
+            try
+            {
+                return Ok(_context.Seats.Where(o => o.ShowRefId == id).ToList().Select(seat => new SeatDto
+                {
+                    Id = seat.Id,
+                    Row = seat.Row,
+                    Col = seat.Col,
+                    NameReserved = seat.NameReserved,
+                    PhoneNum = seat.PhoneNum,
+                    State = seat.State
                 }));
             }
             catch

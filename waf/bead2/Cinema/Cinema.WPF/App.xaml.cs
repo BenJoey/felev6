@@ -16,10 +16,11 @@ namespace Cinema.WPF
         private LoginViewModel _loginViewModel;
         private MenuViewModel _menuViewModel;
         private NewShowViewModel _showViewModel;
-        // private MainWindow _mainWindow;
+        private ReservationViewModel _reservationViewModel;
         private LoginWindow _loginWindow;
         private MenuWindow _menuWindow;
         private NewShowWindow _showWindow;
+        private ReservationWindow _reservationWindow;
 
         public App()
         {
@@ -51,20 +52,6 @@ namespace Cinema.WPF
 
         private void ViewModel_LoginSuccess(object sender, EventArgs e)
         {
-            /*_menuViewModel = new MenuViewModel(_service);
-            _menuViewModel.NewMovie += OpenNewMovie;
-            _menuViewModel.NewShow += OpenNewShow;
-            _menuViewModel.Reserve += OpenNewReserve;
-            _menuViewModel.LogoutSuccess += ViewModel_Logout;
-            _menuViewModel.MessageApplication += ViewModel_MessageApplication;
-
-            _menuWindow = new MenuWindow
-            {
-                DataContext = _menuViewModel
-            };
-
-            _menuWindow.Show();
-            _loginWindow.Close();*/
             OpenMenu(_loginWindow);
         }
 
@@ -96,6 +83,7 @@ namespace Cinema.WPF
 
         private void OpenNewMovie(object sender, EventArgs e)
         {
+            // TODO
             _menuWindow.Close();
         }
         private void OpenNewShow(object sender, EventArgs e)
@@ -117,6 +105,13 @@ namespace Cinema.WPF
 
         private void OpenNewReserve(object sender, EventArgs e)
         {
+            _reservationViewModel = new ReservationViewModel(_service);
+            _reservationViewModel.Canceled += (o, args) => { OpenMenu(_reservationWindow); };
+            _reservationViewModel.MessageApplication += ViewModel_MessageApplication;
+
+            _reservationWindow = new ReservationWindow {DataContext = _reservationViewModel};
+
+            _reservationWindow.Show();
             _menuWindow.Close();
         }
 
