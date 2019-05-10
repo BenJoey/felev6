@@ -9,6 +9,7 @@ namespace Cinema.Persistence.DTOs
     {
         public Int32 Id { get; set; }
 
+        [Required]
         public String Title { get; set; }
 
         public String Length { get; set; }
@@ -17,6 +18,6 @@ namespace Cinema.Persistence.DTOs
 
         public String Director { get; set; }
 
-        public ImageDto Poster { get; set; }
+        public Byte[] Poster { get; set; }
     }
 }

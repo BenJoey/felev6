@@ -43,6 +43,12 @@ namespace Cinema.WebAPI.Controllers
 
                     _context.Movies.Add(newMovie);
 
+                    _context.Posters.Add(new Poster
+                    {
+                        Movie = newMovie,
+                        Image = item.Poster
+                    });
+
                     _context.SaveChanges();
                 }
                 else

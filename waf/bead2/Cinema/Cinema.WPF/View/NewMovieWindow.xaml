@@ -29,5 +29,6 @@
             <Button Command="{Binding OpenPicture}" Width="100" Height="20" Margin="0,0,0,0">Upload picture</Button>
         </StackPanel>
         <Button Command="{Binding SendCommand}" Width="150" Margin="0,50,0,0">Add Movie</Button>
+        <Button Command="{Binding CancelCommand}" Width="150" Margin="20">Cancel</Button>
     </StackPanel>
 </Window>

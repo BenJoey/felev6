@@ -87,6 +87,22 @@ namespace Cinema.WebSite.Controllers
             return View(reserveVm);
         }
 
+        public FileResult ImageForMovie(Int32? movieId)
+        {
+            if (movieId == null)
+                return File("~/images/NoImage.png", "image/png");
+
+            Byte[] imageContent = _context.Posters
+                .Where(image => image.MovieRefId == movieId)
+                .Select(image => image.Image)
+                .FirstOrDefault();
+
+            if (imageContent == null)
+                return File("~/images/NoImage.png", "image/png");
+
+            return File(imageContent, "image/png");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Reserve(ReservationViewModel reservationViewModel)

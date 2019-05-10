@@ -29,7 +29,7 @@ namespace Cinema.WPF.ViewModel
 
             newMovie = new MovieDto();
 
-            // SendCommand = new DelegateCommand(param => AddNewShow());
+            SendCommand = new DelegateCommand(param => AddNewMovie());
             CancelCommand = new DelegateCommand(param => OnCancel());
             OpenPicture = new DelegateCommand(param => CreateImage());
         }
@@ -56,14 +56,24 @@ namespace Cinema.WPF.ViewModel
                 if (result == true)
                 {
                     PosterPath = dialog.FileName;
-                    newMovie.Poster = new ImageDto
-                    {
-                        ImageSmall = ImageHandler.OpenAndResize(dialog.FileName, 100),
-                        ImageLarge = ImageHandler.OpenAndResize(dialog.FileName, 600)
-                    };
+                    OnPropertyChanged(nameof(PosterPath));
+                    newMovie.Poster = ImageHandler.OpenAndResize(dialog.FileName, 600);
                 }
             }
             catch { }
+        }
+
+        private async void AddNewMovie()
+        {
+            if (!CheckModel()) { return;}
+            if (await _model.SendNewMovie(NewMovie))
+            {
+                OnSuccessfulAdd();
+            }
+            else
+            {
+                OnMessageApplication("Error happened during the process.");
+            }
         }
 
         private void OnCancel()
@@ -74,6 +84,36 @@ namespace Cinema.WPF.ViewModel
         private void OnSuccessfulAdd()
         {
             Success?.Invoke(this, EventArgs.Empty);
+        }
+
+        private Boolean CheckModel()
+        {
+            if (NewMovie.Poster == null)
+            {
+                OnMessageApplication("No Poster Selected");
+                return false;
+            }
+            if (NewMovie.Description == "")
+            {
+                OnMessageApplication("Empty Description");
+                return false;
+            }
+            if (NewMovie.Title == "")
+            {
+                OnMessageApplication("Empty Title");
+                return false;
+            }
+            if (NewMovie.Length == "")
+            {
+                OnMessageApplication("Empty Title");
+                return false;
+            }
+            if (NewMovie.Director == "")
+            {
+                OnMessageApplication("No director given");
+                return false;
+            }
+            return true;
         }
     }
 }
