@@ -10,7 +10,7 @@
 {
     <div class="box1">
         <a asp-area="" asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
-            <img src="@item.PosterPath" style="padding-bottom: 0.5em" width="180" height="320" />
+            <img src="@Url.Action("ImageForMovie", new {movieId = item.Id})" style="padding-bottom: 0.5em" width="180" height="320" />
         </a>
         <p>@item.Title</p>
     </div>

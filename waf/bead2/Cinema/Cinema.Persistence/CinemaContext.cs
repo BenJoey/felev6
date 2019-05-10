@@ -11,5 +11,6 @@ namespace Cinema.Persistence
         public DbSet<Show> Shows { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Poster> Posters { get; set; }
     }
 }

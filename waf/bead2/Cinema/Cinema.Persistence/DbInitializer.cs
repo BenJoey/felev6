@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ namespace Cinema.Persistence
 {
     public class DbInitializer
     {
-        public static void Initialize(CinemaContext context, UserManager<Employee> userManager = null)
+        public static void Initialize(CinemaContext context, UserManager<Employee> userManager, string posterDirectory)
         {
 
             if (context.Movies.Any())
@@ -20,7 +21,6 @@ namespace Cinema.Persistence
             var yourName = new Movie()
             {
                 Title = "Your Name",
-                PosterPath = "images/posters/YourName.png",
                 Director = "Makoto Shinkai",
                 Length = new TimeSpan(1, 46, 0),
                 Description =
@@ -35,7 +35,6 @@ namespace Cinema.Persistence
             var yugioh = new Movie()
             {
                 Title = "YuGiOh - Dark Side of Dimensions",
-                PosterPath = "images/posters/YuGiOh.png",
                 Director = "Satoshi Kuwabara",
                 Length = new TimeSpan(2, 10, 0),
                 Description =
@@ -50,7 +49,6 @@ namespace Cinema.Persistence
             var eva = new Movie()
             {
                 Title = "The End of Evangelion",
-                PosterPath = "images/posters/EndOfEva.png",
                 Director = "Hideaki Anno",
                 Length = new TimeSpan(1, 27, 0),
                 Description =
@@ -62,7 +60,6 @@ namespace Cinema.Persistence
             var lovelive = new Movie()
             {
                 Title = "Love Live! The School Idol Movie",
-                PosterPath = "images/posters/LL.png",
                 Director = "Kyogoku Takahiko",
                 Length = new TimeSpan(1, 42, 0),
                 Description =
@@ -74,7 +71,6 @@ namespace Cinema.Persistence
             var nogamenolife = new Movie()
             {
                 Title = "No Game No Life Zero",
-                PosterPath = "images/posters/NGNLZ.png",
                 Director = "Atsuko Ishizuka",
                 Length = new TimeSpan(1, 46, 0),
                 Description =
@@ -244,6 +240,56 @@ namespace Cinema.Persistence
                 }
 
                 context.Shows.Add(prog);
+            }
+
+            if (Directory.Exists(posterDirectory))
+            {
+                var images = new List<Poster>();
+                if (File.Exists(Path.Combine(posterDirectory, "EndOfEva.png")))
+                {
+                    images.Add(new Poster
+                    {
+                        Movie = eva,
+                        Image = File.ReadAllBytes(Path.Combine(posterDirectory, "EndOfEva.png"))
+                    });
+                }
+                if (File.Exists(Path.Combine(posterDirectory, "LL.png")))
+                {
+                    images.Add(new Poster
+                    {
+                        Movie = lovelive,
+                        Image = File.ReadAllBytes(Path.Combine(posterDirectory, "LL.png"))
+                    });
+                }
+                if (File.Exists(Path.Combine(posterDirectory, "NGNLZ.png")))
+                {
+                    images.Add(new Poster
+                    {
+                        Movie = nogamenolife,
+                        Image = File.ReadAllBytes(Path.Combine(posterDirectory, "NGNLZ.png"))
+                    });
+                }
+                if (File.Exists(Path.Combine(posterDirectory, "YourName.png")))
+                {
+                    images.Add(new Poster
+                    {
+                        Movie = yourName,
+                        Image = File.ReadAllBytes(Path.Combine(posterDirectory, "YourName.png"))
+                    });
+                }
+                if (File.Exists(Path.Combine(posterDirectory, "YuGiOh.png")))
+                {
+                    images.Add(new Poster
+                    {
+                        Movie = yugioh,
+                        Image = File.ReadAllBytes(Path.Combine(posterDirectory, "YuGiOh.png"))
+                    });
+                }
+
+                foreach (var image in images)
+                {
+                    context.Posters.Add(image);
+                }
             }
 
             if (userManager != null)

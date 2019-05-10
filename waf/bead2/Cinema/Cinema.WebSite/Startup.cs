@@ -27,6 +27,18 @@ namespace Cinema.WebSite
                     options.UseSqlServer(Configuration.GetConnectionString("CinemaContext"), 
                         b => b.MigrationsAssembly("Cinema.WebSite")));
 
+            services.AddIdentity<Employee, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 3;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                })
+                .AddEntityFrameworkStores<CinemaContext>()
+                .AddDefaultTokenProviders();
+
             //services.AddDbContext<CinemaContext>(options => options.UseSqlite("Data Source=Movie.db"));
         }
 
@@ -43,9 +55,8 @@ namespace Cinema.WebSite
             }
 
             var dbContext = serviceProvider.GetRequiredService<CinemaContext>();
-
-            // var userManager = serviceProvider.GetRequiredService<UserManager<Employee>>();
-            DbInitializer.Initialize(dbContext);
+            var userManager = serviceProvider.GetRequiredService<UserManager<Employee>>();
+            DbInitializer.Initialize(dbContext, userManager, Configuration.GetValue<string>("ImageStore"));
 
             app.UseStaticFiles();
 

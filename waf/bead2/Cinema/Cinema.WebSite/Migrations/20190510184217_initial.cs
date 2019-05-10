@@ -55,7 +55,6 @@ namespace Cinema.WebSite.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
-                    PosterPath = table.Column<string>(nullable: true),
                     Director = table.Column<string>(nullable: true),
                     Length = table.Column<TimeSpan>(nullable: false),
                     Description = table.Column<string>(nullable: true),
@@ -188,12 +187,32 @@ namespace Cinema.WebSite.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Posters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MovieRefId = table.Column<int>(nullable: false),
+                    Image = table.Column<byte[]>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posters_Movies_MovieRefId",
+                        column: x => x.MovieRefId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shows",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Movies = table.Column<int>(nullable: true),
+                    MovieRefId = table.Column<int>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false),
                     RoomRefId = table.Column<int>(nullable: false)
                 },
@@ -201,11 +220,11 @@ namespace Cinema.WebSite.Migrations
                 {
                     table.PrimaryKey("PK_Shows", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Shows_Movies_Movies",
-                        column: x => x.Movies,
+                        name: "FK_Shows_Movies_MovieRefId",
+                        column: x => x.MovieRefId,
                         principalTable: "Movies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Shows_Rooms_RoomRefId",
                         column: x => x.RoomRefId,
@@ -285,6 +304,11 @@ namespace Cinema.WebSite.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Posters_MovieRefId",
+                table: "Posters",
+                column: "MovieRefId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Seats_Rooms",
                 table: "Seats",
                 column: "Rooms");
@@ -295,9 +319,9 @@ namespace Cinema.WebSite.Migrations
                 column: "ShowRefId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Shows_Movies",
+                name: "IX_Shows_MovieRefId",
                 table: "Shows",
-                column: "Movies");
+                column: "MovieRefId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Shows_RoomRefId",
@@ -321,6 +345,9 @@ namespace Cinema.WebSite.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Posters");
 
             migrationBuilder.DropTable(
                 name: "Seats");

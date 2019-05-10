@@ -5,6 +5,7 @@ using Cinema.Persistence;
 using Cinema.WebSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses;
 
 namespace Cinema.WebSite.Controllers
 {

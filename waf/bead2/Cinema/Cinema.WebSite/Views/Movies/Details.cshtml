@@ -8,7 +8,7 @@
 <table>
     <tr>
         <td>
-            <img src="@System.IO.Path.Combine("../../", Model.Film.PosterPath)" width="180" height="320" />
+            <img src="@Url.Action("ImageForMovie", new {movieId = Model.Film.Id})" width="180" height="320" />
         </td>
         <td>
             <div style="margin-left: 20px;">

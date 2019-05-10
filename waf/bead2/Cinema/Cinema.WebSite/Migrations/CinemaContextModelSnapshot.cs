@@ -87,13 +87,28 @@ namespace Cinema.WebSite.Migrations
 
                     b.Property<DateTime>("Modified");
 
-                    b.Property<string>("PosterPath");
-
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("Cinema.Persistence.Poster", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("Image");
+
+                    b.Property<int>("MovieRefId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieRefId");
+
+                    b.ToTable("Posters");
                 });
 
             modelBuilder.Entity("Cinema.Persistence.Room", b =>
@@ -271,6 +286,14 @@ namespace Cinema.WebSite.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Cinema.Persistence.Poster", b =>
+                {
+                    b.HasOne("Cinema.Persistence.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieRefId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Cinema.Persistence.Seat", b =>
