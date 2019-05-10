@@ -116,10 +116,6 @@ namespace Cinema.WebAPI.Controllers
                 // Internal Server Error
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            /*IQueryable<Movie> movies = _context.Movies
-                .OrderBy(l => l.Title);
-
-            return Ok(movies);*/
         }
 
         [HttpGet("RoomList")]
@@ -138,10 +134,6 @@ namespace Cinema.WebAPI.Controllers
                 // Internal Server Error
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            /*IQueryable<Room> rooms = _context.Rooms
-                .OrderBy(l => l.RoomName);
-
-            return Ok(rooms);*/
         }
     }
 }

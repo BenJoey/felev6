@@ -88,5 +88,17 @@ namespace Cinema.WPF.Model
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<IEnumerable<ShowDto>> LoadShows()
+        {
+            HttpResponseMessage res = await _client.GetAsync("api/Reservation/ShowList");
+
+            if (res.IsSuccessStatusCode)
+            {
+                return await res.Content.ReadAsAsync<IEnumerable<ShowDto>>();
+            }
+
+            throw new NetworkException("Service returned response: " + res.StatusCode);
+        }
+
     }
 }

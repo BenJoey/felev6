@@ -16,5 +16,6 @@ namespace Cinema.WPF.Model
         Task<IEnumerable<MovieDto>> LoadMovies();
         Task<IEnumerable<RoomDto>> LoadRooms();
         Task<Boolean> AddNewShow(ShowDto newShowData);
+        Task<IEnumerable<ShowDto>> LoadShows();
     }
 }

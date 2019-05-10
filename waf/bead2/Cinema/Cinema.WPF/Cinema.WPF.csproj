@@ -99,11 +99,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModel\NewShowViewModel.cs" />
+    <Compile Include="ViewModel\ReservationViewModel.cs" />
     <Compile Include="View\MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NewShowWindow.xaml.cs">
       <DependentUpon>NewShowWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReservationWindow.xaml.cs">
+      <DependentUpon>ReservationWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="View\LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -129,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewShowWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ReservationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

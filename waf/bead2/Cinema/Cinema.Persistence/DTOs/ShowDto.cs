@@ -5,10 +5,12 @@ namespace Cinema.Persistence.DTOs
 {
     public class ShowDto
     {
-        [Required]
+        public Int32 showId { get; set; }
+
         public Int32 movieId { get; set; }
 
-        [Required]
+        public String movieName { get; set; }
+
         public Int32 roomId { get; set; }
 
         [Required]
