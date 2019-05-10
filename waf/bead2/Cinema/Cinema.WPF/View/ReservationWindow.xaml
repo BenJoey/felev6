@@ -23,7 +23,7 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Button Command="{Binding ButtonClick}" CommandParameter="{Binding Id}" Focusable="False" RenderTransformOrigin="0.5, 0.5">
+                <Button Command="{Binding ButtonClick}" CommandParameter="{Binding Id}" RenderTransformOrigin="0.5, 0.5">
                     <Button.RenderTransform>
                         <ScaleTransform ScaleX="1" ScaleY="1" />
                     </Button.RenderTransform>

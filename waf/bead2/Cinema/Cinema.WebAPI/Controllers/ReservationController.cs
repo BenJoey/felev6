@@ -46,11 +46,11 @@ namespace Cinema.WebAPI.Controllers
                 return Ok(_context.Seats.Where(o => o.ShowRefId == id).ToList().Select(seat => new SeatDto
                 {
                     Id = seat.Id,
-                    Row = seat.Row,
-                    Col = seat.Col,
+                    Row = seat.Row+1,
+                    Col = seat.Col+1,
                     NameReserved = seat.NameReserved,
                     PhoneNum = seat.PhoneNum,
-                    State = seat.State
+                    State = seat.State.ToString()
                 }));
             }
             catch
