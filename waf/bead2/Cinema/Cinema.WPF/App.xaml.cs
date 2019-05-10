@@ -108,6 +108,11 @@ namespace Cinema.WPF
             _reservationViewModel = new ReservationViewModel(_service);
             _reservationViewModel.Canceled += (o, args) => { OpenMenu(_reservationWindow); };
             _reservationViewModel.MessageApplication += ViewModel_MessageApplication;
+            _reservationViewModel.Success += (o, args) =>
+            {
+                OpenMenu(_reservationWindow);
+                ShowMsgBox("Successfully sold");
+            };
 
             _reservationWindow = new ReservationWindow {DataContext = _reservationViewModel};
 

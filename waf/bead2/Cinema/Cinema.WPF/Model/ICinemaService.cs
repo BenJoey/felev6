@@ -18,5 +18,6 @@ namespace Cinema.WPF.Model
         Task<Boolean> AddNewShow(ShowDto newShowData);
         Task<IEnumerable<ShowDto>> LoadShows();
         Task<IEnumerable<SeatDto>> LoadSeats(int id);
+        Task<Boolean> SendReserve(ReservationDto newData);
     }
 }

@@ -9,7 +9,7 @@
     <StackPanel>
         <Button Command="{Binding NewMovieCommand}" Width="150" Margin="20">Add new movie</Button>
         <Button Command="{Binding NewShowCommand}" Width="150" Margin="20">Add new show</Button>
-        <Button Command="{Binding ReserveCommand}" Width="150" Margin="20">Add new reservation</Button>
+        <Button Command="{Binding ReserveCommand}" Width="150" Margin="20">Sell tickets</Button>
         <Button Command="{Binding LogoutCommand}" Width="150" Margin="20">Logout</Button>
     </StackPanel>
 </Window>

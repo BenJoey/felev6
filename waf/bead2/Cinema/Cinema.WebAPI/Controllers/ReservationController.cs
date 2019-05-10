@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cinema.Persistence;
 using Cinema.Persistence.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,29 @@ namespace Cinema.WebAPI.Controllers
         public ReservationController(CinemaContext context)
         {
             this._context = context;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> SellTickets([FromBody] ReservationDto newReserve)
+        {
+            try
+            {
+                var seats = _context.Seats.Where(o => newReserve.SelectedSeats.Contains(o.Id));
+                foreach (var seat in seats)
+                {
+                    seat.State = State.Sold;
+                    seat.NameReserved = newReserve.Name;
+                    seat.PhoneNum = newReserve.PhoneNum;
+                }
+                _context.UpdateRange(seats);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                BadRequest();
+            }
+            return Ok();
         }
 
         [HttpGet("ShowList")]

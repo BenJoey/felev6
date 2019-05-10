@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Resources;
 using Cinema.Persistence;
 using Cinema.Persistence.DTOs;
 using Newtonsoft.Json;
@@ -110,6 +111,13 @@ namespace Cinema.WPF.Model
             }
 
             throw new NetworkException("Service returned response: " + res.StatusCode);
+        }
+
+        public async Task<Boolean> SendReserve(ReservationDto newData)
+        {
+            HttpResponseMessage response = await _client.PostAsJsonAsync("api/Reservation/", newData);
+
+            return response.IsSuccessStatusCode;
         }
 
     }

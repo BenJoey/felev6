@@ -16,15 +16,17 @@ namespace Cinema.WPF.ViewModel
         private readonly ICinemaService _model;
         private ObservableCollection<ShowDto> shows;
         private ObservableCollection<ReservationButton> seats;
+        private IEnumerable<SeatDto> savedSeatDtos;
         private String sname;
         private String sphone;
+        private ReservationDto _newReservation;
         private ShowDto _selectedShow;
 
         private Int32 RowNum;
         private Int32 ColNum;
 
         public DelegateCommand OpenShowSeats { get; set; }
-        public DelegateCommand ButtonClick { get; set; }
+        public DelegateCommand SellTickets { get; set; }
         public DelegateCommand CancelCommand { get; set; }
 
         public event EventHandler Success;
@@ -35,10 +37,10 @@ namespace Cinema.WPF.ViewModel
             this._model = model ?? throw new ArgumentNullException(nameof(model));
             LoadData();
 
-            // SendCommand = new DelegateCommand(param => AddNewShow());
+            _newReservation = new ReservationDto();
             CancelCommand = new DelegateCommand(param => OnCancel());
             OpenShowSeats = new DelegateCommand(param => LoadSeats(param as ShowDto));
-            // ButtonClick = new DelegateCommand(param => Click((int)param));
+            SellTickets = new DelegateCommand(param => SendReservation());
         }
 
         public ObservableCollection<ShowDto> Shows => shows;
@@ -47,6 +49,16 @@ namespace Cinema.WPF.ViewModel
         public Int32 Columns => ColNum;
         public String DisplayedName => sname;
         public String DisplayedPhone => sphone;
+
+        public ReservationDto NewReserve
+        {
+            get => _newReservation;
+            set
+            {
+                _newReservation = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ShowDto SelectedShow
         {
@@ -77,9 +89,9 @@ namespace Cinema.WPF.ViewModel
         {
             try
             {
-                var SeatList = await _model.LoadSeats(selected.showId);
+                savedSeatDtos = await _model.LoadSeats(selected.showId);
                 seats = new ObservableCollection<ReservationButton>();
-                foreach (var Seat in SeatList)
+                foreach (var Seat in savedSeatDtos)
                 {
                     seats.Add(new ReservationButton
                     {
@@ -109,22 +121,48 @@ namespace Cinema.WPF.ViewModel
             var selected = seats.FirstOrDefault(o => o.Id == id);
             if(selected == null)
                 return;
-            if (selected.State == "Reserved" || selected.State == "Sold")
+            if (selected.State == "Sold" || selected.State == "Reserved")
             {
                 sname = selected.NameReserved;
                 sphone = selected.PhoneNum;
-                OnPropertyChanged(nameof(DisplayedName));
-                OnPropertyChanged(nameof(DisplayedPhone));
             }
+
+            if (selected.State != "Sold" && selected.State != "Selected")
+            {
+                selected.State = "Selected";
+            }
+
             else if (selected.State == "Selected")
             {
-                selected.State = "Free";
+                selected.State = savedSeatDtos.FirstOrDefault(o => o.Id == selected.Id)?.State;
+            }
+
+            OnPropertyChanged(nameof(DisplayedName));
+            OnPropertyChanged(nameof(DisplayedPhone));
+        }
+
+        private async void SendReservation()
+        {
+            _newReservation.SelectedSeats = seats.Where(o => o.State == "Selected").Select(o => o.Id);
+            if (!_newReservation.SelectedSeats.Any())
+            {
+                OnMessageApplication("No Seats Selected");
+                return;
+            }
+
+            if (await _model.SendReserve(_newReservation))
+            {
+                OnSucces();
             }
             else
             {
-                selected.State = "Selected";
-                OnPropertyChanged(nameof(Seats));
+                OnMessageApplication("Error happened during the process.");
             }
+        }
+
+        private void OnSucces()
+        {
+            Success?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnCancel()
