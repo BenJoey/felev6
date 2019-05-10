@@ -23,7 +23,7 @@ namespace Cinema.WPF.ViewModel
 
         public NewShowViewModel(ICinemaService model)
         {
-            this._model = model ?? throw new ArgumentNullException(nameof(model));
+            _model = model ?? throw new ArgumentNullException(nameof(model));
 
             NewShow = new ShowDto();
             LoadData();

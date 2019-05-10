@@ -98,11 +98,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\NewMovieViewModel.cs" />
     <Compile Include="ViewModel\NewShowViewModel.cs" />
     <Compile Include="ViewModel\ReservationButton.cs" />
     <Compile Include="ViewModel\ReservationViewModel.cs" />
     <Compile Include="View\MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewMovieWindow.xaml.cs">
+      <DependentUpon>NewMovieWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NewShowWindow.xaml.cs">
       <DependentUpon>NewShowWindow.xaml</DependentUpon>
@@ -130,6 +134,10 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MenuWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewMovieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

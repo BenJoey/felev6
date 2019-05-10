@@ -14,7 +14,7 @@
                       DisplayMemberPath="Title" 
                       SelectedValuePath="Id" 
                       SelectedValue="{Binding NewShow.movieId}">
-                </ComboBox>
+            </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Width="100" Margin="0,20,0,0">Room:</Label>
@@ -25,9 +25,9 @@
                       SelectedValue="{Binding NewShow.roomId}">
             </ComboBox>
         </StackPanel>
-        <Label Width="300" Margin="0,20,0,0">Start time: (Format: YYYY-MM-DD HH:MM:SS)</Label>
-        <TextBox Text="{Binding NewShow.StartTime}" VerticalAlignment="Center" Width="200" Margin="0,0,20,0"></TextBox>
-        <Button Command="{Binding SendCommand}" Width="150" Margin="20">Add show</Button>
+        <Label Width="300" Margin="0,20,0,0" HorizontalContentAlignment="Center">Start time: (Format: YYYY-MM-DD HH:MM:SS)</Label>
+        <TextBox Text="{Binding NewShow.StartTime}" VerticalAlignment="Center" Margin="60,0,60,0"/>
+        <Button Command="{Binding SendCommand}" Width="150" Margin="0,50,0,0">Add show</Button>
         <Button Command="{Binding CancelCommand}" Width="150" Margin="20">Cancel</Button>
     </StackPanel>
 </Window>

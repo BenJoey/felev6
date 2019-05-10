@@ -5,8 +5,6 @@ using System.Windows;
 using Cinema.WPF.Model;
 using Cinema.WPF.View;
 using Cinema.WPF.ViewModel;
-using Cinema.Persistence;
-using Cinema.Persistence.DTOs;
 
 namespace Cinema.WPF
 {
@@ -17,10 +15,12 @@ namespace Cinema.WPF
         private MenuViewModel _menuViewModel;
         private NewShowViewModel _showViewModel;
         private ReservationViewModel _reservationViewModel;
+        private NewMovieViewModel _movieViewModel;
         private LoginWindow _loginWindow;
         private MenuWindow _menuWindow;
         private NewShowWindow _showWindow;
         private ReservationWindow _reservationWindow;
+        private NewMovieWindow _movieWindow;
 
         public App()
         {
@@ -83,7 +83,13 @@ namespace Cinema.WPF
 
         private void OpenNewMovie(object sender, EventArgs e)
         {
-            // TODO
+            _movieViewModel = new NewMovieViewModel(_service);
+            _movieViewModel.Canceled += (o, args) => { OpenMenu(_movieWindow); };
+            _movieViewModel.MessageApplication += ViewModel_MessageApplication;
+
+            _movieWindow = new NewMovieWindow{DataContext = _movieViewModel};
+
+            _movieWindow.Show();
             _menuWindow.Close();
         }
         private void OpenNewShow(object sender, EventArgs e)
