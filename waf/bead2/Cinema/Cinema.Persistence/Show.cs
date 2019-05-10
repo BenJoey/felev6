@@ -9,8 +9,9 @@ namespace Cinema.Persistence
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        
-        [ForeignKey("Movies")]
+
+        public int MovieRefId { get; set; }
+        [ForeignKey("MovieRefId")]
         public Movie Movie { get; set; }
 
         [Display(Name = "Start Time")]

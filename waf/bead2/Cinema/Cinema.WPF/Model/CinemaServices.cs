@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 using Cinema.Persistence;
 using Cinema.Persistence.DTOs;
 using Newtonsoft.Json;
@@ -66,14 +67,6 @@ namespace Cinema.WPF.Model
 
                 throw new NetworkException("Service returned response: " + response.StatusCode);
             }
-            /*HttpResponseMessage res = await _client.GetAsync("api/Show/MovieList");
-
-            if (res.IsSuccessStatusCode)
-            {
-                return await res.Content.ReadAsAsync<IEnumerable<Movie>>();
-            }
-
-            throw new NetworkException("Service returned response: " + res.StatusCode);*/
         }
 
         public async Task<IEnumerable<RoomDto>> LoadRooms()
@@ -88,17 +81,11 @@ namespace Cinema.WPF.Model
             throw new NetworkException("Service returned response: " + res.StatusCode);
         }
 
-        public async Task<bool> AddNewShow(ShowDto newShowData)
+        public async Task<Boolean> AddNewShow(ShowDto newShowData)
         {
-            using (HttpResponseMessage response = await _client.PostAsJsonAsync("api/Show/NewShow", newShowData))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
+            HttpResponseMessage response = await _client.PostAsJsonAsync("api/Show/", newShowData);
 
-                return false;
-            }
+            return response.IsSuccessStatusCode;
         }
 
     }

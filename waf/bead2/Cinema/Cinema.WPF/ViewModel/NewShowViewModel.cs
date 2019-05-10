@@ -79,7 +79,6 @@ namespace Cinema.WPF.ViewModel
 
         private void OnCancel()
         {
-            var t = 0;
             Canceled?.Invoke(this, EventArgs.Empty);
         }
 

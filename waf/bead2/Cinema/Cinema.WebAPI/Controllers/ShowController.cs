@@ -21,8 +21,8 @@ namespace Cinema.WebAPI.Controllers
             this._context = context;
         }
 
-        // POST: api/Movie
-        [HttpPost("NewShow")]
+        // POST: api/Show
+        [HttpPost]
         public IActionResult NewShow([FromBody] ShowDto item)
         {
             try
@@ -33,6 +33,24 @@ namespace Cinema.WebAPI.Controllers
                     var selectedRoom = (_context.Rooms.Where(o => o.Id == item.roomId)).FirstOrDefault();
                     if (selectedMovie == null || selectedRoom == null)
                         return NotFound();
+
+                    var newShowStart = DateTime.Parse(item.StartTime);
+                    var newShowEnd = newShowStart + selectedMovie.Length + TimeSpan.FromMinutes(15);
+                    var showsToCheck = (_context.Shows.Where(o => o.RoomRefId == selectedRoom.Id)).ToList();
+                    foreach (var show in showsToCheck)
+                    {
+                        var currentMovie = (_context.Movies.Where(o => o.Id == show.MovieRefId)).FirstOrDefault();
+                        var showEnd = show.StartTime + currentMovie.Length + TimeSpan.FromMinutes(15);
+                        var invalidTime =
+                            (DateTime.Compare(show.StartTime, newShowStart) < 1 && DateTime.Compare(newShowEnd,
+                                 showEnd) < 1) || (DateTime.Compare(newShowStart, show.StartTime) == -1 &&
+                                                   DateTime.Compare(newShowEnd, show.StartTime) == 1);
+                            
+                        if (invalidTime)
+                        {
+                            return BadRequest();
+                        }
+                    }
                     var newShow = new Show()
                     {
                         Movie = selectedMovie,
