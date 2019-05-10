@@ -37,7 +37,7 @@ namespace Cinema.WebAPI.Controllers
                     {
                         Movie = selectedMovie,
                         Room = selectedRoom,
-                        StartTime = DateTime.Parse(item.StarTime)
+                        StartTime = DateTime.Parse(item.StartTime)
                     };
 
                     _context.Shows.Add(newShow);
@@ -62,7 +62,6 @@ namespace Cinema.WebAPI.Controllers
         }
 
         [HttpGet("MovieList")]
-        [Authorize]
         public IActionResult MovieList()
         {
             try

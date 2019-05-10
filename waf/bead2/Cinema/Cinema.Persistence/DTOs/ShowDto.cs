@@ -14,6 +14,6 @@ namespace Cinema.Persistence.DTOs
         public int roomId { get; set; }
 
         [Required]
-        public String StarTime { get; set; }
+        public String StartTime { get; set; }
     }
 }

@@ -9,7 +9,7 @@
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="300" Margin="20">
         <StackPanel Orientation="Horizontal">
             <Label Width="100">Movie:</Label>
-                <ComboBox VerticalAlignment="Center" Margin="0,0,20,0" x:Name="Movie" Width="200"
+            <ComboBox VerticalAlignment="Center" Margin="0,0,20,0" Width="200"
                       ItemsSource="{Binding Movies}" 
                       DisplayMemberPath="Title" 
                       SelectedValuePath="Id" 
@@ -18,7 +18,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Width="100" Margin="0,20,0,0">Room:</Label>
-            <ComboBox VerticalAlignment="Center" Margin="0,20,20,0" x:Name="Room" Width="200"
+            <ComboBox VerticalAlignment="Center" Margin="0,20,20,0" Width="200"
                       ItemsSource="{Binding Rooms}" 
                       DisplayMemberPath="RoomName" 
                       SelectedValuePath="Id" 

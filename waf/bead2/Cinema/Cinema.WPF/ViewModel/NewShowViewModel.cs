@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 using Cinema.WPF.Model;
 using Cinema.Persistence;
@@ -41,33 +42,18 @@ namespace Cinema.WPF.ViewModel
             }
         }
 
-        public ObservableCollection<MovieDto> Movies
-        {
-            get => movies;
-            set
-            {
-                movies = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<MovieDto> Movies => movies;
 
-        public ObservableCollection<RoomDto> Rooms
-        {
-            get => rooms;
-            set
-            {
-                rooms = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<RoomDto> Rooms => rooms;
 
         private async void LoadData()
         {
             try
             {
-                var TT = await _model.LoadMovies();
-                // movies = new ObservableCollection<MovieDto>(await _model.LoadMovies());
+                movies = new ObservableCollection<MovieDto>(await _model.LoadMovies());
                 rooms = new ObservableCollection<RoomDto>(await _model.LoadRooms());
+                OnPropertyChanged(nameof(Movies));
+                OnPropertyChanged(nameof(Rooms));
             }
             catch (NetworkException ex)
             {
@@ -93,6 +79,7 @@ namespace Cinema.WPF.ViewModel
 
         private void OnCancel()
         {
+            var t = 0;
             Canceled?.Invoke(this, EventArgs.Empty);
         }
 

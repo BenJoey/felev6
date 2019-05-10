@@ -101,11 +101,6 @@ namespace Cinema.WPF
         private void OpenNewShow(object sender, EventArgs e)
         {
             _showViewModel = new NewShowViewModel(_service);
-
-            _showWindow = new NewShowWindow
-            {
-                DataContext = _showViewModel
-            };
             _showViewModel.Canceled += (o, args) => { OpenMenu(_showWindow); };
             _showViewModel.MessageApplication += ViewModel_MessageApplication;
             _showViewModel.Success += (o, args) =>
@@ -113,6 +108,9 @@ namespace Cinema.WPF
                 ShowMsgBox("Successfully added");
                 OpenMenu(_showWindow);
             };
+
+            _showWindow = new NewShowWindow();
+            _showWindow.DataContext = _showViewModel;
 
             _showWindow.Show();
             _menuWindow.Close();

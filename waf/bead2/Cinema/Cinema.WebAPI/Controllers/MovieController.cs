@@ -36,7 +36,7 @@ namespace Cinema.WebAPI.Controllers
                     {
                         Description = item.Description,
                         Title = item.Title,
-                        Length = item.Length,
+                        Length = TimeSpan.Parse(item.Length),
                         Director = item.Director
                     };
 

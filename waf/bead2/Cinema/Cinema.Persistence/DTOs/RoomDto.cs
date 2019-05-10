@@ -6,7 +6,7 @@ namespace Cinema.Persistence.DTOs
 {
     public class RoomDto
     {
-        public int Id { get; set; }
+        public Int32 Id { get; set; }
 
         public String RoomName { get; set; }
     }
