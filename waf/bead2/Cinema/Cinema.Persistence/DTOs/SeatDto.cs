@@ -11,5 +11,10 @@ namespace Cinema.Persistence.DTOs
         public String NameReserved { get; set; }
 
         public String PhoneNum { get; set; }
+
+        public override Boolean Equals(Object obj)
+        {
+            return (obj is SeatDto dto) && Id == dto.Id;
+        }
     }
 }

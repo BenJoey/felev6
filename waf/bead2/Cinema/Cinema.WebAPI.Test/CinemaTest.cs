@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace Cinema.WebAPI.Test
 {
@@ -18,7 +20,7 @@ namespace Cinema.WebAPI.Test
         private readonly List<ShowDto> _showDTOs;
         private readonly List<SeatDto> _seatDTOs;
         private readonly List<RoomDto> _roomDTOs;
-        private readonly List<ReservationDto> _reservationDtos;
+        // private readonly List<ReservationDto> _reservationDtos;
 
         public CinemaTest()
         {
@@ -97,6 +99,15 @@ namespace Cinema.WebAPI.Test
                 Id = room.Id,
                 RoomName = room.RoomName
             }).ToList();
+
+            _seatDTOs = seatData.Select(seat => new SeatDto
+            {
+                Col = seat.Col,
+                Row = seat.Row,
+                State = seat.State.ToString(),
+                NameReserved = seat.NameReserved,
+                PhoneNum = seat.PhoneNum
+            }).ToList();
         }
 
         public void Dispose()
@@ -136,6 +147,71 @@ namespace Cinema.WebAPI.Test
             var objectResult = Assert.IsType<OkObjectResult>(result);
             var model = Assert.IsAssignableFrom<IEnumerable<RoomDto>>(objectResult.Value);
             Assert.Equal(_roomDTOs, model);
+        }
+
+        [Fact]
+        public void AddNewMovieTest()
+        {
+            var newMovie = new MovieDto
+            {
+                Title = "NEW_MOVIE",
+                Description = "New movie to add",
+                Director = "TEST_CASE",
+                Length = "00:30:00",
+                Poster = new Byte[] { 1, 1, 4, 7, 8, 0, 1 }
+            };
+
+            var controller = new MovieController(_context);
+            var result = controller.NewMovie(newMovie);
+
+            var objectResult = Assert.IsType<OkResult>(result);
+
+            Assert.Equal(_movieDTOs.Count + 1, _context.Movies.Count());
+            Assert.Equal(200,objectResult.StatusCode);
+        }
+
+        [Fact]
+        public void AddNewShowTest()
+        {
+            var newShow = new ShowDto
+            {
+                movieId = _context.Movies.Single(o => o.Title == "TEST_MOVIE_2").Id,
+                roomId = _context.Rooms.Single(o => o.RoomName == "TEST_ROOM").Id,
+                StartTime = "2019-12-20 10:00:00"
+            };
+
+            var controller = new ShowController(_context);
+            var result = controller.NewShow(newShow);
+
+            var objectResult = Assert.IsType<OkResult>(result);
+
+            Assert.Equal(_showDTOs.Count + 1, _context.Shows.Count());
+            Assert.Equal(200, objectResult.StatusCode);
+        }
+
+        [Fact]
+        public async void ReservationTest()
+        {
+            var newReservation = new ReservationDto
+            {
+                Name = "TEST_CUSTOMER",
+                PhoneNum = "061555222",
+                SelectedSeats = _context.Seats.Where(o => o.State == State.Free).Select(o => o.Id).Take(2).ToList()
+            };
+
+            // ITestOutputHelper a = new TestOutputHelper();//(newReservation);
+            // a.WriteLine(newReservation.SelectedSeats.ToString());
+
+            var controller = new ReservationController(_context);
+            var result = await controller.SellTickets(newReservation);
+
+            var objectResult = Assert.IsType<OkResult>(result);
+            Assert.Equal(200, objectResult.StatusCode);
+            Assert.Equal(_seatDTOs.Count, _context.Seats.Count(o => o.State == State.Free) + 2);
+            foreach (var seatId in newReservation.SelectedSeats)
+            {
+                Assert.Equal(State.Sold, _context.Seats.Single(o => o.Id == seatId).State);
+            }
         }
     }
 }
