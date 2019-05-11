@@ -17,8 +17,6 @@ namespace Cinema.Persistence
         
         public string Title { get; set; }
 
-        // public string PosterPath { get; set; }
-
         public string Director { get; set; }
 
         public TimeSpan Length { get; set; }

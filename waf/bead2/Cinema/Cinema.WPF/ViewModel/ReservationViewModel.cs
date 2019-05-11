@@ -16,14 +16,14 @@ namespace Cinema.WPF.ViewModel
         private readonly ICinemaService _model;
         private ObservableCollection<ShowDto> shows;
         private ObservableCollection<ReservationButton> seats;
-        private IEnumerable<SeatDto> savedSeatDtos;
+        private IEnumerable<SeatDto> _savedSeatDtos;
         private String sname;
         private String sphone;
         private ReservationDto _newReservation;
         private ShowDto _selectedShow;
 
-        private Int32 RowNum;
-        private Int32 ColNum;
+        private Int32 _rowNum;
+        private Int32 _colNum;
 
         public DelegateCommand OpenShowSeats { get; set; }
         public DelegateCommand SellTickets { get; set; }
@@ -34,7 +34,7 @@ namespace Cinema.WPF.ViewModel
 
         public ReservationViewModel(ICinemaService model)
         {
-            this._model = model ?? throw new ArgumentNullException(nameof(model));
+            _model = model ?? throw new ArgumentNullException(nameof(model));
             LoadData();
 
             _newReservation = new ReservationDto();
@@ -45,8 +45,8 @@ namespace Cinema.WPF.ViewModel
 
         public ObservableCollection<ShowDto> Shows => shows;
         public ObservableCollection<ReservationButton> Seats => seats;
-        public Int32 Rows => RowNum;
-        public Int32 Columns => ColNum;
+        public Int32 Rows => _rowNum;
+        public Int32 Columns => _colNum;
         public String DisplayedName => sname;
         public String DisplayedPhone => sphone;
 
@@ -89,9 +89,9 @@ namespace Cinema.WPF.ViewModel
         {
             try
             {
-                savedSeatDtos = await _model.LoadSeats(selected.showId);
+                _savedSeatDtos = await _model.LoadSeats(selected.showId);
                 seats = new ObservableCollection<ReservationButton>();
-                foreach (var seat in savedSeatDtos)
+                foreach (var seat in _savedSeatDtos)
                 {
                     seats.Add(new ReservationButton
                     {
@@ -104,8 +104,8 @@ namespace Cinema.WPF.ViewModel
                         ButtonClick = new DelegateCommand(param => Click((int)param))
                     });
                 }
-                RowNum = seats.Max(o => o.Row) + 1;
-                ColNum = seats.Max(o => o.Col) + 1;
+                _rowNum = seats.Max(o => o.Row) + 1;
+                _colNum = seats.Max(o => o.Col) + 1;
                 OnPropertyChanged(nameof(Rows));
                 OnPropertyChanged(nameof(Columns));
                 OnPropertyChanged(nameof(Seats));
@@ -139,7 +139,7 @@ namespace Cinema.WPF.ViewModel
 
             else if (selected.State == "Selected")
             {
-                selected.State = savedSeatDtos.FirstOrDefault(o => o.Id == selected.Id)?.State;
+                selected.State = _savedSeatDtos.FirstOrDefault(o => o.Id == selected.Id)?.State;
             }
 
             OnPropertyChanged(nameof(DisplayedName));
@@ -157,7 +157,7 @@ namespace Cinema.WPF.ViewModel
 
             if (await _model.SendReserve(_newReservation))
             {
-                OnSucces();
+                OnSuccess();
             }
             else
             {
@@ -165,7 +165,7 @@ namespace Cinema.WPF.ViewModel
             }
         }
 
-        private void OnSucces()
+        private void OnSuccess()
         {
             Success?.Invoke(this, EventArgs.Empty);
         }

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Cinema.Persistence
 {
-    [Table("Employees")]
     public class Employee : IdentityUser
     {
         [Required]

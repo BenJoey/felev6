@@ -14,6 +14,7 @@ namespace Cinema.Persistence
         public int MovieRefId { get; set; }
         [ForeignKey("MovieRefId")]
         public Movie Movie { get; set; }
+
         public byte[] Image { get; set; }
     }
 }
