@@ -195,12 +195,9 @@ namespace Cinema.WebAPI.Test
             var newReservation = new ReservationDto
             {
                 Name = "TEST_CUSTOMER",
-                PhoneNum = "061555222",
+                PhoneNum = "06-1-555-222",
                 SelectedSeats = _context.Seats.Where(o => o.State == State.Free).Select(o => o.Id).Take(2).ToList()
             };
-
-            // ITestOutputHelper a = new TestOutputHelper();//(newReservation);
-            // a.WriteLine(newReservation.SelectedSeats.ToString());
 
             var controller = new ReservationController(_context);
             var result = await controller.SellTickets(newReservation);
