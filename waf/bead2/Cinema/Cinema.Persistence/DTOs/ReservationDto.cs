@@ -11,6 +11,7 @@ namespace Cinema.Persistence.DTOs
         public String Name { get; set; }
 
         [Required]
+        [Phone()]
         public String PhoneNum { get; set; }
 
         public IEnumerable<Int32> SelectedSeats { get; set; }

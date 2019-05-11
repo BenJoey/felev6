@@ -89,6 +89,11 @@ namespace Cinema.WPF.ViewModel
         {
             try
             {
+                if (selected == null)
+                {
+                    OnMessageApplication("No show selected");
+                    return;
+                }
                 _savedSeatDtos = await _model.LoadSeats(selected.showId);
                 seats = new ObservableCollection<ReservationButton>();
                 foreach (var seat in _savedSeatDtos)
@@ -110,7 +115,7 @@ namespace Cinema.WPF.ViewModel
                 OnPropertyChanged(nameof(Columns));
                 OnPropertyChanged(nameof(Seats));
             }
-            catch (NetworkException ex)
+            catch (Exception ex)
             {
                 OnMessageApplication($"Váratlan hiba történt! ({ex.Message})");
             }
@@ -148,6 +153,11 @@ namespace Cinema.WPF.ViewModel
 
         private async void SendReservation()
         {
+            if (seats == null)
+            {
+                OnMessageApplication("No Seats Selected");
+                return;
+            }
             _newReservation.SelectedSeats = seats.Where(o => o.State == "Selected").Select(o => o.Id);
             if (!_newReservation.SelectedSeats.Any())
             {

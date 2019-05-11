@@ -26,15 +26,23 @@ namespace Cinema.WebAPI.Controllers
         {
             try
             {
-                var seats = _context.Seats.Where(o => newReserve.SelectedSeats.Contains(o.Id));
-                foreach (var seat in seats)
+                if (ModelState.IsValid)
                 {
-                    seat.State = State.Sold;
-                    seat.NameReserved = newReserve.Name;
-                    seat.PhoneNum = newReserve.PhoneNum;
+                    var seats = _context.Seats.Where(o => newReserve.SelectedSeats.Contains(o.Id));
+                    foreach (var seat in seats)
+                    {
+                        seat.State = State.Sold;
+                        seat.NameReserved = newReserve.Name;
+                        seat.PhoneNum = newReserve.PhoneNum;
+                    }
+
+                    _context.UpdateRange(seats);
+                    await _context.SaveChangesAsync();
                 }
-                _context.UpdateRange(seats);
-                await _context.SaveChangesAsync();
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception e)
             {
