@@ -50,25 +50,6 @@ namespace Cinema.WebAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("ShowList")]
-        public IActionResult ShowList()
-        {
-            try
-            {
-                return Ok(_context.Shows.Where(o => o.StartTime > DateTime.Now).OrderBy(o => o.StartTime).ToList().Select(show => new ShowDto
-                {
-                    showId = show.Id,
-                    movieName = _context.Movies.Where(o => o.Id == show.MovieRefId).Select(o => o.Title).FirstOrDefault(),
-                    StartTime = show.StartTime.ToString("F")
-                }));
-            }
-            catch
-            {
-                // Internal Server Error
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-        }
-
         [HttpGet("SeatList/{id}")]
         public IActionResult SeatList(int id)
         {

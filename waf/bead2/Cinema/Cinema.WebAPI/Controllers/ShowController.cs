@@ -98,15 +98,16 @@ namespace Cinema.WebAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("MovieList")]
-        public IActionResult MovieList()
+        [HttpGet("ShowList")]
+        public IActionResult ShowList()
         {
             try
             {
-                return Ok(_context.Movies.ToList().Select(mov => new MovieDto
+                return Ok(_context.Shows.Where(o => o.StartTime > DateTime.Now).OrderBy(o => o.StartTime).ToList().Select(show => new ShowDto
                 {
-                    Id = mov.Id,
-                    Title = mov.Title
+                    showId = show.Id,
+                    movieName = _context.Movies.Where(o => o.Id == show.MovieRefId).Select(o => o.Title).FirstOrDefault(),
+                    StartTime = show.StartTime.ToString("F")
                 }));
             }
             catch

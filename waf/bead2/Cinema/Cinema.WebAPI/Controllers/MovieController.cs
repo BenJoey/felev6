@@ -67,5 +67,23 @@ namespace Cinema.WebAPI.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult MovieList()
+        {
+            try
+            {
+                return Ok(_context.Movies.ToList().Select(mov => new MovieDto
+                {
+                    Id = mov.Id,
+                    Title = mov.Title
+                }));
+            }
+            catch
+            {
+                // Internal Server Error
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }

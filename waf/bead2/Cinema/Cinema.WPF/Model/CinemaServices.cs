@@ -63,7 +63,7 @@ namespace Cinema.WPF.Model
 
         public async Task<IEnumerable<MovieDto>> LoadMovies()
         {
-            using (HttpResponseMessage response = await _client.GetAsync("api/Show/MovieList"))
+            using (HttpResponseMessage response = await _client.GetAsync("api/Movie"))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -95,7 +95,7 @@ namespace Cinema.WPF.Model
 
         public async Task<IEnumerable<ShowDto>> LoadShows()
         {
-            HttpResponseMessage res = await _client.GetAsync("api/Reservation/ShowList");
+            HttpResponseMessage res = await _client.GetAsync("api/Show/ShowList");
 
             if (res.IsSuccessStatusCode)
             {
