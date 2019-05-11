@@ -28,33 +28,37 @@ namespace Cinema.WPF.Model
 
         public async Task<bool> LoginAsync(string name, string password)
         {
-            HttpResponseMessage res = await _client.GetAsync("api/Account/Login/"+name+"/"+password);
-
-            if (res.IsSuccessStatusCode)
+            try
             {
-                _isUserLoggedIn = true;
-                return true;
-            }
+                HttpResponseMessage res = await _client.GetAsync("api/Account/Login/" + name + "/" + password);
 
-            if (res.StatusCode == HttpStatusCode.Unauthorized)
+                _isUserLoggedIn = res.IsSuccessStatusCode;
+                return res.IsSuccessStatusCode;
+            }
+            catch
             {
-                return false;
+                throw new NetworkException("Service error");
             }
-
-            throw new NetworkException("Service returned response" + res.StatusCode);
         }
 
         public async Task<bool> LogoutAsync()
         {
-            HttpResponseMessage res = await _client.GetAsync("api/Account/Logout");
-
-            if (res.IsSuccessStatusCode)
+            try
             {
-                _isUserLoggedIn = false;
-                return true;
-            }
+                HttpResponseMessage res = await _client.GetAsync("api/Account/Logout");
 
-            throw new NetworkException("Service returned response" + res.StatusCode);
+                if (res.IsSuccessStatusCode)
+                {
+                    _isUserLoggedIn = false;
+                    return true;
+                }
+
+                return false;
+            }
+            catch
+            {
+                throw new NetworkException("Service error");
+            }
         }
 
         public async Task<IEnumerable<MovieDto>> LoadMovies()

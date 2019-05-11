@@ -61,14 +61,14 @@
         </StackPanel>
         <StatusBar>
             <StatusBarItem>
-                <TextBlock Text="Foglaló neve: " />
+                <TextBlock Text="Name: " />
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock Text="{Binding DisplayedName}" />
             </StatusBarItem>
             <Separator />
             <StatusBarItem>
-                <TextBlock Text="Foglaló telefonszáma: " />
+                <TextBlock Text="Phone: " />
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock Text="{Binding DisplayedPhone}" />

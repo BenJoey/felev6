@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cinema.Persistence;
@@ -17,7 +16,7 @@ namespace Cinema.WebAPI.Controllers
 
         public ReservationController(CinemaContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         [HttpPost]
