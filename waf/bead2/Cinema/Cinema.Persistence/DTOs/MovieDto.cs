@@ -19,5 +19,10 @@ namespace Cinema.Persistence.DTOs
         public String Director { get; set; }
 
         public Byte[] Poster { get; set; }
+
+        public override Boolean Equals(Object obj)
+        {
+            return (obj is MovieDto dto) && Id == dto.Id;
+        }
     }
 }

@@ -15,5 +15,10 @@ namespace Cinema.Persistence.DTOs
 
         [Required]
         public String StartTime { get; set; }
+
+        public override Boolean Equals(Object obj)
+        {
+            return (obj is ShowDto dto) && showId == dto.showId;
+        }
     }
 }
