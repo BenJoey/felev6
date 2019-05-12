@@ -22,7 +22,7 @@ namespace Cinema.WPF.ViewModel
 
         public MenuViewModel(ICinemaService model)
         {
-            this._model = model ?? throw new ArgumentNullException(nameof(model));
+            _model = model ?? throw new ArgumentNullException(nameof(model));
 
             NewMovieCommand = new DelegateCommand(param => OnNewMovie());
             NewShowCommand = new DelegateCommand(param => OnNewShow());

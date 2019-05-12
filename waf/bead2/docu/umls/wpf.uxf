@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>250</y>
+      <w>270</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>LoginViewModel
+--
+- _model: ICinemaService
++ UserName: string
+--
++ LoginViewModel(ICinemaService): void
+- LoginAsync(PasswordBox): void
+- OnLoginSuccess(): void
+- OnLoginFailed(): void
+- OnExitApplication(): void
+--
+&lt;&lt;Commands&gt;&gt;
++ ExitCommand: DelegateCommand
++ LoginCommand: DelegateCommand
+--
+&lt;&lt;Events&gt;&gt;
++ ExitApplication: EventHandler
++ LoginSuccess: EventHandler
++ LoginFailed: EventHandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>90</y>
+      <w>240</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>ViewModelBase
+--
++ OnPropertyChanged(string): void
++ OnMessageApplication(string): void
+--
+&lt;&lt;Events&gt;&gt;
++ PropertyChanged
++ MessageApplication</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>200</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>40</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>20</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>INotifyPropertyChanged</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>890</x>
+      <y>250</y>
+      <w>280</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>MenuViewModel
+--
+- _model: ICinemaService
+--
++ MenuViewModel(ICinemaService): void
+- OnNewMovie(): void
+- OnNewShow(): void
+- OnLoginFailed(): void
+- OnReserve(): void
+- OnLogout(): void
+--
+&lt;&lt;Commands&gt;&gt;
++ NewMovieCommand: DelegateCommand
++ NewShowCommand: DelegateCommand
++ ReserveCommand: DelegateCommand
++ LogoutCommand: DelegateCommand
+--
+&lt;&lt;Events&gt;&gt;
++ NewMovie: EventHandler
++ NewShow: EventHandler
++ Reserve: EventHandler
++ LogoutSuccess: EventHandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>170</y>
+      <w>190</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0;170.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>250</y>
+      <w>300</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>NewMovieViewModel
+--
+- _model: ICinemaService
+- newMovie: MovieDto
+- _posterPath: string
+--
++ NewMovieViewModel(ICinemaService): void
++ PosterPath(): string
+- CreateImage(): MovieDto
+- AddNewMovie(): void
+- OnCancel(): void
+- OnSuccessfulAdd(): void
+- CheckModel(): boolean
+--
+&lt;&lt;Commands&gt;&gt;
++ SendCommand: DelegateCommand
++ OpenPicture: DelegateCommand
++ CancelCommand: DelegateCommand
+--
+&lt;&lt;Events&gt;&gt;
++ Success: EventHandler
++ Canceled: EventHandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>170</y>
+      <w>250</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>230.0;10.0;10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>960</x>
+      <y>610</y>
+      <w>300</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>NewShowViewModel
+--
+- _model: ICinemaService
+- movies: ObservableCollection&lt;MovieDto&gt;
+- rooms: ObservableCollection&lt;RoomDto&gt;
+- newShow: ShowDto
+--
++ NewShowViewModel(ICinemaService): void
++ NewShow(): ShowDto
++ Movies(): ObservableCollection&lt;MovieDto&gt;
++ Rooms(): ObservableCollection&lt;RoomDto&gt;
+- LoadData(): void
+- AddNewShow(): void
+- OnCancel(): void
+- OnSuccessfulAdd(): void
+--
+&lt;&lt;Commands&gt;&gt;
++ SendCommand: DelegateCommand
++ CancelCommand: DelegateCommand
+--
+&lt;&lt;Events&gt;&gt;
++ Success: EventHandler
++ Canceled: EventHandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>150</y>
+      <w>390</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;370.0;10.0;370.0;460.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>620</y>
+      <w>340</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>ReservationViewModel
+--
+- _model: ICinemaService
+- show: ObservableCollection&lt;ShowDto&gt;
+- seats: ObservableCollection&lt;ReservationButton&gt;
+- sname: string
+- sphone: string
+- _newReservation: ReservationDto
+- _selectedShow: ShowDto
+- _rowNum: int
+- _colNum: int
+--
++ ReservationViewModel(ICinemaService): void
++ Shows(): ObservableCollection&lt;ShowDto&gt;
++ Seats(): ObservableCollection&lt;ReservationButton&gt;
++ Rows(): int
++ Cols(): int
++ DisplayedName(): string
++ DisplayedPhone(): string
++ NewReserve(): ReservationDto
++ SelectedShow(): ShowDto
+- LoadData(): void
+- LoadSeats(ShowDto): void
+- Click(int): void
+- SendReservation(): void
+- OnCancel(): void
+- OnSuccess(): void
+--
+&lt;&lt;Commands&gt;&gt;
++ OpenShowSeats: DelegateCommand
++ SellTickets: DelegateCommand
++ CancelCommand: DelegateCommand
+--
+&lt;&lt;Events&gt;&gt;
++ Success: EventHandler
++ Canceled: EventHandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>220</x>
+      <y>150</y>
+      <w>420</w>
+      <h>490</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>400.0;10.0;10.0;10.0;10.0;470.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>690</y>
+      <w>280</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>CinemaService : ICinemaService
+--
+- _client: HttpClient
+- _isUserLoggedIn: boolean
+--
++ CinemaServices(string): void
++ LoginAsync(string,string): boolean
++ LogoutAsync(string,string): boolean
++ LoadMovies(): IEnumerable&lt;MovieDto&gt;
++ LoadRooms(): IEnumerable&lt;RoomDto&gt;
++ LoadShows(): IEnumerable&lt;ShowDto&gt;
++ LoadSeats(): IEnumerable&lt;SeatDto&gt;
++ SendNewShow(ShowDto): boolean
++ SendReserve(ReservationDto): boolean
++ SendNewMovie(MovieDto): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>750</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>510</y>
+      <w>30</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>530</y>
+      <w>70</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>530</y>
+      <w>100</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;160.0;80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>750</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>970</y>
+      <w>260</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>ReservationButton
+--
+- _state: string
++ Id: int
++ Row: int
++ Col: int
++ NameReserved: string
++ PhoneNum: string
++ ButtonClick: DelegateCommand
+--
++ State(): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>1000</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>930</x>
+      <y>60</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>MessageEventArgs
+--
++ Message: string
+--
++ MessageEventArgs(string): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>100</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1030</x>
+      <y>20</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>0</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>EventArgs</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

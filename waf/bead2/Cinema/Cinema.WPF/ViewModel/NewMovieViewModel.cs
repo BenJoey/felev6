@@ -14,7 +14,7 @@ namespace Cinema.WPF.ViewModel
     {
         private readonly ICinemaService _model;
         private MovieDto newMovie;
-        public String _posterPath;
+        private String _posterPath;
 
         public DelegateCommand SendCommand { get; set; }
         public DelegateCommand OpenPicture { get; set; }
