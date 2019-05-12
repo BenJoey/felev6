@@ -43,7 +43,7 @@ namespace Cinema.WebAPI.Controllers
                         var invalidTime =
                             (DateTime.Compare(show.StartTime, newShowStart) < 1 && DateTime.Compare(newShowStart,
                                  showEnd) < 1) || (DateTime.Compare(show.StartTime, newShowEnd) < 1 &&
-                                                   DateTime.Compare(newShowEnd, showEnd) == 1);
+                                                   DateTime.Compare(newShowEnd, showEnd) < 1);
 
                         if (invalidTime)
                         {
