@@ -1,0 +1,17 @@
+﻿<Window x:Class="Zh.WPF.View.NewDataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zh.WPF.View"
+        mc:Ignorable="d"
+        Title="Add New Data" Height="350" Width="500">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
+            <Label Width="100">Name:</Label>
+            <TextBox Text="{Binding NewData.Name}" VerticalAlignment="Center" Width="200" Margin="0,0,20,0"></TextBox>
+        </StackPanel>
+        <Button Command="{Binding SendCommand}" Width="150" Margin="0,50,0,0">Add Data</Button>
+        <Button Command="{Binding LogoutCommand}" Width="150" Margin="20">Logout</Button>
+    </StackPanel>
+</Window>
