@@ -39,6 +39,13 @@ namespace Zh.WebSite
                 .AddEntityFrameworkStores<ZhContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
+                options.Cookie.HttpOnly = true;
+            });
+
             //services.AddDbContext<CinemaContext>(options => options.UseSqlite("Data Source=Movie.db"));
         }
 
@@ -53,6 +60,10 @@ namespace Zh.WebSite
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            
+            app.UseSession();
+            
+            app.UseAuthentication();
 
             var dbContext = serviceProvider.GetRequiredService<ZhContext>();
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();

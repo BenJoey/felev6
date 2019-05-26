@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Zh.Persistence;
@@ -9,7 +10,7 @@ using Zh.WebSite.Models;
 
 namespace Zh.WebSite.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ZhContext _context;
 
@@ -33,6 +34,7 @@ namespace Zh.WebSite.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult About()
         {
             var dataVm = new DataViewModel()
