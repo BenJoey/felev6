@@ -4,16 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Zh.Persistence
 {
-    public class Data
+    public class Vote
     {
-        public Data()
+        public Vote()
         {
-            
+
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        
-        public string Name { get; set; }
+
+        public Question Question { get; set; }
+
+        public Answer Answer { get; set; }
     }
 }

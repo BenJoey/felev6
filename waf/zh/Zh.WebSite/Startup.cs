@@ -27,24 +27,6 @@ namespace Zh.WebSite
                     options.UseSqlServer(Configuration.GetConnectionString("ZhContext"), 
                         b => b.MigrationsAssembly("Zh.WebSite")));
 
-            services.AddIdentity<User, IdentityRole>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 3;
-                    options.Password.RequiredUniqueChars = 0;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                })
-                .AddEntityFrameworkStores<ZhContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddDistributedMemoryCache();
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(15);
-                options.Cookie.HttpOnly = true;
-            });
 
             //services.AddDbContext<CinemaContext>(options => options.UseSqlite("Data Source=Movie.db"));
         }
@@ -60,16 +42,11 @@ namespace Zh.WebSite
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            
-            app.UseSession();
-            
-            app.UseAuthentication();
 
             var dbContext = serviceProvider.GetRequiredService<ZhContext>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
             //3rd param if needed: Configuration.GetValue<string>("ImageStore")
-            DbInitializer.Initialize(dbContext, userManager);
+            DbInitializer.Initialize(dbContext);
 
             app.UseStaticFiles();
 

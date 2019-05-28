@@ -6,8 +6,10 @@ using Zh.Persistence;
 
 namespace Zh.WebSite.Models
 {
-    public class DataViewModel
+    public class IndexViewModel
     {
-        public List<Data> DataList { get; set; }
+        public List<Question> QuestionList { get; set; }
+
+        public List<Answer> AnswerList { get; set; }
     }
 }

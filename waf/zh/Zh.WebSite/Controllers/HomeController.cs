@@ -10,7 +10,7 @@ using Zh.WebSite.Models;
 
 namespace Zh.WebSite.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         private readonly ZhContext _context;
 
@@ -19,46 +19,99 @@ namespace Zh.WebSite.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            /*var movies = (from m in _context.Datas orderby m.Modified descending select m).Take(5);
-            var shows = from m in _context.Shows orderby m.StartTime where m.StartTime.Day == DateTime.Now.Day && m.StartTime > DateTime.Now select m;
-            var rooms = from m in _context.Rooms select m;
-            var movieVm = new MovieIndexViewModel()
+            var questions = await _context.Questions.Where(
+                q => (q.DueTime + TimeSpan.FromHours(24))>DateTime.Now).ToListAsync();
+            var answers = await _context.Answers.Where(a => questions.Contains(a.Question)).ToListAsync();
+
+            var indexVM = new IndexViewModel()
             {
-                Films = await movies.ToListAsync(),
-                ShowTimes = await shows.ToListAsync(),
-                Rooms = await rooms.ToListAsync()
+                AnswerList = answers,
+                QuestionList = questions
             };
-            return View(movieVm);*/
+            return View(indexVM);
+        }
+        
+        public IActionResult Create()
+        {
             return View();
         }
 
-        [Authorize]
-        public IActionResult About()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CreateQViewModel createQViewModel)
         {
-            var dataVm = new DataViewModel()
+            if (!ModelState.IsValid)
+                return View("Create", createQViewModel);
+
+            var question = new Question()
             {
-                DataList = _context.Datas.ToList()
+                DueTime = createQViewModel.QuestionDueTime,
+                Subject = createQViewModel.QuestionText
             };
-            return View(dataVm);
+            _context.Questions.Add(question);
+
+            _context.Answers.AddRange(
+                new Answer()
+                {
+                    AnswerText = createQViewModel.Answer1,
+                    Question = question
+                },
+                new Answer()
+                {
+                    AnswerText = createQViewModel.Answer2,
+                    Question = question
+                },
+                new Answer()
+                {
+                    AnswerText = createQViewModel.Answer3,
+                    Question = question
+                },
+                new Answer()
+                {
+                    AnswerText = createQViewModel.Answer4,
+                    Question = question
+                });
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
 
-        /*public FileResult DisplayImage(Int32? dataId)
+        public IActionResult Vote(int questionId, int answerId)
         {
-            if (movieId == null)
-                return File("~/images/NoImage.png", "image/png");
+            var question = _context.Questions.Where(m => m.Id == questionId).FirstOrDefault();
+            var answer = _context.Answers.FirstOrDefault(m => m.Id == answerId);
+            if (question == null || question.DueTime < DateTime.Now || answer == null)
+                return RedirectToAction("Index", "Home");
+            _context.Votes.Add(new Vote()
+            {
+                Answer = answer,
+                Question = question
+            });
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home"); ;
+        }
 
-            Byte[] imageContent = _context.Posters
-                .Where(image => image.MovieRefId == movieId)
-                .Select(image => image.Image)
-                .FirstOrDefault();
+        public IActionResult Results(int? id)
+        {
+            var question = _context.Questions.FirstOrDefault(m => m.Id == id);
+            if(question == null)
+                return RedirectToAction("Index", "Home");
 
-            if (imageContent == null)
-                return File("~/images/NoImage.png", "image/png");
-
-            return File(imageContent, "image/png");
-        }*/
+            var votes = _context.Votes.Where(m => m.Question == question).ToList();
+            var answers = _context.Answers.Where(m => m.Question == question).ToList();
+            var votecounts = answers.Select(m => votes.Count(v => v.Answer == m)).ToList();
+            var resVM = new QuestionResultViewModel()
+            {
+                QuestionText = question.Subject,
+                Answers = answers,
+                VoteCounts = votecounts
+            };
+            
+            return View(resVM);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

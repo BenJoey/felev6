@@ -1,0 +1,32 @@
+﻿@model Zh.WebSite.Models.CreateQViewModel
+@{
+    ViewData["Title"] = "Create new question";
+}
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="QuestionDueTime" class="control-label"></label>
+        <input asp-for="QuestionDueTime" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="QuestionText" class="control-label"></label>
+        <input asp-for="QuestionText" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Answer1" class="control-label"></label>
+        <input asp-for="Answer1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Answer2" class="control-label"></label>
+        <input asp-for="Answer2" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Answer3" class="control-label"></label>
+        <input asp-for="Answer3" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Answer4" class="control-label"></label>
+        <input asp-for="Answer4" class="form-control" />
+    </div>
+    <input type="submit" value="Submit question" class="btn btn-default" />
+</form>

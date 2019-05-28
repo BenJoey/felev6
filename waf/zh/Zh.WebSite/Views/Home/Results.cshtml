@@ -1,0 +1,17 @@
+﻿@model Zh.WebSite.Models.QuestionResultViewModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h2>Results for question: @Model.QuestionText</h2>
+
+<ul>
+    @foreach (var ans in Model.Answers)
+    {
+    <li>
+        @ans.AnswerText : @Model.VoteCounts[Model.Answers.IndexOf(ans)] number of votes<br />
+        This is @decimal.Divide(Model.VoteCounts[Model.Answers.IndexOf(ans)], Model.VoteCounts.Sum()).ToString("#.##")
+        percent of the votes.
+    </li>
+
+    }
+</ul>

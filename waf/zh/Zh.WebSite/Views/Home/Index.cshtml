@@ -1,4 +1,29 @@
-﻿@{
+﻿@model Zh.WebSite.Models.IndexViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
+<h3>Questions:</h3>
+<ul>
+    @foreach (var item in Model.QuestionList)
+    {
+        
+        <li><a asp-area="" asp-controller="Home" asp-action="Results" asp-route-id="@item.Id">@item.Subject</a></li>
+        <ul>
+        @foreach (var ans in Model.AnswerList.Where(a => a.Question.Equals(item)))
+        {
+            @if (item.DueTime > DateTime.Now)
+             {
+                 <li><button>@Html.ActionLink(@ans.AnswerText, "Vote", new {questionId = item.Id, answerId = ans.Id})</button></li>
+             }
+             else
+             {
+                 <li>@ans.AnswerText</li>
+             }
+        }
+        </ul>
+    }
+</ul>
+
+<a asp-area="" asp-controller="Home" asp-action="Create">Create new question</a>
