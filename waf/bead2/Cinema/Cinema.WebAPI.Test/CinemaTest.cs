@@ -20,7 +20,6 @@ namespace Cinema.WebAPI.Test
         private readonly List<ShowDto> _showDTOs;
         private readonly List<SeatDto> _seatDTOs;
         private readonly List<RoomDto> _roomDTOs;
-        // private readonly List<ReservationDto> _reservationDtos;
 
         public CinemaTest()
         {

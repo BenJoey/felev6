@@ -21,7 +21,7 @@ namespace Cinema.WebSite.Controllers
         public async Task<IActionResult> Index()
         {
             var movies = (from m in _context.Movies orderby m.Modified descending select m).Take(5);
-            var shows = from m in _context.Shows orderby m.StartTime where m.StartTime.Day == DateTime.Now.Day && m.StartTime > DateTime.Now select m;
+            var shows = from m in _context.Shows orderby m.StartTime where m.StartTime.Date == DateTime.Today && m.StartTime > DateTime.Now select m;
             var rooms = from m in _context.Rooms select m;
             var movieVm = new MovieIndexViewModel()
             {
